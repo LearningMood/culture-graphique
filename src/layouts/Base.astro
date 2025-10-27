@@ -1,0 +1,13 @@
+---
+import '../styles/main.scss'; // <-- import SCSS une seule fois ici | Astro génére les <link> optimisés automatiquement
+---
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title><slot name="title" /></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <slot />  <!-- les pages ici -->
+  </body>
+</html>

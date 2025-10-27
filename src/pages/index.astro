@@ -1,16 +1,58 @@
 ---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+const pageTitle = 'Accueil — Culture graphique';
+import ChapitreCard from "../components/ChapitreCard.astro";
 
+
+const all = await getCollection("formations");
+const byJour = (n: 1|2) =>
+  all.filter(f => f.data.jour === n)
+     .sort((a,b) => (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
+const jour1 = byJour(1);
+const jour2 = byJour(2);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title={pageTitle}>
+
+<section id="programme">
+  <div id="jour1" class="container container-jour">
+    <div class="bloc-titre-section-home">
+      <h4 class="titre-section-home">Le programme</h4>
+      <h2 class="titre-etape">Jour 1.</h2>
+      <h1 class="titre-jour">Enrichir son langage visuel</h1>
+    </div>
+
+    <div class="container-mini">
+      {jour1.map((entry) => (
+  <ChapitreCard
+    href={`/formations/${entry.slug}/`}   // <= entry.slug, pas data.slug
+    miniature={entry.data.miniature}
+    titre={entry.data.titre}
+    points={entry.data.points_cles}
+    exercices={entry.data.exercices}
+  />
+))}
+    </div>
+  </div>
+
+  <div id="jour2" class="container container-jour">
+    <div class="bloc-jour">
+      <h2 class="titre-etape">Jour 2.</h2>
+      <h1 class="titre-jour">Produire &amp; communiquer ses idées</h1>
+    </div>
+
+    <div class="container-mini">
+      {jour2.map(({ data }) => (
+        <ChapitreCard
+          href={`/formations/${entry.slug}/`}
+          miniature={data.miniature}
+          titre={data.titre}
+          points={data.points_cles}
+          exercices={data.exercices}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+</Base>

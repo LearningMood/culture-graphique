@@ -1,3 +1,10 @@
+Base = squelette du document + CSS global ; Formation = structure visuelle/UX d’une page “chapitre”.
+
+Oui, enlève <head> (et <html>/<body>) de Formation.astro si tu enveloppes avec Base.
+
+Où charger le CSS ? Dans Base.astro via import '../styles/main.scss' (une seule fois)
+
+
 # Astro Starter Kit: Minimal
 
 ```sh

@@ -1,0 +1,9 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+// @use '@styles/mixins' as *;
+
+@use 'base';
+
+
+/* utilitaires globaux */
+.container-max { @include container-max; }
