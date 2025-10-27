@@ -1,0 +1,23 @@
+---
+export interface Props {
+  toc?: { depth: number; slug: string; text: string }[];
+  title?: string;
+  class?: string; // pour chaîner tes classes existantes
+}
+const { toc = [], title = "Sommaire", class: className = "" } = Astro.props as Props;
+---
+ <aside class={`toc ${className}`}>
+  <h2 class="toc-title">{title}</h2>
+  {toc.length === 0 ? (
+    <p class="toc-empty">Aucune entrée.</p>
+  ) : (
+    <ul class="toc-list">
+      {toc.map((h) => (
+        <li class={'toc-item ' + (h.depth === 3 ? 'is-sub' : '')}>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+  <slot /> {/* contenu complémentaire si besoin */}
+</aside>

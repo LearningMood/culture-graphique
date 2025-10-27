@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import Formation from "../../layouts/Formation.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("formations");
+  return entries.map((entry) => ({
+    params: { slug: entry.slug }, // <-- slug auto d'Astro
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+// Récupère un composant pour le corps du fichier MD/MDX
+const { Content, headings } = await entry.render(); // <= titres extraits
+---
+
+<Formation entry={entry} headings={headings}>
+  <Content />   {/* <— on passe le corps MD/MDX au layout */}
+</Formation>

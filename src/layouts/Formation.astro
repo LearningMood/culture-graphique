@@ -1,0 +1,40 @@
+---
+const { entry, headings } = Astro.props;
+import Aside from '../components/Aside.astro';
+// entry.data.titre, .baseline, .menu etc. disponibles ici
+// headings: [{ depth: 2|3|..., slug: "id-du-titre", text: "Libellé" }, ...]
+const toc = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>{entry.data.titre}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <header class="header-page">
+      <div class="container header-infos">
+        <h1 class="titre-article">{entry.data.titre}</h1>
+        {entry.data.baseline && <p class="titre-article-baseline">{entry.data.baseline}</p>}
+      </div>
+    </header>
+
+    {/* Exemple: menu d’ancre depuis le frontmatter */}
+    {entry.data.menu && (
+      <nav id="pageMenu">
+        <div class="container-max">
+          <ul class="page-menu">
+            {entry.data.menu.map((m) => <li><a href={m.href} class="nav-link">{m.label}</a></li>)}
+          </ul>
+        </div>
+      </nav>
+    )}
+
+    <main class="container">
+      <Aside toc={toc} class="aside-right" title="Sommaire" />
+      <article class="page-formation">
+        <slot />   {/* <— le contenu MD/MDX  */}
+      </article>
+    </main>
+  </body>
+</html>

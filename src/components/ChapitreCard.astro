@@ -1,0 +1,31 @@
+---
+const { href, miniature, alt, titre, points, exercices = [] } = Astro.props as {
+  href: string;
+  miniature: string;
+  alt?: string;
+  titre: string;
+  points: string[];
+  exercices: { href: string; image: string; titre: string }[];
+};
+---
+<div class="grid grid-chapitre">
+  <a href={href} class="chapitre-img">
+    <img src={miniature} alt={alt ?? titre} />
+  </a>
+
+  <div class="chapitre-infos">
+    <a href={href}><h2 class="titre-chapitre">{titre}</h2></a>
+    <ul class="list-points-cles">
+      {points.map((p) => <li>{p}</li>)}
+    </ul>
+  </div>
+
+  {exercices.map((ex) => (
+    <div class="chapitre-exercice survol">
+      <a href={ex.href} target="_blank" rel="noopener noreferrer">
+        <img src={ex.image} alt={ex.titre} />
+        <h3 class="survol-titre">{ex.titre}</h3>
+      </a>
+    </div>
+  ))}
+</div>
