@@ -43,13 +43,13 @@ const jour2 = byJour(2);
     </div>
 
     <div class="container-mini">
-      {jour2.map(({ data }) => (
+      {jour2.map((entry) => (
         <ChapitreCard
           href={`/formations/${entry.slug}/`}
-          miniature={data.miniature}
-          titre={data.titre}
-          points={data.points_cles}
-          exercices={data.exercices}
+          miniature={entry.data.miniature}
+          titre={entry.data.titre}
+          points={entry.data.points_cles}
+          exercices={entry.data.exercices}
         />
       ))}
     </div>

@@ -1,8 +1,12 @@
 ---
+import TocNav from '../components/TocNav.astro';
 const { entry, headings = [] } = Astro.props;
 import Aside from '../components/Aside.astro';
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
 ---
+<div data-toc-sentinel style="height: 200px; visibility: hidden;"></div>
+<TocNav toc={toc} offset={offsetTop} />
 <header class="header-page">
   <div class="container header-infos">
     <h1 class="titre-article">{entry.data.titre}</h1>
@@ -10,7 +14,7 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
   </div>
 </header>
 
-{entry.data.menu && (
+<!-- {entry.data.menu && (
   <nav id="pageMenu">
     <div class="container-max">
       <ul class="page-menu">
@@ -20,10 +24,10 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
       </ul>
     </div>
   </nav>
-)}
+)} -->
 
 <main class="container">
-  <Aside toc={toc} class="aside-right" title="Sommaire" />
+  <!-- <Aside toc={toc} class="aside-right" title="Sommaire" /> -->
   <article class="page-formation">
     <slot /> <!-- contenu MD/MDX -->
   </article>

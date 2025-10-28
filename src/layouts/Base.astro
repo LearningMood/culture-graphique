@@ -1,13 +1,16 @@
 ---
-import '../styles/main.scss'; // <-- import SCSS une seule fois ici | Astro génére les <link> optimisés automatiquement
+import '../styles/index.scss';// <-- import SCSS une seule fois ici | Astro génére les <link> optimisés automatiquement
+const { title = 'Culture graphique' } = Astro.props;
 ---
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <title><slot name="title" /></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <slot name="head" /> <!-- pour ajouter des metas/links spécifiques -->
   </head>
   <body>
-    <slot />  <!-- les pages ici -->
+    <slot /> <!-- le contenu des pages -->
   </body>
 </html>
+

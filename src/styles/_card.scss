@@ -1,0 +1,13 @@
+.card {
+  padding: space(6);
+  border-radius: space(2);
+  
+  .card__header {
+    margin-bottom: space(4);
+  }
+  
+  .card__actions {
+    @include flex-gap(3);
+    margin-top: space(6);
+  }
+}

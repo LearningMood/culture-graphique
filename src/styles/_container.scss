@@ -1,0 +1,19 @@
+// ============================================
+// CLASSES - Containers
+// ============================================
+
+.container {
+  @include container(default);
+}
+
+.container--mini {
+  @include container(mini);
+}
+
+.container--maxi {
+  @include container(maxi);
+}
+
+.container--full {
+  @include container(full);
+}

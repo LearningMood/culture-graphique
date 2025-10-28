@@ -1,5 +1,163 @@
-@mixin container-max {
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: 1rem;
+@use "sass:map";
+// ============================================
+// MIXINS - Media Queries
+// ============================================
+
+// Min-width (mobile-first)
+@mixin mq-min($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` n'existe pas dans $breakpoints.";
+  }
 }
+
+// Max-width (desktop-first)
+@mixin mq-max($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (max-width: map.get($breakpoints, $breakpoint) - 1px) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` n'existe pas dans $breakpoints.";
+  }
+}
+
+// Between (entre deux breakpoints)
+@mixin mq-between($min-breakpoint, $max-breakpoint) {
+  @if map.has-key($breakpoints, $min-breakpoint) and map.has-key($breakpoints, $max-breakpoint) {
+    @media (min-width: map.get($breakpoints, $min-breakpoint)) and (max-width: map.get($breakpoints, $max-breakpoint) - 1px) {
+      @content;
+    }
+  } @else {
+    @warn "L'un des breakpoints n'existe pas dans $breakpoints.";
+  }
+}
+
+// ============================================
+// MIXINS - Containers
+// ============================================
+
+// Mixin de base pour tous les containers
+@mixin container-base {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+// Mixin pour définir un container spécifique
+@mixin container($size: default) {
+  @include container-base;
+  
+  @if map.has-key($containers, $size) {
+    max-width: map.get($containers, $size);
+  } @else {
+    @warn "Taille de container `#{$size}` n'existe pas dans $containers.";
+  }
+}
+// ============================================
+// MIXINS - Typographie Headings
+// ============================================
+
+@mixin heading-base {
+  font-family: $font-titre;
+  font-weight: map.get($font-weights, bold);
+  line-height: map.get($line-heights, tight);
+  margin-bottom: 0.5em;
+}
+
+@mixin heading($level) {
+  @include heading-base;
+  
+  @if $level == 1 {
+    font-size: map.get($font-sizes, 4xl);
+    @include mq-min(md) {
+      font-size: map.get($font-sizes, 5xl);
+    }
+  } @else if $level == 2 {
+    font-size: map.get($font-sizes, 3xl);
+    @include mq-min(md) {
+      font-size: map.get($font-sizes, 4xl);
+    }
+  } @else if $level == 3 {
+    font-size: map.get($font-sizes, 2xl);
+  }
+  
+}
+// ============================================
+// MIXINS - Espacements 
+// ============================================
+// Fonction helper
+@function space($key) {
+  @if map.has-key($spacing, $key) {
+    @return map.get($spacing, $key);
+  }
+  @warn "Espacement `#{$key}` n'existe pas.";
+  @return null;
+}
+// Explication :
+// C'est une fonction (pas un mixin), elle retourne une valeur
+// $key : le nombre que vous passez (ex: 4, 8, 12)
+// map.has-key() : vérifie si la clé existe dans votre map $spacing
+// map.get() : récupère la valeur correspondante
+// Si la clé n'existe pas → affiche un warning
+// .card {
+//   padding: space(4);  // → padding: 1rem;
+//   margin: space(8);   // → margin: 2rem;
+//   gap: space(999);    // → Warning + gap: null;
+// }
+
+// Mixins "empiler" pour différents contextes
+@mixin stack($space: 4) {
+  > * + * {
+    margin-top: space($space);
+  }
+}
+
+// Explication pas à pas :
+// $space: 4 → valeur par défaut si vous ne passez rien
+// > * + * → sélecteur CSS appelé "lobotomized owl" 🦉
+
+// > = enfants directs seulement
+// * = n'importe quel élément
+// + = adjacent (qui suit immédiatement)
+// * = un autre élément
+
+// Ce que ça fait :
+
+// Ajoute un margin-top à tous les éléments sauf le premier
+// Crée un espacement vertical uniforme
+
+
+
+@mixin flex-gap($space: 4) {
+  display: flex;
+  gap: space($space);
+}
+
+// Explication :
+// Met l'élément en flexbox (disposition horizontale)
+// Utilise gap pour espacer les enfants
+// gap = espacement moderne qui fonctionne entre les éléments flex/grid
+// Avantage du gap par rapport au margin
+
+@mixin section-spacing {
+  padding-block: space(12);
+  
+  @include mq-min(md) {
+    padding-block: space(16);
+  }
+  
+  @include mq-min(lg) {
+    padding-block: space(24);
+  }
+}
+// Explication :
+// padding-block = raccourci pour padding-top + padding-bottom
+// Mobile : space(12) = 3rem = 48px
+// Tablette (md) : space(16) = 4rem = 64px
+// Desktop (lg) : space(24) = 6rem = 96px

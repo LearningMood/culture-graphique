@@ -1,0 +1,65 @@
+---
+export interface TocItem { depth: number; slug: string; text: string }
+export interface Props {
+  toc?: TocItem[];
+  offset?: number;
+}
+const { toc = [], offset = 0 } = Astro.props as Props;
+---
+<nav class="toc-nav" data-offset={offset}>
+  {toc.length === 0 ? <p class="toc-empty">—</p> : (
+    <ul class="toc-list">
+      {toc.map(h => (
+        <li class={'toc-item ' + (h.depth === 3 ? 'is-sub' : '')}>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</nav>
+
+<script>
+  // ✅ Attendre que le DOM soit prêt
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.toc-nav'); // ✅ querySelector au lieu de getElementById
+    if (!nav) return; // ✅ Protection
+
+    const offset = parseInt(nav.dataset.offset || '0', 10);
+    nav.style.setProperty('--affix-offset', offset + 'px');
+
+    // Ajoute/retire la classe
+    const setFixed = (fixed) => nav.classList.toggle('is-fixed', fixed);
+
+    // 1) Toggle via sentinel si présent
+    const sentinel = document.querySelector('[data-toc-sentinel]');
+    if (sentinel && 'IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(([e]) => {
+        setFixed(!e.isIntersecting);
+      }, { rootMargin: `-${offset}px 0px 0px 0px`, threshold: 0 });
+      obs.observe(sentinel);
+    } else {
+      // 2) Fallback simple au scroll
+      const onScroll = () => {
+        const top = nav.getBoundingClientRect().top;
+        setFixed((top - offset) <= 0);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    // Liens actifs selon la section visible
+    const links = [...nav.querySelectorAll('a')];
+    const map = new Map(links.map(a => [a.getAttribute('href')?.slice(1), a]));
+    
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          const a = map.get(e.target.id);
+          if (a) a.classList.toggle('active', e.isIntersecting);
+        });
+      }, { rootMargin: '0px 0px -60% 0px', threshold: 0.001 });
+      
+      document.querySelectorAll('h2[id], h3[id]').forEach(el => io.observe(el));
+    }
+  });
+</script>

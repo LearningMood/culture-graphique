@@ -1,0 +1,12 @@
+article {
+  @include container(default);
+  @include section-spacing;
+  
+  .article__content {
+    @include stack(6); // 1.5rem entre paragraphes
+  }
+  
+  .article__tags {
+    @include flex-gap(2); // 0.5rem entre tags
+  }
+}

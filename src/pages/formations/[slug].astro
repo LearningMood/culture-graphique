@@ -1,20 +1,27 @@
 ---
 import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
 import Formation from "../../layouts/Formation.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("formations");
   return entries.map((entry) => ({
-    params: { slug: entry.slug }, // <-- slug auto d'Astro
+    params: { slug: entry.slug },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-// Récupère un composant pour le corps du fichier MD/MDX
-const { Content, headings } = await entry.render(); // <= titres extraits
+const { Content, headings } = await entry.render();
+const pageTitle = `${entry.data.titre} — Culture graphique`;
 ---
-
-<Formation entry={entry} headings={headings}>
-  <Content />   {/* <— on passe le corps MD/MDX au layout */}
-</Formation>
+<Base title={pageTitle}>
+  <!-- Tu peux injecter des metas spécifiques si besoin :
+  <fragment slot="head">
+    <meta property="og:title" content={pageTitle} />
+  </fragment>
+  -->
+  <Formation entry={entry} headings={headings}>
+    <Content />
+  </Formation>
+</Base>
