@@ -1,0 +1,46 @@
+---
+// ============================================
+// Col.astro - Colonne flexible
+// ============================================
+
+export interface Props {
+  span?: number;        // Nombre de colonnes (sur 24)
+  start?: number;       // Colonne de départ
+  spanMd?: number;      // Colonnes sur tablette
+  spanSm?: number;      // Colonnes sur mobile
+  class?: string;
+}
+
+const { 
+  span = 24, 
+  start,
+  spanMd,
+  spanSm,
+  class: customClass = '' 
+} = Astro.props;
+
+const colStyle = {
+  '--col-span': span,
+  '--col-start': start || 'auto',
+  '--col-span-md': spanMd || span,
+  '--col-span-sm': spanSm || 1
+};
+---
+
+<div class={`col ${customClass}`} style={colStyle}>
+  <slot />
+</div>
+
+<style lang="scss">
+.col {
+  grid-column: var(--col-start) / span var(--col-span);
+  
+  @include mq-max(lg) {
+    grid-column: span var(--col-span-md);
+  }
+  
+  @include mq-max(md) {
+    grid-column: span var(--col-span-sm);
+  }
+}
+</style>

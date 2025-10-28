@@ -1,0 +1,33 @@
+---
+// ============================================
+// Row.astro - Rangée avec grille 24 colonnes
+// ============================================
+export interface Props {
+  class?: string;
+}
+
+const { class: customClass = '' } = Astro.props;
+---
+
+<div class={`row ${customClass}`}>
+  <slot />
+</div>
+
+<style lang="scss">
+.row {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: space(6);
+  padding-inline: space(4);
+  margin-block: space(8);
+  
+  @include mq-min(md) {
+    padding-inline: space(8);
+  }
+  
+  @include mq-max(md) {
+    // Mobile : 1 colonne
+    grid-template-columns: 1fr;
+  }
+}
+</style>

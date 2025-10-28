@@ -1,9 +1,9 @@
 ---
-titre: "La typographie"
+titre: "La Typographie"
 baseline: "Comprendre les bases de la typographie pour mieux l'utiliser"  
 jour: 1
 ordre: 1
-miniature: "/img/mini-typo.jpg"
+miniature: "/typo/mini-typo.jpg"
 points_cles:
   - "Quelques repères chronologiques"
   - "La classification des caractères"
@@ -11,73 +11,61 @@ points_cles:
 exercices: []
 ---
 
-import SectionGrid from '../../components/SectionGrid.astro';
-import Notes from '../../components/Notes.astro';
-import N from '../../components/N.astro';
+import Section from '@components/Section.astro';
+import Bandeau from '@components/Bandeau.astro';
+import Texte from '@components/Texte.astro';
+import Images from '@components/Images.astro';
+import Carousel from '@components/Carousel.astro';
+import Note from '@components/Note.astro';
 
-<SectionGrid id="orientation" notesSide="left">
-  ## L’orientation
-  Texte courant associé à mon titre… On parle du format à l’italienne<N n={1} />.
+<Section id="histoire">
 
-  ### L’orientation horizontale
-  Texte associé.  
-  - point 1
-  - point 2
+## Quelques repères historiques
 
-<Fragment slot="images">
-  <figure class="bloc-img">
-    <img src="/typo/accord-02.jpg" alt="Affiche Interstellar" />
-  </figure>
-  </Fragment>
+  <Texte withNotes="right">
+    ### Aux origines, la calligraphie
+    
+    Un paragraphe sur le sujet avec des détails intéressants...
+    
+    <div slot="notes-right">
+      <Note type="source">Source: Histoire de la typo, 2020</Note>
+    </div>
+  </Texte>
 
-  <Fragment slot="notes">
-    <Notes type="comment">On parle du <em>format à l’italienne</em>.</Notes>
-    <Notes type="key">70% des visuels d’exemple sont horizontaux (ex. fictif).</Notes>
-    <Notes type="source">Affiche <em>Interstellar</em> — <a href="https://www.imdb.com/title/tt0816692/" target="_blank" rel="noopener">IMDB</a></Notes>
-  </Fragment>
+  <Images cols={18} count={1}>
+    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  </Images>
+  <Images cols={18} count={3}>
+    <img src="/typo/accord01.jpg" alt="Calligraphie 1" />
+    <img src="/typo/accord02.png" alt="Calligraphie 2" />
+    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  </Images>
 
-</SectionGrid>
+    <Bandeau bgColor="#5d647aff" textColor="white" height="small">
+    Un bandeau
+  </Bandeau>
 
-<SectionGrid id="r" notesSide="left">
+</Section>
 
-Corps optionnel…
-# titre de niveau 1
-Paragraphe d’introduction.
-</SectionGrid>
+<Section id="classification" bgColor="#f3f4f6">
 
-<SectionGrid id="b">
-## titre de niveau 2
-Texte du niveau 2.
-### titre de niveau 3
-Texte du niveau 3. Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</SectionGrid >
+  <Texte>
+    ## La classification
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+    
+    ### La famille Antique
+    
+    Les éléments :
+    - Item list 1
+    - Item list 2
+    - Item list 3
+  </Texte>
 
-<SectionGrid id="z">
-## Partie 3
-Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  <Carousel cols={18}>
+    <img src="/typo/didone02.jpg" alt="Exemple 1" />
+    <img src="/typo/didone03.jpg" alt="Exemple 2" />
+    <img src="/typo/didone04.jpg" alt="Exemple 3" />
+    <img src="/typo/didone05.jpg" alt="Exemple 4" />
+  </Carousel>
 
-  <fragment slot="notes">
-    <Notes items={[
-      { type: 'comment', text: "On parle du <em>format à l’italienne</em>." },
-      { type: 'source',  text: "Affiche Interstellar", url: "https://www.imdb.com/title/tt0816692/", label: "IMDB" },
-      { type: 'key',     text: "70% des visuels de la série utilisent un cadrage horizontal (exemple fictif)." }
-    ]} />
-  </fragment>
-
-### Titre niv 3
-Paragraphe d’introduction[^1]. Lorem ipsum dolor sit amet, 
-- consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
-- t dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing 
-- elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</SectionGrid>
-
-<SectionGrid id="a">
-## Partie 5
-Paragraphe d’introduction[^2]. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</SectionGrid>
-
-**Notes – Orientation**  
-[^1]: On parle du *format à l’italienne*. [Wikipedia](…)
-[^2]: On parle du *format à l’italienne*. [Wikipedia](…)
+</Section>

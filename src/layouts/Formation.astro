@@ -1,7 +1,6 @@
 ---
 import TocNav from '../components/TocNav.astro';
 const { entry, headings = [] } = Astro.props;
-import Aside from '../components/Aside.astro';
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
 ---
@@ -14,9 +13,7 @@ const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
   </div>
 </header>
 
-<main>
-  <article class="page-formation">
+<main class="page-formation">
     <slot /> <!-- contenu MD/MDX -->
-  </article>
 </main>
 

@@ -1,8 +1,16 @@
+.page-formation {
+  width: 100%;
+  min-height: 50vh;
+  
+  // Reset des marges pour les sections
+  > :first-child {
+    margin-top: 0;
+  }
+}
+
 article {
   // @include container(default);
   @include section-spacing;
-  
-  
   
   .article__tags {
     @include flex-gap(2); // 0.5rem entre tags

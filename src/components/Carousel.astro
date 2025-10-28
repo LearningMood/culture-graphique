@@ -1,0 +1,93 @@
+---
+// ============================================
+// Carousel.astro - Carrousel d'images
+// ============================================
+import Row from './Row.astro';
+import Col from './Col.astro';
+export interface Props {
+  cols?: number;  // Largeur du carrousel (10-20 colonnes)
+}
+
+const { cols = 16 } = Astro.props;
+const start = Math.ceil((24 - cols) / 2) + 1;
+---
+
+<Row>
+  <Col span={cols} start={start} spanMd={22}>
+    <div class="carousel">
+      <div class="carousel__track">
+        <slot />
+      </div>
+      <button class="carousel__btn carousel__btn--prev">‹</button>
+      <button class="carousel__btn carousel__btn--next">›</button>
+    </div>
+  </Col>
+</Row>
+
+<style lang="scss">
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: space(2);
+  
+  &__track {
+    display: flex;
+    gap: space(4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    > * {
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+      
+      @include mq-min(md) {
+        flex: 0 0 45%;
+      }
+    }
+  }
+  
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+    
+    &--prev { left: 1rem; }
+    &--next { right: 1rem; }
+  }
+}
+</style>
+
+<script>
+  document.querySelectorAll('.carousel').forEach(carousel => {
+    const track = carousel.querySelector('.carousel__track');
+    const prev = carousel.querySelector('.carousel__btn--prev');
+    const next = carousel.querySelector('.carousel__btn--next');
+    
+    prev?.addEventListener('click', () => {
+      track.scrollBy({ left: -track.offsetWidth * 0.5, behavior: 'smooth' });
+    });
+    
+    next?.addEventListener('click', () => {
+      track.scrollBy({ left: track.offsetWidth * 0.5, behavior: 'smooth' });
+    });
+  });
+</script>

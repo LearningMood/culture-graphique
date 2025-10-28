@@ -1,0 +1,55 @@
+---
+// ============================================
+// Section.astro - Container parent sémantique
+// ============================================
+export interface Props {
+  id?: string;
+  bgColor?: string;
+  bgImage?: string;
+  textColor?: string;
+  spacing?: 'none' | 'small' | 'medium' | 'large';
+  class?: string;
+}
+
+const { 
+  id,
+  bgColor,
+  bgImage,
+  textColor,
+  spacing = 'medium',
+  class: customClass = ''
+} = Astro.props;
+
+const sectionStyle = {
+  ...(bgColor && { backgroundColor: bgColor }),
+  ...(bgImage && { backgroundImage: `url(${bgImage})` }),
+  ...(textColor && { color: textColor })
+};
+
+console.log('Section props:', { id, bgColor });
+---
+
+<section 
+  id={id}
+  class={`section section--${spacing} ${customClass}`}
+  style={sectionStyle}
+>
+  <slot />
+</section>
+
+<style lang="scss">
+.section {
+  width: 100%;
+  position: relative;
+  
+  &[style*="background-image"] {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+.section--none { padding-block: 0; }
+.section--small { padding-block: space(8); }
+.section--medium { @include section-spacing; }
+.section--large { padding-block: space(16); @include mq-min(md) { padding-block: space(24); }}
+</style>

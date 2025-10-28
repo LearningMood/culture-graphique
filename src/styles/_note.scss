@@ -17,6 +17,18 @@ aside.note[data-type=key]::before {
   // @mixin text($size, $lh: null, $weight: null, $letter-spacing: null) {
     @include text(xs, tight, semibold, miniplus)
 }
+
+/* notes à gauche */
+  aside.note[data-type="comment"],
+  aside.note[data-type="key"] { grid-column: 1 / 6; align-self: start; }
+
+  /* sources à droite */
+  aside.note[data-type="source"] { grid-column: 20 / 25; align-self: end; }
+
+  /* sticky (optionnel) */
+  aside.note.sticky { position: sticky; top: 6rem; align-self: start; }
+
+//  Le type de note
 aside.note[data-type=source]::before {
   content: "source :";
 }
@@ -31,6 +43,7 @@ aside.note[data-type=key]::before {
     text-align: right;
   }
 }
+
 
 
 .zone-left {

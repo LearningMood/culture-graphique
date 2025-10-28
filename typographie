@@ -1,0 +1,80 @@
+---
+titre: "La typographie"
+baseline: "Comprendre les bases de la typographie pour mieux l'utiliser"  
+jour: 1
+ordre: 1
+miniature: "/img/mini-typo.jpg"
+points_cles:
+  - "Quelques repères chronologiques"
+  - "La classification des caractères"
+  - "Les combinaisons de polices"
+exercices: []
+---
+
+import SectionGrid from '../../components/SectionGrid.astro';
+import Notes from '../../components/Notes.astro';
+import N from '../../components/N.astro';
+
+<SectionGrid id="histoire" notesSide="left">
+  ## Quelques repères historiques
+  ### Aux origines : la calligraphie
+  La typographie découle d’un art millénaire : la calligraphie. Étymologiquement, elle désigne la belle écriture, l'art de bien former les caractères d'écriture manuscrite. Au delà de l'écriture, il s'agit d'inclure la lettre au sein d’une œuvre, voire même d'atteindre, par le geste, une forme de sagesse.<N n={1} />.
+
+  <Fragment slot="notes">
+    <Notes type="comment">En calligraphie, la lisibilité n’est pas l'essentiel.</Notes>
+    <Notes type="key">70% des visuels d’exemple sont horizontaux (ex. fictif).</Notes>
+    <Notes type="source"><a href="http://apprentislettreurs.fr/pratique/la-difference-entre-ecriture-calligraphie-lettrage-et-typographie//" target="_blank" rel="noopener">Article des Apprentis Lettreurs</a></Notes>
+  </Fragment>
+
+</SectionGrid>
+
+<SectionGrid id="r" notesSide="left">
+<Fragment slot="images">
+  <figure class="bloc-img">
+    <img src="/typo/accord-02.jpg" alt="Affiche Interstellar" />
+  </figure>
+  </Fragment>
+Corps optionnel…
+# titre de niveau 1
+Paragraphe d’introduction.
+</SectionGrid>
+
+<SectionGrid id="b">
+## titre de niveau 2
+Texte du niveau 2.
+### titre de niveau 3
+Texte du niveau 3. Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Texte associé.  
+  - point 1
+  - point 2
+</SectionGrid >
+
+<SectionGrid id="z">
+## Partie 3
+Paragraphe d’introduction. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  <fragment slot="notes">
+    <Notes items={[
+      { type: 'comment', text: "On parle du <em>format à l’italienne</em>." },
+      { type: 'source',  text: "Affiche Interstellar", url: "https://www.imdb.com/title/tt0816692/", label: "IMDB" },
+      { type: 'key',     text: "70% des visuels de la série utilisent un cadrage horizontal (exemple fictif)." }
+    ]} />
+  </fragment>
+
+### Titre niv 3
+Paragraphe d’introduction[^1]. Lorem ipsum dolor sit amet, 
+- consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
+- t dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing 
+- elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</SectionGrid>
+
+<SectionGrid id="a">
+## Partie 5
+Paragraphe d’introduction[^2]. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</SectionGrid>
+
+**Notes – Orientation**  
+[^1]: On parle du *format à l’italienne*. [Wikipedia](…)
+[^2]: On parle du *format à l’italienne*. [Wikipedia](…)

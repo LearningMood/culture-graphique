@@ -6,7 +6,7 @@ const formations = defineCollection({
     titre: z.string(),
     jour: z.coerce.number().int().min(1).max(2),
     ordre: z.coerce.number().default(0),
-    miniature: z.string(),
+    miniature: z.string().optional()
     points_cles: z.array(z.string()).min(1),
     exercices: z.array(z.object({
       titre: z.string(),

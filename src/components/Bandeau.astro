@@ -1,0 +1,50 @@
+---
+// ============================================
+// Bandeau.astro - Rangée pleine largeur
+// ============================================
+export interface Props {
+  bgColor?: string;
+  bgImage?: string;
+  textColor?: string;
+  height?: 'small' | 'medium' | 'large';
+}
+
+const { bgColor, bgImage, textColor, height = 'medium' } = Astro.props;
+
+const heights = {
+  small: '20vh',
+  medium: '40vh',
+  large: '60vh'
+};
+
+const bandeauStyle = {
+  ...(bgColor && { backgroundColor: bgColor }),
+  ...(bgImage && { backgroundImage: `url(${bgImage})` }),
+  ...(textColor && { color: textColor }),
+  minHeight: heights[height]
+};
+---
+
+<div class="bandeau" style={bandeauStyle}>
+  <div class="bandeau__content">
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+.bandeau {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  margin-block: space(8);
+  
+  &__content {
+    text-align: center;
+    padding: space(8);
+    max-width: 60ch;
+  }
+}
+</style>

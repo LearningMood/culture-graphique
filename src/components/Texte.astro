@@ -1,0 +1,61 @@
+---
+// ============================================
+// Texte.astro - Bloc de texte centré
+// ============================================
+import Row from './Row.astro';
+import Col from './Col.astro';
+export interface Props {
+  withNotes?: 'left' | 'right' | 'both' | 'none';
+}
+
+const { withNotes = 'none' } = Astro.props;
+---
+
+<Row>
+  {(withNotes === 'left' || withNotes === 'both') && (
+    <Col span={4} class="zone-notes">
+      <slot name="notes-left" />
+    </Col>
+  )}
+  
+  <Col 
+    span={withNotes === 'both' ? 16 : withNotes === 'none' ? 14 : 14}
+    start={withNotes === 'right' ? 6 : withNotes === 'both' ? 5 : 8}
+    spanMd={withNotes === 'none' ? 20 : 24}
+  >
+    <div class="texte-content">
+      <slot />
+    </div>
+  </Col>
+  
+  {(withNotes === 'right' || withNotes === 'both') && (
+    <Col span={4} class="zone-notes">
+      <slot name="notes-right" />
+    </Col>
+  )}
+</Row>
+
+<style lang="scss">
+.texte-content {
+  > * + * {
+    margin-top: space(6);
+  }
+  
+  h2, h3 {
+    margin-top: space(8);
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.zone-notes {
+  position: sticky;
+  top: space(8);
+  
+  @include mq-max(md) {
+    position: static;
+  }
+}
+</style>
