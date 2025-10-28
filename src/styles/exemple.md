@@ -57,6 +57,66 @@
   @include section-spacing; // Espacement responsive automatique
 }
 
+Exemple concret :
+<!-- html -->
+<section class="hero">
+  <h1>Mon titre</h1>
+</section>
+
+<section class="features">
+  <div>Feature 1</div>
+</section>
+<!-- scss -->
+.hero {
+  @include section-spacing;
+  background: blue;
+}
+
+.features {
+  @include section-spacing;
+  background: white;
+}
+
+<!--  Résultat compilé : -->
+.hero {
+  padding-block: 3rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: 6rem;
+  }
+}
+```
+
+**Rendu visuel :**
+```
+┌─────────────────────┐
+│  [48px padding]     │ ← Mobile
+│  <h1>Mon titre</h1> │
+│  [48px padding]     │
+└─────────────────────┘
+
+┌─────────────────────┐
+│  [64px padding]     │ ← Tablette
+│  <h1>Mon titre</h1> │
+│  [64px padding]     │
+└─────────────────────┘
+
+┌─────────────────────┐
+│  [96px padding]     │ ← Desktop
+│  <h1>Mon titre</h1> │
+│  [96px padding]     │
+└─────────────────────┘
+
+
+
 // Avec les variables sémantiques
 .modal {
   padding: $space-lg;

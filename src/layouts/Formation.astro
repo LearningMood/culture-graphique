@@ -1,17 +1,25 @@
 ---
+import HeaderGlobal from '../components/HeaderGlobal.astro';
 import TocNav from '../components/TocNav.astro';
+import HeroBandeau from '../components/HeroBandeau.astro';
 const { entry, headings = [] } = Astro.props;
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
 ---
-<div data-toc-sentinel style="height: 200px; visibility: hidden;"></div>
+<div data-toc-sentinel style="height: 50px; visibility: hidden;"></div>
+<HeaderGlobal logoSrc="/logo.svg" homeUrl="/" />
+
 <TocNav toc={toc} offset={offsetTop} />
-<header class="header-page">
-  <div class="container header-infos">
-    <h1 class="titre-article">{entry.data.titre}</h1>
-    {entry.data.baseline && <p class="titre-article-baseline">{entry.data.baseline}</p>}
-  </div>
-</header>
+<!-- Hero bandeau (titre + visuel optionnel) -->
+<HeroBandeau
+  titre={entry.data.titre}
+  baseline={entry.data.baseline}
+  bgColor={entry.data.heroColor || '#2d2846'}
+  bgImage={entry.data.heroImage}
+  visuel={entry.data.headerImage}
+  textColor={entry.data.heroTextColor || 'white'}
+/>
+
 
 <main class="page-formation">
     <slot /> <!-- contenu MD/MDX -->

@@ -1,0 +1,114 @@
+---
+// ============================================
+// HeroBandeau.astro - Hero full screen
+// ============================================
+export interface Props {
+  titre: string;
+  baseline?: string;
+  bgColor?: string;
+  bgImage?: string;
+  textColor?: string;
+  visuel?: string;
+}
+
+const { 
+  titre,
+  baseline,
+  bgColor = '#1e40af',
+  bgImage,
+  textColor = 'white',
+  visuel
+} = Astro.props;
+
+const heroStyle = {
+  backgroundColor: bgColor,
+  color: textColor,
+  ...(bgImage && { backgroundImage: `url(${bgImage})` })
+};
+---
+
+<div class="hero-bandeau">
+  <!-- Bandeau titre 50vh -->
+  <div class="hero-bandeau__title" style={heroStyle}>
+    <div class="hero-bandeau__content">
+      <h1 class="hero-bandeau__titre">{titre}</h1>
+      {baseline && <p class="hero-bandeau__baseline">{baseline}</p>}
+    </div>
+  </div>
+  
+  <!-- Image optionnelle 30vh -->
+  {visuel && (
+    <div class="hero-bandeau__visual">
+      <img src={visuel} alt={titre} />
+    </div>
+  )}
+</div>
+
+<style lang="scss">
+.hero-bandeau {
+//   margin-top: 50px; // Compense le header fixe
+  
+  &__title {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    // Overlay sombre si image de fond
+    &[style*="background-image"]::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+  }
+  
+  &__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: space(8);
+    max-width: 800px;
+  }
+  
+  &__titre {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  &__baseline {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: space(4);
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+  
+  &__visual {
+    height: 30vh;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  
+  @include mq-max(md) {
+    &__title {
+      height: 40vh;
+    }
+    
+    &__visual {
+      height: 25vh;
+    }
+  }
+}
+</style>
