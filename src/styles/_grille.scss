@@ -1,0 +1,37 @@
+/* 24-col grid util */
+.grid-24 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(.75rem, 2vw, 1.25rem);
+
+  @include mq-min(lg) {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    gap: clamp(.75rem, 2vw, 1.25rem);
+
+  }
+}
+
+/* Responsive: tout en pile en-dessous de 1024px */
+
+  .chapitre .zone-left,
+  .chapitre .zone-main,
+  .chapitre .zone-right { grid-column: 1 / -1; }
+  .chapitre .zone-left,
+  .chapitre .zone-right { order: 2; }    /* notes après le contenu */
+
+ @include mq-min(lg) {
+.chapitre .zone-left   { grid-column: 3 / 7; }   /* 5 colonnes */
+.chapitre .zone-main   { grid-column: 8 / 18; }  /* 10 colonnes centrées */
+.chapitre .zone-right  { grid-column: 19 / 23; } /* 5 colonnes */
+ }
+
+
+
+
+
+/* Layout par défaut d'un chapitre : notes à droite */
+.section-24 {
+  @extend .grid-24;
+  align-items: start;
+}
+//  + Notes

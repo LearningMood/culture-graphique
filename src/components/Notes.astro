@@ -1,0 +1,11 @@
+---
+export interface Props {
+  type: 'comment' | 'key' | 'source';
+}
+const { type } = Astro.props as Props;
+---
+<aside class="note" data-type={type} aria-label={type}>
+  <div class="note-body">
+    <slot />
+  </div>
+</aside>

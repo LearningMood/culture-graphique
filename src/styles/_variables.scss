@@ -1,16 +1,5 @@
 @use "sass:map";
 @import url("https://use.typekit.net/twu2gti.css");
-// ============================================
-// VARIABLES - Breakpoints
-// ============================================
-$breakpoints: (
-  xs: 480px,
-  sm: 640px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
-  xxl: 1536px
-);
 
 // ============================================
 // VARIABLES - Containers
@@ -47,7 +36,7 @@ $font-sizes: (
 $line-heights: (
   tight: 1.25,
   base: 1.5,
-  relaxed: 1.75,
+  relaxed: 2,
 );
 
 $font-weights: (
@@ -55,6 +44,12 @@ $font-weights: (
   medium: 500,
   semibold: 600,
   bold: 700,
+);
+
+$letter-spacing: (
+  mini: .04em,
+  normal: 0,
+  miniplus: .04em,
 );
 
 // ============================================

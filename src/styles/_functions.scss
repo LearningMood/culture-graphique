@@ -1,0 +1,31 @@
+@use "sass:map";
+// Helpers génériques
+@function _get($map, $key, $name) {
+  @if (map.has-key($map, $key)) { @return map.get($map, $key); }
+  @error '#{$name}(): la clé "#{$key}" est inconnue. Clés valides: #{map.keys($map)}';
+}
+
+// Fonctions "lisibles" (même nom que la propriété)
+@function font-size($key)   { @return _get($font-sizes,   $key, 'font-size'); }
+@function line-height($key) { @return _get($line-heights, $key, 'line-height'); }
+@function font-weight($key) { @return _get($font-weights, $key, 'font-weight'); }
+
+// Fonction helper Claude
+@function space($key) {
+  @if map.has-key($spacing, $key) {
+    @return map.get($spacing, $key);
+  }
+  @warn "Espacement `#{$key}` n'existe pas.";
+  @return null;
+}
+// Explication :
+// C'est une fonction (pas un mixin), elle retourne une valeur
+// $key : le nombre que vous passez (ex: 4, 8, 12)
+// map.has-key() : vérifie si la clé existe dans votre map $spacing
+// map.get() : récupère la valeur correspondante
+// Si la clé n'existe pas → affiche un warning
+// .card {
+//   padding: space(4);  // → padding: 1rem;
+//   margin: space(8);   // → margin: 2rem;
+//   gap: space(999);    // → Warning + gap: null;
+// }

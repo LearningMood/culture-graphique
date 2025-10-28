@@ -1,0 +1,35 @@
+article {
+  // @include container(default);
+  @include section-spacing;
+  
+  
+  
+  .article__tags {
+    @include flex-gap(2); // 0.5rem entre tags
+  }
+}
+section.chapitre {
+  @include section-spacing;
+    @include stack(12); // 1.5rem entre paragraphes
+}
+
+/* par défaut (mobile): tout en pile */
+.chapitre .main      { grid-column: 1 / -1; }
+.chapitre .note      { grid-column: 1 / -1; order: 2; margin-top: .75rem; }
+.chapitre .img-full  { grid-column: 1 / -1; }
+
+/* desktop : contenu centré, notes routées par type */
+@media (min-width:64em){
+  .chapitre .main     { grid-column: 7 / 19; }   /* 12 colonnes au centre */
+  .chapitre .img-full { grid-column: 1 / -1; }
+
+  /* notes à gauche */
+  .chapitre .note[data-type="comment"],
+  .chapitre .note[data-type="key"] { grid-column: 1 / 6; align-self: start; }
+
+  /* sources à droite */
+  .chapitre .note[data-type="source"] { grid-column: 20 / 25; align-self: end; }
+
+  /* sticky (optionnel) */
+  .chapitre .note.sticky { position: sticky; top: 6rem; align-self: start; }
+}

@@ -1,3 +1,12 @@
-p {
+p, ul, li, span {
     font-family: $font-texte;
+}
+p{
+    line-height: line-height(relaxed);
+}
+
+::selection {
+    background: $indigo;
+    text-shadow: none;
+    color: #fff;
 }

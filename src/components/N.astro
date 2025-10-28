@@ -1,0 +1,11 @@
+---
+export interface Props { n: number; id?: string }
+const { n, id } = Astro.props as Props;
+---
+<sup class="note-ref"><a href={id ? `#${id}` : undefined}>{n}</a></sup>
+
+<style>
+.note-ref { font-size:.75em; vertical-align: super; margin-left:.15em; }
+.note-ref a { text-decoration:none; opacity:.7 }
+.note-ref a:hover { text-decoration:underline; opacity:1 }
+</style>

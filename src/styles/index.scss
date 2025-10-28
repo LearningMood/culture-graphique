@@ -1,8 +1,10 @@
 // mixins et variables chargés automatiquement via astro.config.mjs
 @import 'reset';
 @import 'container';
+@import 'grille';
 @import 'headings';
 @import 'typo';
-@import 'article';
+@import 'sections';
 @import 'card';
 @import 'tocnav';
+@import 'note';
