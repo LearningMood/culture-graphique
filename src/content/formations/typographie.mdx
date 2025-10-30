@@ -15,6 +15,8 @@ import Section from '@components/Section.astro';
 import Bandeau from '@components/Bandeau.astro';
 import Texte from '@components/Texte.astro';
 import Images from '@components/Images.astro';
+import CarouselAuto from '@components/CarouselAuto.astro';
+
 import Carousel from '@components/Carousel.astro';
 import Note from '@components/Note.astro';
 
@@ -61,6 +63,14 @@ import Note from '@components/Note.astro';
     - Item list 3
   </Texte>
 
+<CarouselAuto folder="couleur/couleur-contraste-complementaires" cols={20} />
+{/* <CarouselAuto 
+  folder="couleur/contrastes"
+  captions={{
+    "complementaires.jpg": "Contraste de complémentaires : opposition maximale",
+    "simultane.jpg": "Contraste simultané : influence mutuelle des couleurs"
+  }}
+/> */}
   <Carousel cols={18}>
     <img src="/typo/didone02.jpg" alt="Exemple 1" />
     <img src="/typo/didone03.jpg" alt="Exemple 2" />

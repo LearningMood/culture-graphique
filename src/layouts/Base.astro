@@ -1,5 +1,6 @@
 ---
-import '../styles/index.scss';// <-- import SCSS une seule fois ici | Astro génére les <link> optimisés automatiquement
+import '../styles/index.scss';// <-- import SCSS unique | Astro génére les <link> optimisés automatiquement
+import HeaderGlobal from '../components/HeaderGlobal.astro';
 const { title = 'Culture graphique' } = Astro.props;
 ---
 <html lang="fr">
@@ -10,6 +11,7 @@ const { title = 'Culture graphique' } = Astro.props;
     <slot name="head" /> <!-- pour ajouter des metas/links spécifiques -->
   </head>
   <body>
+    <HeaderGlobal logoSrc="/favicon-tatziki.svg" homeUrl="/" />
     <slot /> <!-- le contenu des pages -->
   </body>
 </html>

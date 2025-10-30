@@ -118,14 +118,6 @@ $breakpoints: (
 // ============================================
 // MIXINS - Espacements 
 // ============================================
-
-// Mixins "empiler" pour différents contextes
-@mixin stack($space: 4) {
-  > * + * {
-    margin-top: space($space);
-  }
-}
-
 // Explication pas à pas :
 // $space: 4 → valeur par défaut si vous ne passez rien
 // > * + * → sélecteur CSS appelé "lobotomized owl" 🦉
@@ -136,23 +128,33 @@ $breakpoints: (
 // * = un autre élément
 
 // Ce que ça fait :
-
 // Ajoute un margin-top à tous les éléments sauf le premier
 // Crée un espacement vertical uniforme
+// Mixins "empiler" pour différents contextes
+@mixin stack($space: 4) {
+  > * + * {
+    margin-top: space($space);
+  }
+}
 
 
+// FEX_GAP (inline)
+// Met l'élément en flexbox (disposition horizontale)
+// Utilise gap pour espacer les enfants
+// gap = espacement moderne qui fonctionne entre les éléments flex/grid
+// Avantage du gap par rapport au margin
 
 @mixin flex-gap($space: 4) {
   display: flex;
   gap: space($space);
 }
 
-// Explication :
-// Met l'élément en flexbox (disposition horizontale)
-// Utilise gap pour espacer les enfants
-// gap = espacement moderne qui fonctionne entre les éléments flex/grid
-// Avantage du gap par rapport au margin
 
+// SECTION-SPACING
+// padding-block = raccourci pour padding-top + padding-bottom
+// Mobile : space(12) = 3rem = 48px
+// Tablette (md) : space(16) = 4rem = 64px
+// Desktop (lg) : space(24) = 6rem = 96px
 @mixin section-spacing {
   padding-block: space(12);
   
@@ -164,8 +166,4 @@ $breakpoints: (
     padding-block: space(24);
   }
 }
-// Explication :
-// padding-block = raccourci pour padding-top + padding-bottom
-// Mobile : space(12) = 3rem = 48px
-// Tablette (md) : space(16) = 4rem = 64px
-// Desktop (lg) : space(24) = 6rem = 96px
+

@@ -1,0 +1,194 @@
+---
+import Row from './Row.astro';
+import Col from './Col.astro';
+export interface Props {
+    folder: string;
+    cols?: number;  // Largeur du carrousel (10-20 colonnes)
+    ratio?: string; 
+    fit?: 'cover' | 'contain'; 
+    height?: number
+}
+
+// Je définis un nb par défaut si je ne l'ai pas défini en props dans le fichier mdx + ajout d'un ratio
+const { folder, cols = 16, ratio = '16/9', fit = 'cover', height } = Astro.props;
+
+const start = Math.ceil((24 - cols) / 2) + 1;
+
+const all = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true });
+
+function toUrl(mod: unknown): string {
+  // v5 ImageMetadata or similar
+  if (mod && typeof mod === 'object') {
+    // module.default may be a string or object
+    // @ts-ignore
+    const d = 'default' in mod ? (mod as any).default : mod;
+    if (typeof d === 'string') return d;
+    if (d && typeof d === 'object' && 'src' in d) return (d as any).src as string;
+  }
+  // v4 string default
+  if (typeof mod === 'string') return mod;
+  return '';
+}
+
+const base = `/src/assets/${folder.replace(/^\/+|\/+$/g,'')}/`; // normalize
+const images = Object.entries(all)
+  .filter(([p]) => p.startsWith(base))        // safer than includes()
+  .map(([p, m]) => {
+    const url = toUrl(m);
+    const filename = p.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+    return url ? { src: url, alt: filename.replace(/[-_]/g, ' '), filename } : null;
+  })
+  .filter(Boolean) as {src:string; alt:string; filename:string}[];
+
+// (optionnel) tri naturel
+images.sort((a,b)=> a.filename.localeCompare(b.filename, undefined, {numeric:true}));
+
+---
+
+{images.length > 0 ? (
+
+    <Row>
+        <Col span={cols} start={start} spanMd={22}>
+            <div class="carousel" style={`--cols:${cols}; --start:${start};`}>
+                <div class="carousel__track" part="track">
+                {images.map((img) => (
+                    <figure class="carousel__item">
+                        <div class="carousel__media">
+                            <img src={img.src} alt={img.alt} loading="lazy" />
+                        </div>
+                    <figcaption>{img.alt}</figcaption>
+                    </figure>
+                ))}
+                </div>
+
+                <button class="carousel__btn carousel__btn--prev" aria-label="Précédent">‹</button>
+                <button class="carousel__btn carousel__btn--next" aria-label="Suivant">›</button>
+
+                {/* <div class="carousel__counter"><span class="current">1</span> / <span class="total">{images.length}</span></div> */}
+            </div>
+           
+    </Col>
+</Row>): (
+        <p style=";padding:1rem">Aucune image dans “{folder}”.</p>
+        )}
+
+
+<style lang="scss">
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: space(2);
+  
+  &__track {
+    display: flex;
+    gap: space(4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    > * {
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+      
+      @include mq-min(md) {
+        flex: 0 0 45%;
+      }
+    }
+  }
+  
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+    
+    &--prev { left: 1rem; }
+    &--next { right: 1rem; }
+  }
+}
+
+/* Conteneur média à ratio fixe */
+.carousel__media{
+  width: 100%;
+  aspect-ratio: var(--ratio, 16/9);    /* ← fixe la hauteur automatiquement */
+  overflow: hidden;
+  border-radius: .5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+.carousel__media > img{
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: var(--fit, cover);       /* cover = recadrage; contain = letterbox */
+}
+</style>
+
+<script is:inline>
+(() => {
+  // IIFE pour encapsuler et éviter toute fuite globale
+  const carousels = document.querySelectorAll('.carousel');
+  carousels.forEach((carousel) => {
+    const track = carousel.querySelector('.carousel__track');
+    const prev = carousel.querySelector('.carousel__btn--prev');
+    const next = carousel.querySelector('.carousel__btn--next');
+    const currentSpan = carousel.querySelector('.current');
+    if (!track || !prev || !next || !currentSpan) return;
+
+    const items = Array.from(track.querySelectorAll('.carousel__item'));
+    let currentIndex = 0;
+
+    const updateCounter = () => { if (currentSpan) currentSpan.textContent = String(currentIndex + 1); };
+
+    const scrollToIndex = (index) => {
+      const target = items[index];
+      if (!target) return;
+      const trackRect = track.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const delta = (targetRect.left - trackRect.left) - (trackRect.width - targetRect.width)/2;
+      track.scrollBy({ left: delta, behavior: 'smooth' });
+    };
+
+    prev.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      scrollToIndex(currentIndex);
+      updateCounter();
+    });
+    next.addEventListener('click', () => {
+      currentIndex = Math.min(items.length - 1, currentIndex + 1);
+      scrollToIndex(currentIndex);
+      updateCounter();
+    });
+
+    // Mise à jour du “slide actif” selon la position la plus centrée
+    const onScroll = () => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, bestDist = Infinity;
+      items.forEach((el, idx) => {
+        const mid = el.offsetLeft + el.offsetWidth / 2;
+        const d = Math.abs(mid - center);
+        if (d < bestDist) { bestDist = d; best = idx; }
+      });
+      if (best !== currentIndex) { currentIndex = best; updateCounter(); }
+    };
+    track.addEventListener('scroll', onScroll, { passive: true });
+    // init
+    updateCounter();
+  });
+})();
+</script>

@@ -14,45 +14,46 @@ const jour2 = byJour(2);
 ---
 
 <Base title={pageTitle}>
+  <main class="page-accueil">
+    <section id="programme">
+      <div id="jour1" class="container container-jour">
+        <div class="bloc-titre-section-home">
+          <h4 class="titre-section-home">Le programme</h4>
+          <h2 class="titre-etape">Jour 1.</h2>
+          <h1 class="titre-jour">Enrichir son langage visuel</h1>
+        </div>
 
-<section id="programme">
-  <div id="jour1" class="container container-jour">
-    <div class="bloc-titre-section-home">
-      <h4 class="titre-section-home">Le programme</h4>
-      <h2 class="titre-etape">Jour 1.</h2>
-      <h1 class="titre-jour">Enrichir son langage visuel</h1>
-    </div>
+        <div class="container-mini">
+          {jour1.map((entry) => (
+      <ChapitreCard
+        href={`/formations/${entry.slug}/`}   // <= entry.slug, pas data.slug
+        miniature={entry.data.miniature}
+        titre={entry.data.titre}
+        points={entry.data.points_cles}
+        exercices={entry.data.exercices}
+      />
+    ))}
+        </div>
+      </div>
 
-    <div class="container-mini">
-      {jour1.map((entry) => (
-  <ChapitreCard
-    href={`/formations/${entry.slug}/`}   // <= entry.slug, pas data.slug
-    miniature={entry.data.miniature}
-    titre={entry.data.titre}
-    points={entry.data.points_cles}
-    exercices={entry.data.exercices}
-  />
-))}
-    </div>
-  </div>
+      <div id="jour2" class="container container-jour">
+        <div class="bloc-jour">
+          <h2 class="titre-etape">Jour 2.</h2>
+          <h1 class="titre-jour">Produire &amp; communiquer ses idées</h1>
+        </div>
 
-  <div id="jour2" class="container container-jour">
-    <div class="bloc-jour">
-      <h2 class="titre-etape">Jour 2.</h2>
-      <h1 class="titre-jour">Produire &amp; communiquer ses idées</h1>
-    </div>
-
-    <div class="container-mini">
-      {jour2.map((entry) => (
-        <ChapitreCard
-          href={`/formations/${entry.slug}/`}
-          miniature={entry.data.miniature}
-          titre={entry.data.titre}
-          points={entry.data.points_cles}
-          exercices={entry.data.exercices}
-        />
-      ))}
-    </div>
-  </div>
-</section>
+        <div class="container-mini">
+          {jour2.map((entry) => (
+            <ChapitreCard
+              href={`/formations/${entry.slug}/`}
+              miniature={entry.data.miniature}
+              titre={entry.data.titre}
+              points={entry.data.points_cles}
+              exercices={entry.data.exercices}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
 </Base>

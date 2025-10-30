@@ -7,7 +7,7 @@ import Col from './Col.astro';
 export interface Props {
   cols?: number;  // Largeur du carrousel (10-20 colonnes)
 }
-
+// Je définis un nb par défaut si je ne l'ai pas défini en props dans le fichier mdx
 const { cols = 16 } = Astro.props;
 const start = Math.ceil((24 - cols) / 2) + 1;
 ---

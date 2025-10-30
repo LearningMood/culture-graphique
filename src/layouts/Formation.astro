@@ -7,7 +7,6 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
 ---
 <div data-toc-sentinel style="height: 50px; visibility: hidden;"></div>
-<HeaderGlobal logoSrc="/logo.svg" homeUrl="/" />
 
 <TocNav toc={toc} offset={offsetTop} />
 <!-- Hero bandeau (titre + visuel optionnel) -->
