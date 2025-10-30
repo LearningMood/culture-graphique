@@ -1,9 +1,12 @@
 ---
-titre: "La Typographie"
+titre: "La typographie"
 baseline: "Comprendre les bases de la typographie pour mieux l'utiliser"  
 jour: 1
 ordre: 1
 miniature: "/typo/mini-typo.jpg"
+heroColor: "#2d2846" # optionnel
+heroTextColor: "white"
+headerImage: "/hero/bg-typo.png"
 points_cles:
   - "Quelques repères chronologiques"
   - "La classification des caractères"
@@ -15,8 +18,6 @@ import Section from '@components/Section.astro';
 import Bandeau from '@components/Bandeau.astro';
 import Texte from '@components/Texte.astro';
 import Images from '@components/Images.astro';
-import CarouselAuto from '@components/CarouselAuto.astro';
-
 import Carousel from '@components/Carousel.astro';
 import Note from '@components/Note.astro';
 
@@ -63,7 +64,20 @@ import Note from '@components/Note.astro';
     - Item list 3
   </Texte>
 
-<CarouselAuto folder="couleur/couleur-contraste-complementaires" cols={20} />
+<Carousel folder="couleur/contraste-complementaires" cols={20} />
+<Carousel folder="couleur/contraste-clair-obscur" cols={20} />
+<Carousel folder="couleur/contraste-chaud-froid" cols={20} />
+<Carousel folder="couleur/contraste-qualite" cols={20} />
+<Carousel folder="couleur/contraste-quantite" cols={20} />
+<Carousel folder="couleur/jaune" cols={20} fit="contain" />
+<Carousel folder="couleur/bleu" cols={20} fit="contain"/>
+<Carousel folder="couleur/rouge" cols={20}fit="contain"/>
+<Carousel folder="couleur/orange" cols={20} fit="contain" />
+<Carousel folder="couleur/violet" cols={20} fit="contain"/>
+<Carousel folder="couleur/blanc" cols={20} fit="contain"/>
+<Carousel folder="couleur/noir" cols={20} fit="contain"/>
+<Carousel folder="couleur/vert" cols={20} fit="contain"/>
+
 {/* <CarouselAuto 
   folder="couleur/contrastes"
   captions={{
@@ -71,11 +85,5 @@ import Note from '@components/Note.astro';
     "simultane.jpg": "Contraste simultané : influence mutuelle des couleurs"
   }}
 /> */}
-  <Carousel cols={18}>
-    <img src="/typo/didone02.jpg" alt="Exemple 1" />
-    <img src="/typo/didone03.jpg" alt="Exemple 2" />
-    <img src="/typo/didone04.jpg" alt="Exemple 3" />
-    <img src="/typo/didone05.jpg" alt="Exemple 4" />
-  </Carousel>
 
 </Section>

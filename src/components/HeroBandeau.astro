@@ -8,16 +8,16 @@ export interface Props {
   bgColor?: string;
   bgImage?: string;
   textColor?: string;
-  visuel?: string;
+  headerImage?: string;
 }
 
 const { 
   titre,
   baseline,
-  bgColor = '#1e40af',
+  bgColor = '#2d2846',
   bgImage,
   textColor = 'white',
-  visuel
+  headerImage
 } = Astro.props;
 
 const heroStyle = {
@@ -25,21 +25,22 @@ const heroStyle = {
   color: textColor,
   ...(bgImage && { backgroundImage: `url(${bgImage})` })
 };
+
 ---
 
 <div class="hero-bandeau">
   <!-- Bandeau titre 50vh -->
-  <div class="hero-bandeau__title" style={heroStyle}>
+  <div class="hero-bandeau__block" style={heroStyle}>
     <div class="hero-bandeau__content">
       <h1 class="hero-bandeau__titre">{titre}</h1>
       {baseline && <p class="hero-bandeau__baseline">{baseline}</p>}
     </div>
   </div>
   
-  <!-- Image optionnelle 30vh -->
-  {visuel && (
+
+  {headerImage && (
     <div class="hero-bandeau__visual">
-      <img src={visuel} alt={titre} />
+      <img src={headerImage} alt={titre} />
     </div>
   )}
 </div>
@@ -48,14 +49,16 @@ const heroStyle = {
 .hero-bandeau {
 //   margin-top: 50px; // Compense le header fixe
   
-  &__title {
-    height: 50vh;
+  &__block {
+    color: $indigo;
+    height: 30vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background-size: cover;
     background-position: center;
     position: relative;
+    padding: 0 space(12);
     
     // Overlay sombre si image de fond
     &[style*="background-image"]::before {
@@ -70,14 +73,16 @@ const heroStyle = {
   &__content {
     position: relative;
     z-index: 2;
-    text-align: center;
+    // text-align: center;
     padding: space(8);
     max-width: 800px;
   }
   
   &__titre {
     font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 700;
+    font-weight: 100;
+    color: $indigo;
+    font-size: 5rem;
     margin: 0;
     line-height: 1.2;
   }
@@ -87,27 +92,29 @@ const heroStyle = {
     margin-top: space(4);
     opacity: 0.9;
     line-height: 1.5;
+    color: $indigo-light
   }
   
   &__visual {
-    height: 30vh;
+    height: 70vh;
     overflow: hidden;
     
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     object-position: center;
+     display: block;  // ← Important
     }
   }
   
   @include mq-max(md) {
-    &__title {
+    &__block {
       height: 40vh;
     }
     
     &__visual {
-      height: 25vh;
+      height: 50vh;
     }
   }
 }

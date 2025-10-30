@@ -5,6 +5,14 @@ import HeroBandeau from '../components/HeroBandeau.astro';
 const { entry, headings = [] } = Astro.props;
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
+
+// ✅ DEBUG : Vérifiez les données
+console.log('📄 Entry data:', {
+  titre: entry.data.titre,
+  baseline: entry.data.baseline,
+  headerImage: entry.data.headerImage,
+  heroColor: entry.data.heroColor
+});
 ---
 <div data-toc-sentinel style="height: 50px; visibility: hidden;"></div>
 
@@ -15,7 +23,7 @@ const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
   baseline={entry.data.baseline}
   bgColor={entry.data.heroColor || '#2d2846'}
   bgImage={entry.data.heroImage}
-  visuel={entry.data.headerImage}
+  headerImage={entry.data.headerImage}
   textColor={entry.data.heroTextColor || 'white'}
 />
 

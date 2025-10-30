@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="750" viewBox="0 0 1000 750">
+    <rect x="0" y="0" width="200" height="150" fill="#FFFF00"/><text x="100" y="75" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Yellow</text>
+    <rect x="200" y="0" width="200" height="150" fill="#FFF200"/><text x="300" y="75" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Bright Yellow</text>
+    <rect x="400" y="0" width="200" height="150" fill="#FAFA33"/><text x="500" y="75" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Lemon Yellow</text>
+    <rect x="600" y="0" width="200" height="150" fill="#FFFF8F"/><text x="700" y="75" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Canary Yellow</text>
+    <rect x="800" y="0" width="200" height="150" fill="#FFD700"/><text x="900" y="75" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Gold</text>
+    
+    <rect x="0" y="150" width="200" height="150" fill="#FFC000"/><text x="100" y="225" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Golden Yellow</text>
+    <rect x="200" y="150" width="200" height="150" fill="#FFFFE0"/><text x="300" y="225" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Light Yellow</text>
+    <rect x="400" y="150" width="200" height="150" fill="#F8DE7E"/><text x="500" y="225" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Mellow Yellow</text>
+    <rect x="600" y="150" width="200" height="150" fill="#FFD300"/><text x="700" y="225" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Cyber Yellow</text>
+    <rect x="800" y="150" width="200" height="150" fill="#FFD800"/><text x="900" y="225" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">School Bus Yellow</text>
+    
+    <rect x="0" y="300" width="200" height="150" fill="#FCF55F"/><text x="100" y="375" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Icterine</text>
+    <rect x="200" y="300" width="200" height="150" fill="#FADA5E"/><text x="300" y="375" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Royal Yellow</text>
+    <rect x="400" y="300" width="200" height="150" fill="#F4C430"/><text x="500" y="375" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Saffron</text>
+    <rect x="600" y="300" width="200" height="150" fill="#EEDC82"/><text x="700" y="375" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Flax</text>
+    <rect x="800" y="300" width="200" height="150" fill="#FFFDD0"/><text x="900" y="375" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Cream</text>
+    
+    <rect x="0" y="450" width="200" height="150" fill="#FCF4A3"/><text x="100" y="525" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Banana Yellow</text>
+    <rect x="200" y="450" width="200" height="150" fill="#FBEC5D"/><text x="300" y="525" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Corn</text>
+    <rect x="400" y="450" width="200" height="150" fill="#FBCEB1"/><text x="500" y="525" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Apricot</text>
+    <rect x="600" y="450" width="200" height="150" fill="#E1C16E"/><text x="700" y="525" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Brass</text>
+    <rect x="800" y="450" width="200" height="150" fill="#E49B0F"/><text x="900" y="525" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Gamboge</text>
+    
+    <rect x="0" y="600" width="200" height="150" fill="#FFDB58"/><text x="100" y="675" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Mustard Yellow</text>
+    <rect x="200" y="600" width="200" height="150" fill="#FADA5E"/><text x="300" y="675" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Naples Yellow</text>
+    <rect x="400" y="600" width="200" height="150" fill="#FFFF99"/><text x="500" y="675" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Light Canary</text>
+    <rect x="600" y="600" width="200" height="150" fill="#FFFAA0"/><text x="700" y="675" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Pastel Yellow</text>
+    <rect x="800" y="600" width="200" height="150" fill="#FAD5A5"/><text x="900" y="675" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="20" font-family="Arial, sans-serif" font-weight="bold">Desert Sand</text>
+</svg>

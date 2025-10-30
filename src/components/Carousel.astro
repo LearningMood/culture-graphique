@@ -1,28 +1,103 @@
 ---
-// ============================================
-// Carousel.astro - Carrousel d'images
-// ============================================
 import Row from './Row.astro';
 import Col from './Col.astro';
+
 export interface Props {
-  cols?: number;  // Largeur du carrousel (10-20 colonnes)
+  folder: string;
+  cols?: number;
+  ratio?: string;
+  fit?: 'cover' | 'contain';
+  showCounter?: boolean;
+  showCaptions?: boolean;
 }
-// Je définis un nb par défaut si je ne l'ai pas défini en props dans le fichier mdx
-const { cols = 16 } = Astro.props;
+
+const { 
+  folder, 
+  cols = 16, 
+  ratio = '16/9', 
+  fit = 'cover',
+  showCounter = false,
+  showCaptions = false
+} = Astro.props;
+
 const start = Math.ceil((24 - cols) / 2) + 1;
+
+const all = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true });
+
+function toUrl(mod: unknown): string {
+  if (mod && typeof mod === 'object') {
+    const d = 'default' in mod ? (mod as any).default : mod;
+    if (typeof d === 'string') return d;
+    if (d && typeof d === 'object' && 'src' in d) return (d as any).src as string;
+  }
+  if (typeof mod === 'string') return mod;
+  return '';
+}
+
+const base = `/src/assets/${folder.replace(/^\/+|\/+$/g, '')}/`;
+const images = Object.entries(all)
+  .filter(([p]) => p.startsWith(base))
+  .map(([p, m]) => {
+    const url = toUrl(m);
+    const filename = p.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+    return url ? { 
+      src: url, 
+      alt: filename.replace(/[-_]/g, ' '), 
+      filename 
+    } : null;
+  })
+  .filter(Boolean) as {src: string; alt: string; filename: string}[];
+
+// Tri naturel (01, 02... ou a, b, c...)
+images.sort((a, b) => a.filename.localeCompare(b.filename, undefined, { numeric: true }));
+
+// Debug serveur (optionnel - à retirer en prod)
+// if (import.meta.env.DEV) {
+//   console.log(`🎠 Carousel "${folder}": ${images.length} images`);
+// }
 ---
 
-<Row>
-  <Col span={cols} start={start} spanMd={22}>
-    <div class="carousel">
-      <div class="carousel__track">
-        <slot />
+{images.length > 0 ? (
+  <Row>
+    <Col span={cols} start={start} spanMd={22}>
+      <div 
+        class="carousel" 
+        style={`--ratio: ${ratio}; --fit: ${fit};`}
+        data-show-counter={showCounter}
+      >
+        <div class="carousel__track">
+          {images.map((img, index) => (
+            <figure class="carousel__item" key={index}>
+              <div class="carousel__media">
+                <img src={img.src} alt={img.alt} loading="lazy" />
+              </div>
+              {showCaptions && (
+                <figcaption class="carousel__caption">{img.alt}</figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+
+        <button class="carousel__btn carousel__btn--prev" aria-label="Image précédente">
+          ‹
+        </button>
+        <button class="carousel__btn carousel__btn--next" aria-label="Image suivante">
+          ›
+        </button>
+
+        {showCounter && (
+          <div class="carousel__counter">
+            <span class="current">1</span> / <span class="total">{images.length}</span>
+          </div>
+        )}
       </div>
-      <button class="carousel__btn carousel__btn--prev">‹</button>
-      <button class="carousel__btn carousel__btn--next">›</button>
-    </div>
-  </Col>
-</Row>
+    </Col>
+  </Row>
+) : (
+  <div class="carousel-empty">
+    <p>⚠️ Aucune image trouvée dans <code>{folder}</code></p>
+  </div>
+)}
 
 <style lang="scss">
 .carousel {
@@ -37,57 +112,244 @@ const start = Math.ceil((24 - cols) / 2) + 1;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    padding: space(4) 0;
     
     &::-webkit-scrollbar {
       display: none;
     }
     
+    // Comportement responsive
     > * {
-      flex: 0 0 80%;
+      flex: 0 0 85%;
       scroll-snap-align: center;
       
+      @include mq-min(sm) {
+        flex: 0 0 70%;
+      }
+      
       @include mq-min(md) {
-        flex: 0 0 45%;
+        flex: 0 0 100%;  // Une seule image visible
       }
     }
   }
   
+  &__item {
+    margin: 0;
+  }
+  
+  // Conteneur média à ratio fixe
+  &__media {
+    width: 100%;
+    aspect-ratio: var(--ratio, 16/9);
+    overflow: hidden;
+    border-radius: space(2);
+    
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: var(--fit, cover);
+      display: block;
+    }
+  }
+  
+  // Légende optionnelle
+  &__caption {
+    margin-top: space(2);
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-transform: capitalize;
+  }
+  
+  // Boutons navigation
   &__btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     color: white;
     border: none;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
     font-size: 2rem;
+    line-height: 1;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    z-index: 10;
     
     &:hover {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
+      transform: translateY(-50%) scale(1.1);
     }
     
-    &--prev { left: 1rem; }
-    &--next { right: 1rem; }
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+    
+    &--prev { 
+      left: space(2);
+      
+      @include mq-min(md) {
+        left: space(4);
+      }
+    }
+    
+    &--next { 
+      right: space(2);
+      
+      @include mq-min(md) {
+        right: space(4);
+      }
+    }
+    
+    // Cache les boutons sur mobile si une seule image
+    @include mq-max(md) {
+      &:only-of-type {
+        display: none;
+      }
+    }
+  }
+  
+  // Compteur optionnel
+  &__counter {
+    position: absolute;
+    bottom: space(4);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: space(2) space(4);
+    border-radius: space(6);
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 10;
+    pointer-events: none;
+    
+    .current {
+      color: #3b82f6;
+    }
+  }
+}
+
+// Message d'erreur
+.carousel-empty {
+  padding: space(8);
+  text-align: center;
+  border-radius: space(2);
+  margin-block: space(4);
+  
+  p {
+    color: #dc2626;
+    margin: 0;
+  }
+  
+  code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
   }
 }
 </style>
 
 <script>
-  document.querySelectorAll('.carousel').forEach(carousel => {
+// Utilisation d'une fonction nommée pour éviter conflits
+function initCarousel() {
+  const carousels = document.querySelectorAll('.carousel');
+  
+  carousels.forEach((carousel) => {
     const track = carousel.querySelector('.carousel__track');
     const prev = carousel.querySelector('.carousel__btn--prev');
     const next = carousel.querySelector('.carousel__btn--next');
+    const currentSpan = carousel.querySelector('.current');
     
-    prev?.addEventListener('click', () => {
-      track.scrollBy({ left: -track.offsetWidth * 0.5, behavior: 'smooth' });
+    if (!track || !prev || !next) return;
+    
+    const items = Array.from(track.querySelectorAll('.carousel__item'));
+    if (items.length === 0) return;
+    
+    let currentIndex = 0;
+    
+    const updateCounter = () => {
+      if (currentSpan) {
+        currentSpan.textContent = String(currentIndex + 1);
+      }
+    };
+    
+    const scrollToIndex = (index) => {
+      const target = items[index];
+      if (!target) return;
+      
+      const trackRect = track.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const delta = (targetRect.left - trackRect.left) - (trackRect.width - targetRect.width) / 2;
+      
+      track.scrollBy({ left: delta, behavior: 'smooth' });
+    };
+    
+    // Navigation boutons
+    prev.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      scrollToIndex(currentIndex);
+      updateCounter();
     });
     
-    next?.addEventListener('click', () => {
-      track.scrollBy({ left: track.offsetWidth * 0.5, behavior: 'smooth' });
+    next.addEventListener('click', () => {
+      currentIndex = Math.min(items.length - 1, currentIndex + 1);
+      scrollToIndex(currentIndex);
+      updateCounter();
     });
+    
+    // Détection du slide actif au scroll
+    let scrollTimeout;
+    const onScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+        
+        items.forEach((el, idx) => {
+          const mid = el.offsetLeft + el.offsetWidth / 2;
+          const distance = Math.abs(mid - center);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = idx;
+          }
+        });
+        
+        if (bestIndex !== currentIndex) {
+          currentIndex = bestIndex;
+          updateCounter();
+        }
+      }, 100);
+    };
+    
+    track.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Support clavier
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prev.click();
+      } else if (e.key === 'ArrowRight') {
+        next.click();
+      }
+    });
+    
+    // Init
+    updateCounter();
   });
+}
+
+// Init au chargement + support navigation Astro
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCarousel);
+} else {
+  initCarousel();
+}
+
+// Réinit après navigation Astro (si View Transitions activées)
+document.addEventListener('astro:after-swap', initCarousel);
 </script>

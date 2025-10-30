@@ -190,3 +190,32 @@ Exemple concret :
   Contenu pleine largeur
 </div>
 */
+
+<!-- CAROUSEL -->
+<!-- ============================================
+     EXEMPLES D'UTILISATION
+     ============================================ -->
+
+<!--
+## Usage basique
+<Carousel folder="couleur/contraste" />
+
+## Avec options
+<Carousel 
+  folder="couleur/harmonies"
+  cols={20}
+  ratio="4/3"
+  fit="contain"
+  showCounter={true}
+  showCaptions={true}
+/>
+
+## Différents ratios
+<Carousel folder="photos/portraits" ratio="3/4" />      <!-- Portrait -->
+<Carousel folder="photos/paysages" ratio="21/9" />     <!-- Cinéma -->
+<Carousel folder="photos/carres" ratio="1/1" />        <!-- Carré -->
+
+## Fit options
+<Carousel folder="logos" fit="contain" />               <!-- Letterbox -->
+<Carousel folder="photos" fit="cover" />                <!-- Crop -->
+-->
