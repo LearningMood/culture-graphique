@@ -24,35 +24,80 @@ import Note from '@components/Note.astro';
 <Section id="histoire">
 
 ## Quelques repères historiques
+Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
 
-  <Texte withNotes="right">
+ <Note type="comment" side="left">
+    💭 La théorie des couleurs date du 18ème siècle
+  </Note>
 ### Aux origines, la calligraphie
-    
-    Un paragraphe sur le sujet avec des détails intéressants...
-    
-    <div slot="notes-right">
-      <Note type="source">Source: Histoire de la typo, 2020</Note>
-    </div>
-  </Texte>
+Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
 
-  <Images cols={18} count={1}>
-    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  <Note type="source">
+    📚 Johannes Itten, *Art de la couleur*, 1961
+  </Note>
+  {/* <!-- Image étroite --> */}
+  <Images width="narrow" fit="contain">
+    <img src="/typo/accord02.png" alt="Exemple étroit" />
   </Images>
-  <Images cols={18} count={3}>
-    <img src="/typo/accord01.jpg" alt="Calligraphie 1" />
-    <img src="/typo/accord02.png" alt="Calligraphie 2" />
-    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  
+  {/* <!-- Image medium --> */}
+  <Images width="medium">
+    <img src="/typo/accord01.jpg" alt="Exemple moyen" />
+  </Images>
+  
+  {/* <!-- Image large --> */}
+  <Images width="wide">
+    <img src="/typo/accord02.png" alt="Exemple large" />
+  </Images>
+</Section>
+
+<Section id="couleurs" bgColor="#f3f4f6">
+
+  ## La couleur en design graphique
+  Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+## Avec plusieurs Images
+<Note type="comment">
+    💭 La théorie des couleurs date du 18ème siècle
+  </Note >
+<Images cols={2} width="narrow" ratio="4/3" fit="cover">
+    <figure>
+      <img src="/typo/accord02.png" alt="Visuel couleur" />
+      <figcaption>La légende de mon image</figcaption>
+    </figure>
+    <figure>
+      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
+      <figcaption>lalégende de mon image</figcaption>
+    </figure>
   </Images>
 
-    <Bandeau bgColor="#5d647aff" textColor="white" height="small">
-    Un bandeau
-  </Bandeau>
+  <Images cols={3} width="wide" ratio="16/9" fit="cover">
+    <figure>
+      <img src="/typo/accord02.png" alt="Visuel couleur" />
+      <figcaption>La légende de mon image</figcaption>
+    </figure>
+    <figure>
+      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
+      <figcaption>lalégende de mon image</figcaption>
+    </figure>
+    <figure>
+      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
+      <figcaption>lalégende de mon image</figcaption>
+    </figure>
+  </Images>
+
+
+## Combiner les couleurs
+<Carousel folder="couleur/contraste-complementaires" width="wide" />
+<Carousel folder="couleur/contraste-clair-obscur" width="full" />
+<Carousel folder="couleur/bleu" width="medium" fit="contain"/>
+<Carousel folder="couleur/jaune" width="wide" fit="contain"/>
+
+<Bandeau bgColor="#5d647aff" textColor="white" height="small">Du texte éventuellement</Bandeau>
 
 </Section>
 
 <Section id="classification" bgColor="#f3f4f6">
 
-  <Texte>
     ## La classification
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
     
@@ -62,21 +107,7 @@ import Note from '@components/Note.astro';
     - Item list 1
     - Item list 2
     - Item list 3
-  </Texte>
 
-<Carousel folder="couleur/contraste-complementaires" cols={20} />
-<Carousel folder="couleur/contraste-clair-obscur" cols={20} />
-<Carousel folder="couleur/contraste-chaud-froid" cols={20} />
-<Carousel folder="couleur/contraste-qualite" cols={20} />
-<Carousel folder="couleur/contraste-quantite" cols={20} />
-<Carousel folder="couleur/jaune" cols={20} fit="contain" />
-<Carousel folder="couleur/bleu" cols={20} fit="contain"/>
-<Carousel folder="couleur/rouge" cols={20}fit="contain"/>
-<Carousel folder="couleur/orange" cols={20} fit="contain" />
-<Carousel folder="couleur/violet" cols={20} fit="contain"/>
-<Carousel folder="couleur/blanc" cols={20} fit="contain"/>
-<Carousel folder="couleur/noir" cols={20} fit="contain"/>
-<Carousel folder="couleur/vert" cols={20} fit="contain"/>
 
 {/* <CarouselAuto 
   folder="couleur/contrastes"

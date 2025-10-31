@@ -1,7 +1,4 @@
 ---
-// ============================================
-// Bandeau.astro - Rangée pleine largeur
-// ============================================
 export interface Props {
   bgColor?: string;
   bgImage?: string;
@@ -9,23 +6,19 @@ export interface Props {
   height?: 'small' | 'medium' | 'large';
 }
 
-const { bgColor, bgImage, textColor, height = 'medium' } = Astro.props;
+const { bgColor, bgImage, textColor = 'white', height = 'medium' } = Astro.props;
 
-const heights = {
-  small: '20vh',
-  medium: '40vh',
-  large: '60vh'
-};
+const heights = { small: '30vh', medium: '50vh', large: '70vh' };
 
-const bandeauStyle = {
+const style = {
   ...(bgColor && { backgroundColor: bgColor }),
   ...(bgImage && { backgroundImage: `url(${bgImage})` }),
-  ...(textColor && { color: textColor }),
+  color: textColor,
   minHeight: heights[height]
 };
 ---
 
-<div class="bandeau" style={bandeauStyle}>
+<div class="bandeau col-full" style={style}>
   <div class="bandeau__content">
     <slot />
   </div>
@@ -33,18 +26,33 @@ const bandeauStyle = {
 
 <style lang="scss">
 .bandeau {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-size: cover;
   background-position: center;
+  position: relative;
   margin-block: space(8);
   
+  // Overlay si image de fond
+  &[style*="background-image"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
   &__content {
+    position: relative;
+    z-index: 2;
     text-align: center;
     padding: space(8);
     max-width: 60ch;
+    
+    > * {
+      margin-block: space(2);
+    }
   }
 }
 </style>

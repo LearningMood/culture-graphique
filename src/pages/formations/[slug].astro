@@ -13,8 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-// Debug une fois pour voir la forme réelle
-console.log('headings:', headings);
+// console.log('headings:', headings);
 
 // garde uniquement les H2
 const headingsNiv2 = headings.filter(h => Number(h.depth) === 2);

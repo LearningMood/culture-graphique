@@ -1,42 +1,29 @@
 ---
 // ============================================
-// Images.astro - Rangée d'images
+// Images.astro - Grille d'images
 // ============================================
-import Row from './Row.astro';
-import Col from './Col.astro';
-
 export interface Props {
-  cols?: number;      // Nombre de colonnes occupées (12, 14, 20...)
-  count?: number;     // Nombre d'images (pour grid automatique)
+  cols?: 1 | 2 | 3;
+  width?: 'narrow' | 'medium' | 'wide' | 'full';  // largeur de la rangée
+  ratio?: string;            // ex. '16/9' (optionnel)
+  fit?: 'cover' | 'contain'; // recadrage (optionnel)
 }
+const { cols = 1, width = 'medium', ratio = null, fit = 'cover' } = Astro.props;
 
-const { cols = 18, count = 1 } = Astro.props;
-const start = Math.ceil((24 - cols) / 2) + 1;
+// classes utilitaires
+const widthClass = {
+  narrow: 'col-narrow',
+  medium: 'col-medium',
+  wide: 'col-wide',
+  full: 'col-full'
+}[width];
+
+// Pour cumuler les classes si col-2 ou 3
+const colClass = `${widthClass} ${cols > 1 ? `images-${cols}` : ''}`.trim();
 ---
 
-<Row>
-  <Col span={cols} start={start} spanMd={22}>
-    <div class="images-grid" style={`--img-count: ${count}`}>
-      <slot />
-    </div>
-  </Col>
-</Row>
+<!-- <div class={`images ${colClass}`} data-ratio={ratio ?? '4/3'} data-fit={fit}> -->
+<div class={`images ${colClass}`} style={`--ratio: ${ratio}; --fit: ${fit}`}>
+  <slot />
+</div>
 
-<style lang="scss">
-.images-grid {
-  display: grid;
-  gap: space(6);
-  grid-template-columns: repeat(var(--img-count), 1fr);
-  
-  @include mq-max(md) {
-    grid-template-columns: 1fr;
-  }
-  
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: space(2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-}
-</style>

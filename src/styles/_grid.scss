@@ -1,0 +1,188 @@
+// ============================================
+// GRILLE 24 COLONNES
+// ============================================
+.grid-24 {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    gap: space(6);
+    padding-inline: space(4);
+    max-width: 1600px;
+    margin: 0 auto;
+
+    @include mq-min(md) {
+        padding-inline: space(8);
+    }
+
+    @include mq-max(md) {
+        grid-template-columns: 1fr;
+        gap: space(4);
+    }
+}
+
+// ============================================
+// POSITIONNEMENT PAR DÉFAUT
+// ============================================
+.grid-24 {
+
+    >h2,
+    >.h2 {
+        //   grid-column: 6 / 20;
+        @include heading-cols(14);
+        // @include text(4xl, tight, normal );
+        @include heading-style(4xl, tight, normal, $indigo, space(12), space(4), true, $indigo-light, 3px, 100%, false);
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+            font-size: 1.5rem;
+        }
+    }
+
+    // Titres H3 : 10-20
+    >h3,
+    >.h3 {
+        // grid-column: 8 / 19;
+        // @include text(2xl, tight, medium );
+        @include heading-cols(12);
+        @include heading-style(2xl, tight, medium, $indigo, space(8), space(3), true, $tomato-light, 2px, 100px, true);
+        text-align: center;
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+            font-size: 1.25rem; // ou @include text(xl, ...)
+
+            &::after {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            // si tu ne veux pas centrer en mobile
+        }
+    }
+
+    // Paragraphes : 8-18
+    >p,
+    >.text {
+        // grid-column: 7 / 19;
+        @include heading-cols(12);
+        line-height: 1.7;
+        color: #374151;
+        margin-bottom: space(4);
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+        }
+    }
+
+    // Listes
+    >ul,
+    >ol {
+        // grid-column: 8 / 19;
+        @include heading-cols(8);
+        line-height: 1.7;
+        padding-left: space(6);
+        margin-bottom: space(4);
+
+        li {
+            margin-bottom: space(2);
+        }
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+        }
+    }
+
+    // Blockquotes
+    >blockquote {
+        @include heading-cols(14);
+        font-style: italic;
+        border-left: 3px solid #3b82f6;
+        padding-left: space(4);
+        margin-block: space(6);
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+// ============================================
+// CLASSES DE PLACEMENT
+// ============================================
+.grid-24 {
+
+    >.col-narrow {
+        @include heading-cols(8);
+    }
+
+    >.col-medium {
+        @include heading-cols(12);
+    }
+
+    >.col-wide {
+        @include heading-cols(16);
+    }
+
+    >.col-full {
+        @include heading-cols(24);
+    }
+
+    // Mobile : tout plein large
+    @include mq-max(md) {
+
+        >.col-narrow,
+        >.col-medium,
+        >.col-wide,
+        >.col-full {
+            grid-column: 1 / -1;
+        }
+    }
+
+/* Bloc d’images générique Les classes “images-*” ne gèrent que l’intérieur
+Elles n’écrivent jamais grid-column*/
+    .images {
+        display: grid;
+        gap: clamp(.75rem, 2vw, 1.25rem);
+
+        figure {
+            margin: 0;
+            aspect-ratio: var(--ratio, 4/3);
+            /* hauteur contrôlée ici */
+            overflow: hidden;
+            /* utile pour cover */
+            border-radius: .5rem;
+        }
+    }
+
+    figure > img,
+    .images > img {
+        width: 100%;
+        height: 100%;
+        object-fit: var(--fit, cover);
+        border-radius: space(1);
+        -webkit-border-radius: space(1);
+        -moz-border-radius: space(1);
+        -ms-border-radius: space(1);
+        -o-border-radius: space(1);
+    }
+
+    /* Agencement interne, indépendant de la largeur sur la grille */
+    .images-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .images-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    @media (max-width: 48em) {
+    .images-2, .images-3 { grid-template-columns: 1fr; } // empile en mobile
+    }
+// // Alternatives style inline
+// .images[data-ratio="16/9"] figure { aspect-ratio: 16/9; }
+// .images[data-ratio="4/3"]  figure { aspect-ratio: 4/3; }
+// .images[data-ratio="1/1"]  figure { aspect-ratio: 1 / 1; }
+
+// .images[data-fit="cover"]  figure > img { object-fit: cover; }
+// .images[data-fit="contain"]figure > img { object-fit: contain; }
+
+
+}

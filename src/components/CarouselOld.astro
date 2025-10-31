@@ -1,10 +1,10 @@
 ---
-// ============================================
-// Carousel.astro - Version simplifiée SANS Row/Col
-// ============================================
+import Row from './Row.astro';
+import Col from './Col.astro';
+
 export interface Props {
   folder: string;
-  width?: 'narrow' | 'medium' | 'wide' | 'full';
+  cols?: number;
   ratio?: string;
   fit?: 'cover' | 'contain';
   showCounter?: boolean;
@@ -13,22 +13,15 @@ export interface Props {
 
 const { 
   folder, 
-  width = 'wide',
+  cols = 16, 
   ratio = '16/9', 
   fit = 'cover',
   showCounter = false,
-showCaptions = false
+  showCaptions = false
 } = Astro.props;
 
-// classes utilitaires
-const widthClass = {
-  narrow: 'col-narrow',
-  medium: 'col-medium',
-  wide: 'col-wide',
-  full: 'col-full'
-}[width];
+const start = Math.ceil((24 - cols) / 2) + 1;
 
-// Import des images (même logique qu'avant)
 const all = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp}', { eager: true });
 
 function toUrl(mod: unknown): string {
@@ -47,11 +40,17 @@ const images = Object.entries(all)
   .map(([p, m]) => {
     const url = toUrl(m);
     const filename = p.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-    return url ? { src: url, alt: filename.replace(/[-_]/g, ' '), filename } : null;
+    return url ? { 
+      src: url, 
+      alt: filename.replace(/[-_]/g, ' '), 
+      filename 
+    } : null;
   })
   .filter(Boolean) as {src: string; alt: string; filename: string}[];
 
+// Tri naturel (01, 02... ou a, b, c...)
 images.sort((a, b) => a.filename.localeCompare(b.filename, undefined, { numeric: true }));
+
 // Debug serveur (optionnel - à retirer en prod)
 // if (import.meta.env.DEV) {
 //   console.log(`🎠 Carousel "${folder}": ${images.length} images`);
@@ -59,34 +58,45 @@ images.sort((a, b) => a.filename.localeCompare(b.filename, undefined, { numeric:
 ---
 
 {images.length > 0 ? (
+  <Row>
+    <Col span={cols} start={start} spanMd={22}>
+      <div 
+        class="carousel" 
+        style={`--ratio: ${ratio}; --fit: ${fit};`}
+        data-show-counter={showCounter}
+      >
+        <div class="carousel__track">
+          {images.map((img, index) => (
+            <figure class="carousel__item" key={index}>
+              <div class="carousel__media">
+                <img src={img.src} alt={img.alt} loading="lazy" />
+              </div>
+              {showCaptions && (
+                <figcaption class="carousel__caption">{img.alt}</figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
 
-  <div 
-    class={`carousel ${widthClass}`}
-    style={`--ratio: ${ratio}; --fit: ${fit}; `}
-  >
-    <div class="carousel__track">
-      {images.map((img, index) => (
-        <figure class="carousel__item" key={index}>
-          <div class="carousel__media">
-            <img src={img.src} alt={img.alt} loading="lazy" />
+        <button class="carousel__btn carousel__btn--prev" aria-label="Image précédente">
+          ‹
+        </button>
+        <button class="carousel__btn carousel__btn--next" aria-label="Image suivante">
+          ›
+        </button>
+
+        {showCounter && (
+          <div class="carousel__counter">
+            <span class="current">1</span> / <span class="total">{images.length}</span>
           </div>
-        </figure>
-      ))}
-    </div>
-    
-    <button class="carousel__btn carousel__btn--prev">‹</button>
-    <button class="carousel__btn carousel__btn--next">›</button>
-    
-    {showCounter && (
-      <div class="carousel__counter">
-        <span class="current">1</span> / <span class="total">{images.length}</span>
+        )}
       </div>
-    )}
-  </div>
+    </Col>
+  </Row>
 ) : (
-  <p class="carousel-empty">
-    Aucune image dans "{folder}"
-  </p>
+  <div class="carousel-empty">
+    <p>⚠️ Aucune image trouvée dans <code>{folder}</code></p>
+  </div>
 )}
 
 <style lang="scss">
@@ -132,7 +142,7 @@ images.sort((a, b) => a.filename.localeCompare(b.filename, undefined, { numeric:
     width: 100%;
     aspect-ratio: var(--ratio, 16/9);
     overflow: hidden;
-    border-radius: space(1);
+    border-radius: space(2);
     
     
     img {

@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "sass:map";
 // ============================================
 // VARIABLES - Breakpoints
@@ -115,7 +116,7 @@ $breakpoints: (
   @if $weight != null { font-weight: font-weight($weight); }
   @if $letter-spacing != null { letter-spacing: letter-spacing($letter-spacing); }
 }
-// ============================================x
+// ============================================
 // MIXINS - Espacements 
 // ============================================
 // Explication pas à pas :
@@ -167,3 +168,55 @@ $breakpoints: (
   }
 }
 
+// ============================================
+// MIXINS - Grid - centrage des colonnes sur la grille à N col 
+// ============================================
+@mixin heading-cols($span, $cols: 24) {
+  // start = ((cols - span) / 2) + 1 ; end = start + span
+  $start: math.div(($cols - $span), 2) + 1;
+  $end: $start + $span;
+
+  // sécurité: si pas entier, on arrondit et signale
+  @if $start != math.round($start) {
+    @warn "heading-cols(): span=#{$span} ne centre pas parfaitement sur #{$cols} colonnes. Ajustement arrondi.";
+    $start: math.round($start);
+    $end: $start + $span;
+  }
+
+  grid-column: #{$start} / #{$end};
+}
+
+
+// ============================================
+// MIXINS - Filet sous les titres 
+// ============================================
+@mixin heading-style(
+  $size,                 // ex: 4xl
+  $lh: tight,            // ta map de line-heights
+  $weight: normal,
+  $color: $indigo,
+  $mt: space(12),
+  $mb: space(4),
+  $underline: true,
+  $filet-color: $indigo-light,
+  $filet-height: 3px,
+  $filet-width: 100%,       // 100% = plein ; ex: 100px = fixe
+  $filet-centered: false    // true => centrer le filet
+) {
+  @include text($size, $lh, $weight);
+  color: $color;
+  margin-top: $mt;
+  margin-bottom: $mb;
+
+  @if $underline == true {
+    &::after{
+      content:"";
+      display:block;
+      background-color: $filet-color;
+      height: $filet-height;
+      width: $filet-width;
+      margin-top: space(5);
+      @if $filet-centered { margin-left:auto; margin-right:auto; }
+    }
+  }
+}

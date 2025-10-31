@@ -1,0 +1,90 @@
+---
+titre: "Ancienne grille (avec Col et Row)"
+baseline: "Comprendre les bases de la typographie pour mieux l'utiliser"  
+jour: 1
+ordre: 1
+miniature: "/typo/mini-typo.jpg"
+heroColor: "#2d2846" # optionnel
+heroTextColor: "white"
+headerImage: "/hero/bg-typo.png"
+points_cles:
+  - "Quelques repères chronologiques"
+  - "La classification des caractères"
+  - "Les combinaisons de polices"
+exercices: []
+---
+
+import Section from '@components/Section.astro';
+import SectionGrid from '@components/SectionGrid.astro';
+import Bandeau from '@components/Bandeau.astro';
+import Texte from '@components/Texte.astro';
+import Images from '@components/Images.astro';
+import Carousel from '@components/Carousel.astro';
+import Note from '@components/Note.astro';
+
+<SectionGrid id="histoire">
+
+## Quelques repères historiques
+Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+  <Texte withNotes="right">
+### Aux origines, la calligraphie
+    
+    Un paragraphe sur le sujet avec des détails intéressants...
+    
+    <div slot="notes-right">
+      <Note type="source">Source: Histoire de la typo, 2020</Note>
+    </div>
+  </Texte>
+
+  <Images cols={18} count={1}>
+    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  </Images>
+  <Images cols={18} count={3}>
+    <img src="/typo/accord01.jpg" alt="Calligraphie 1" />
+    <img src="/typo/accord02.png" alt="Calligraphie 2" />
+    <img src="/typo/accord03.jpg" alt="Calligraphie 3" />
+  </Images>
+
+    <Bandeau bgColor="#5d647aff" textColor="white" height="small">
+    Un bandeau
+  </Bandeau>
+
+</SectionGrid>
+
+<Section id="classification" bgColor="#f3f4f6">
+
+  <Texte>
+    ## La classification
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+    
+  ### La famille Antique
+    
+    Les éléments :
+    - Item list 1
+    - Item list 2
+    - Item list 3
+  </Texte>
+
+<Carousel folder="couleur/contraste-complementaires" cols={20} />
+<Carousel folder="couleur/contraste-clair-obscur" cols={20} />
+<Carousel folder="couleur/contraste-chaud-froid" cols={20} />
+<Carousel folder="couleur/contraste-qualite" cols={20} />
+<Carousel folder="couleur/contraste-quantite" cols={20} />
+<Carousel folder="couleur/jaune" cols={20} fit="contain" />
+<Carousel folder="couleur/bleu" cols={20} fit="contain"/>
+<Carousel folder="couleur/rouge" cols={20}fit="contain"/>
+<Carousel folder="couleur/orange" cols={20} fit="contain" />
+<Carousel folder="couleur/violet" cols={20} fit="contain"/>
+<Carousel folder="couleur/blanc" cols={20} fit="contain"/>
+<Carousel folder="couleur/noir" cols={20} fit="contain"/>
+<Carousel folder="couleur/vert" cols={20} fit="contain"/>
+
+{/* <CarouselAuto 
+  folder="couleur/contrastes"
+  captions={{
+    "complementaires.jpg": "Contraste de complémentaires : opposition maximale",
+    "simultane.jpg": "Contraste simultané : influence mutuelle des couleurs"
+  }}
+/> */}
+
+</Section>

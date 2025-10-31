@@ -1,7 +1,4 @@
 ---
-// ============================================
-// Section.astro - Container parent sémantique
-// ============================================
 export interface Props {
   id?: string;
   bgColor?: string;
@@ -25,8 +22,6 @@ const sectionStyle = {
   ...(bgImage && { backgroundImage: `url(${bgImage})` }),
   ...(textColor && { color: textColor })
 };
-
-// console.log('Section props:', { id, bgColor });
 ---
 
 <section 
@@ -34,7 +29,9 @@ const sectionStyle = {
   class={`section section--${spacing} ${customClass}`}
   style={sectionStyle}
 >
-  <slot />
+  <div class="grid-24">
+    <slot />
+  </div>
 </section>
 
 <style lang="scss">
@@ -51,5 +48,7 @@ const sectionStyle = {
 .section--none { padding-block: 0; }
 .section--small { padding-block: space(8); }
 .section--medium { @include section-spacing; }
-.section--large { padding-block: space(16); @include mq-min(md) { padding-block: space(24); }}
-</style>
+.section--large { 
+  padding-block: space(16); 
+  @include mq-min(md) { padding-block: space(24); }
+}
