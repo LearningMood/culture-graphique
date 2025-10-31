@@ -10,7 +10,8 @@ const { toc = [], offset = 0 } = Astro.props as Props;
   {toc.length === 0 ? <p class="toc-empty">—</p> : (
     <ul class="toc-list">
       {toc.map(h => (
-        <li class={'toc-item ' + (h.depth === 3 ? 'is-sub' : '')}>
+        <li class="toc-item">
+        {/* <li class={'toc-item ' + (h.depth === 3 ? 'is-sub' : '')}> */}
           <a href={`#${h.slug}`}>{h.text}</a>
         </li>
       ))}

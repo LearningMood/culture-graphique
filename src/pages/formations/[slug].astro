@@ -13,6 +13,12 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
+// Debug une fois pour voir la forme réelle
+console.log('headings:', headings);
+
+// garde uniquement les H2
+const headingsNiv2 = headings.filter(h => Number(h.depth) === 2);
+// const headingsNiv2 = headings.filter(h => h.depth === 2);
 const pageTitle = `${entry.data.titre} — Culture graphique`;
 ---
 <Base title={pageTitle}>
@@ -21,7 +27,7 @@ const pageTitle = `${entry.data.titre} — Culture graphique`;
     <meta property="og:title" content={pageTitle} />
   </fragment>
   -->
-  <Formation entry={entry} headings={headings}>
+  <Formation entry={entry} headings={headingsNiv2}>
     <Content />
   </Formation>
 </Base>

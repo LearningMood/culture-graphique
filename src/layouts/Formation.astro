@@ -1,22 +1,19 @@
 ---
-import HeaderGlobal from '../components/HeaderGlobal.astro';
-import TocNav from '../components/TocNav.astro';
 import HeroBandeau from '../components/HeroBandeau.astro';
 const { entry, headings = [] } = Astro.props;
-const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
-const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
+// const toc = headings.filter((h) => h.depth === 2 || h.depth === 3); // ancienne version || traité désormais + haut dans slug.astro
+
 
 // ✅ DEBUG : Vérifiez les données
 console.log('📄 Entry data:', {
+  toc : headings,
   titre: entry.data.titre,
   baseline: entry.data.baseline,
   headerImage: entry.data.headerImage,
   heroColor: entry.data.heroColor
 });
 ---
-<div data-toc-sentinel style="height: 50px; visibility: hidden;"></div>
 
-<TocNav toc={toc} offset={offsetTop} />
 <!-- Hero bandeau (titre + visuel optionnel) -->
 <HeroBandeau
   titre={entry.data.titre}
@@ -25,6 +22,7 @@ console.log('📄 Entry data:', {
   bgImage={entry.data.heroImage}
   headerImage={entry.data.headerImage}
   textColor={entry.data.heroTextColor || 'white'}
+  toc={headings}
 />
 
 

@@ -219,3 +219,7 @@ Exemple concret :
 <Carousel folder="logos" fit="contain" />               <!-- Letterbox -->
 <Carousel folder="photos" fit="cover" />                <!-- Crop -->
 -->
+
+<!-- MIXIN TEXT TOUT EN UN -->
+
+@include text(xs, tight, semibold, miniplus);

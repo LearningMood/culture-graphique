@@ -113,9 +113,9 @@ $breakpoints: (
   font-size: font-size($size);
   @if $lh != null { line-height: line-height($lh); }
   @if $weight != null { font-weight: font-weight($weight); }
-  @if $letter-spacing != null { letter-spacing: $letter-spacing; }
+  @if $letter-spacing != null { letter-spacing: letter-spacing($letter-spacing); }
 }
-// ============================================
+// ============================================x
 // MIXINS - Espacements 
 // ============================================
 // Explication pas à pas :

@@ -9,6 +9,7 @@
 @function font-size($key)   { @return _get($font-sizes,   $key, 'font-size'); }
 @function line-height($key) { @return _get($line-heights, $key, 'line-height'); }
 @function font-weight($key) { @return _get($font-weights, $key, 'font-weight'); }
+@function letter-spacing($key) { @return _get($letter-spacing, $key, 'letter-spacing'); }
 
 // Fonction helper Claude
 @function space($key) {

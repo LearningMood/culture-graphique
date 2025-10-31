@@ -2,39 +2,43 @@
   position: sticky;
   text-transform: uppercase;
   top: space(4);
-  background: $indigo-dark;
   color: #efeded;
-  font-family: $font-titre;
   padding: space(4);
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
-  &.is-fixed
-{
+  
+  &.is-fixed{
         position: fixed;
         top: var(--affix-offset, 0);
         left: 0;
         right: 0;
         z-index: 1000;
-        background: rgb(0, 0, 0);
-        padding: space(2) space(4); // Padding réduit quand fixé
-        font-size: 0.6rem;
-        letter-spacing: 0.1rem;
+
+        & ul.toc-list {
+          @include text(xxs, tight, semibold, maxi);
+        }
     }
 }
 
 ul.toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  justify-content: center;
-  align-items: center;
-
+  font-family: $font-titre;
+  @include text(xs, tight, normal, medium);
   // ✅ Utilisation du mixin flex-gap pour l'espacement horizontal
   @include flex-gap(3); // gap de 0.75rem entre items
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @include mq-max(md) {
+    justify-content: flex-start;
+  }
+
   
   a {
     text-decoration: none;
@@ -58,13 +62,6 @@ ul.toc-list {
   }
 }
 
-.toc-item {
-  &.is-sub a {
-    opacity: 0.8;
-    font-size: 0.85rem;
-    padding: space(1) space(2); // Padding plus petit pour les sous-items
-  }
-}
 
 // ============================================
 // Responsive avec section-spacing (optionnel)

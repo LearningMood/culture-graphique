@@ -2,6 +2,9 @@
 // ============================================
 // HeroBandeau.astro - Hero full screen
 // ============================================
+import TocNav from './TocNav.astro';
+const offsetTop = 0; // ex: hauteur de ton header fixe (ajuste sinon 0)
+
 export interface Props {
   titre: string;
   baseline?: string;
@@ -9,6 +12,7 @@ export interface Props {
   bgImage?: string;
   textColor?: string;
   headerImage?: string;
+  toc?: Array<{ depth: number; value: string; id: string }>;
 }
 
 const { 
@@ -17,7 +21,8 @@ const {
   bgColor = '#2d2846',
   bgImage,
   textColor = 'white',
-  headerImage
+  headerImage,
+  toc
 } = Astro.props;
 
 const heroStyle = {
@@ -27,8 +32,10 @@ const heroStyle = {
 };
 
 ---
+<div data-toc-sentinel style="height: 50px; visibility: hidden;"></div>
 
 <div class="hero-bandeau">
+  <TocNav toc={toc} offset={offsetTop} />
   <!-- Bandeau titre 50vh -->
   <div class="hero-bandeau__block" style={heroStyle}>
     <div class="hero-bandeau__content">
@@ -47,11 +54,12 @@ const heroStyle = {
 
 <style lang="scss">
 .hero-bandeau {
+  background: $indigo-dark;
 //   margin-top: 50px; // Compense le header fixe
   
   &__block {
     color: $indigo;
-    height: 30vh;
+    height: 50vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -59,15 +67,6 @@ const heroStyle = {
     background-position: center;
     position: relative;
     padding: 0 space(12);
-    
-    // Overlay sombre si image de fond
-    &[style*="background-image"]::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1;
-    }
   }
   
   &__content {
@@ -79,16 +78,16 @@ const heroStyle = {
   }
   
   &__titre {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 100;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 300;
     color: $indigo;
-    font-size: 5rem;
+    // font-size: 5rem;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1;
   }
   
   &__baseline {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     margin-top: space(4);
     opacity: 0.9;
     line-height: 1.5;
@@ -110,8 +109,14 @@ const heroStyle = {
   
   @include mq-max(md) {
     &__block {
-      height: 40vh;
+      height: 30vh;
+      min-height: 200px;
+      padding: space(2);
     }
+
+    &__title {
+font-size: 2rem;
+  } 
     
     &__visual {
       height: 50vh;

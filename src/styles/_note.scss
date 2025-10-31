@@ -15,7 +15,7 @@ aside.note[data-type=key]::before {
   margin: 0 0 .25rem;
   font-family: $font-titre;
   // @mixin text($size, $lh: null, $weight: null, $letter-spacing: null) {
-    @include text(xs, tight, semibold, miniplus)
+    @include text(xs, tight, semibold, medium)
 }
 
 /* notes à gauche */

@@ -22,6 +22,7 @@ $font-titre: 'neulis-sans', sans-serif;
 $font-texte: 'museo-slab', serif;
 
 $font-sizes: (
+  xxs: 0.6rem,    // 12px
   xs: 0.75rem,    // 12px
   sm: 0.875rem,   // 14px
   base: 1rem,     // 16px
@@ -40,6 +41,7 @@ $line-heights: (
 );
 
 $font-weights: (
+  light: 300,
   normal: 400,
   medium: 500,
   semibold: 600,
@@ -47,9 +49,10 @@ $font-weights: (
 );
 
 $letter-spacing: (
-  mini: .04em,
+  mini: -.04em,
   normal: 0,
-  miniplus: .04em,
+  medium: .04em,
+  maxi: .08em,
 );
 
 // ============================================
