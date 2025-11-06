@@ -1,0 +1,46 @@
+---
+// PAGE NOTION CHAPITRE
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import Formation from "@/layouts/Formation.astro";
+import Images from "@/components/Images.astro"
+
+
+export async function getStaticPaths() {
+  const entries = await getCollection("formations");
+  return entries.map((entry) => {
+    const [formation] = entry.id.split("/");
+    // entry.slug contient déjà le nom du fichier sans extension
+    const slug = entry.slug.split("/").pop(); // Prend la dernière partie
+    
+    return { 
+      params: { formation, slug }, 
+      props: { entry, formation } 
+    };
+  });
+}
+const { entry, formation } = Astro.props;
+const homeUrl = `/formations/${formation}/`; // ← URL de la home de la formation
+
+const { Content, headings } = await entry.render();
+// console.log('headings:', headings);
+
+// garde uniquement les H2
+const headingsNiv2 = headings.filter(h => Number(h.depth) === 2);
+const pageTitle = `${entry.data.titre} — ${formation.replace(/-/g, ' ')}`;  // ← Utilisez formation
+
+// ← Créez le composant Images avec basePath pré-configuré
+const imagePath = entry.data.imagePath || `/${formation}/`;
+const ImagesWithPath = (props) => Images({ ...props, basePath: imagePath });
+
+---
+<Base title={pageTitle} homeUrl={homeUrl}>
+  <!-- Tu peux injecter des metas spécifiques si besoin :
+  <fragment slot="head">
+    <meta property="og:title" content={pageTitle} />
+  </fragment>
+  -->
+  <Formation entry={entry} headings={headingsNiv2} formation={formation}>
+    <Content components={{ Images: ImagesWithPath }} />
+  </Formation>
+</Base>

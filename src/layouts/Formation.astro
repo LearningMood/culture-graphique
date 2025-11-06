@@ -1,20 +1,19 @@
 ---
 import HeroBandeau from '../components/HeroBandeau.astro';
-const { entry, headings = [] } = Astro.props;
+const { entry, headings = [], formation } = Astro.props;
 // const toc = headings.filter((h) => h.depth === 2 || h.depth === 3); // ancienne version || traité désormais + haut dans slug.astro
 
 
 // ✅ DEBUG : Vérifiez les données
-console.log('📄 Entry data:', {
-  toc : headings,
-  titre: entry.data.titre,
-  baseline: entry.data.baseline,
-  headerImage: entry.data.headerImage,
-  heroColor: entry.data.heroColor
-});
+// console.log('📄 Entry data:', {
+//   toc : headings,
+//   titre: entry.data.titre,
+//   baseline: entry.data.baseline,
+//   headerImage: entry.data.headerImage,
+//   heroColor: entry.data.heroColor
+// });
 ---
 
-<!-- Hero bandeau (titre + visuel optionnel) -->
 <HeroBandeau
   titre={entry.data.titre}
   baseline={entry.data.baseline}

@@ -1,0 +1,79 @@
+---
+// HOME D'UNE FOMRATION EN PARTICULER
+import { getCollection } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import ChapitreCard from "@/components/ChapitreCard.astro";
+
+// Ajout pour générer  une page /formations/<formation> par formation présente
+export async function getStaticPaths() {
+  const entries = await getCollection("formations");
+  const formations = Array.from(new Set(entries.map(e => e.id.split("/")[0])));
+  return formations.map((formation) => ({ 
+    params: { formation }
+  }));
+}
+// params : valeurs extraites de l'URL ([formation])
+
+const { formation } = Astro.params;  // ← Utilisez params au lieu de props
+const homeUrl = `/formations/${formation}/`; // ← Pointe vers lui-même
+const all = await getCollection("formations");
+const entries = all.filter(e => e.id.startsWith(`${formation}/`))
+  .sort((a,b) => (a.data.jour ?? 99) - (b.data.jour ?? 99) || (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
+
+const jour1 = entries.filter(e => e.data.jour === 1);
+const jour2 = entries.filter(e => e.data.jour === 2);
+---
+
+
+<Base title={`Formation — ${formation.replace(/-/g,' ')}`} homeUrl={homeUrl}>
+  <div class="home">
+    <header class="home__hero">
+      <h1>Formation {formation.replace(/-/g,' ')}</h1>
+      <p class="baseline">Les bases du langage graphique pour activer sa créativité</p>
+    </header>
+    <main id="programme">
+      { jour1.length > 0 && (
+        <section id="jour1" class="container container--maxi">
+          <div class="home__programme">
+            <h4 class="home__programme__label">Le programme</h4>
+            <h5 class="info-jour">Jour 1</h5>
+            <h1 class="home__programme__titre">Enrichir son langage visuel</h1>
+          </div>
+
+        { jour1.map((entry) => (
+          <ChapitreCard
+          href={`/formations/${formation}/${entry.slug.split("/").pop()}/`}
+            //  href={`/formations/${formation}/${entry.slug}/`}
+            // href={`/formations/${entry.slug}/`}  
+            miniature={entry.data.miniature}
+            titre={entry.data.titre}
+            points={entry.data.points_cles}
+            exercices={entry.data.exercices}
+          />
+        ))}
+      </section>
+      )}
+
+      { jour2.length > 0 && ( 
+        <section id="jour1" class="container container--maxi">
+          <div class="home__programme">
+            <h5 class="info-jour">Jour 2</h5>
+            <h1 class="home__programme__titre">Produire &amp; communiquer ses idées</h1>  
+          </div>
+
+          {jour2.map((entry) => (
+            <ChapitreCard
+               href={`/formations/${formation}/${entry.slug}/`}
+              miniature={entry.data.miniature}
+              titre={entry.data.titre}
+              points={entry.data.points_cles}
+              exercices={entry.data.exercices}
+            />
+          ))}
+        </section>
+      )}
+
+
+      </main>
+  </div>
+</Base>

@@ -1,3 +1,6 @@
+.grid {
+    display: grid;
+}
 // ============================================
 // GRILLE 24 COLONNES
 // ============================================
@@ -42,8 +45,7 @@
     }
 
     // Titres H3 : 10-20
-    >h3,
-    >.h3 {
+    >h3 {
         // grid-column: 8 / 19;
         // @include text(2xl, tight, medium );
         @include heading-cols(12);
@@ -62,12 +64,18 @@
             // si tu ne veux pas centrer en mobile
         }
     }
+    >h4 {
+        @include heading-cols(12);
+        @include heading-style(xl, tight, medium, $indigo-dark, space(20), space(3), true, $tomato-light, 2px, 30px, false);
+        text-align: left;
+    }
 
     // Paragraphes : 8-18
     >p,
     >.text {
         // grid-column: 7 / 19;
         @include heading-cols(12);
+        text-align: justify;
         line-height: 1.7;
         color: #374151;
         margin-bottom: space(4);
@@ -81,13 +89,14 @@
     >ul,
     >ol {
         // grid-column: 8 / 19;
-        @include heading-cols(8);
+        @include heading-cols(10);
         line-height: 1.7;
         padding-left: space(6);
         margin-bottom: space(4);
 
         li {
             margin-bottom: space(2);
+            padding-left: space(4);
         }
 
         @include mq-max(md) {

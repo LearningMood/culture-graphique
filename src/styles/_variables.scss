@@ -78,6 +78,7 @@ $spacing: (
   20: $spacing-base * 20,    // 5rem    = 80px
   24: $spacing-base * 24,    // 6rem    = 96px
   32: $spacing-base * 32,    // 8rem    = 128px
+  40: $spacing-base * 40,    // 10rem    = 160px
 );
 
 //// Aliases sémantiques pour les cas courants
@@ -95,8 +96,11 @@ $indigo: #7694c7;
 $indigo-light: #becde5;
 $indigo-dark: #2d2846;
 
+$rose: #eb7777;
+$jour-1: $rose;
+
 $tomato-light: #fba494;
 $tomato: tomato;
 $gris-pale: #efeded;
 $gris-moyen: #b4b4b4;
-$gris-darl: #4a4a4a;
+$gris-dark: #3b3b3b;

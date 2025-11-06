@@ -19,6 +19,10 @@
   }
 }
 
+.note[data-type="definition"] {
+  background-color: #ffeff7;
+}
+
 
 .note[data-type=source]::before,
 .note[data-type=comment]::before,
@@ -35,14 +39,18 @@
 .note[data-type="key"] { grid-column: 1 / 5; align-self: start; }
 
 /* sources à droite */
-.note[data-type="source"] { grid-column: 21 / 25; align-self: end; }
+.note[data-type="source"],
+.note[data-type="definition"] { 
+  grid-column: 21 / 25; 
+  align-self: end; 
+}
 
 //  Le type de note
 .note[data-type=source]::before {
   content: "source :";
 }
 .note[data-type=comment]::before {
-  content: "remarque :";
+  content: var(--initule-note); // toDo
 }
 .note[data-type=key]::before {
   content: "chiffre-clé :";

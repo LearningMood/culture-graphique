@@ -4,3 +4,8 @@ h3, .h3 { @include heading(3); }
 h4, .h4 { @include heading(4); }
 h5, .h5 { @include heading(5); }
 h6, .h6 { @include heading(6); }
+
+.heading-filet {
+    @include heading-style(4xl, tight, normal, $indigo, space(4), space(4), true, $indigo-light, 3px, 100%, false);
+    width: 100%;
+}

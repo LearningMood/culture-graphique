@@ -1,7 +1,21 @@
 ---
 import '../styles/index.scss';// <-- import SCSS unique | Astro génére les <link> optimisés automatiquement
 import HeaderGlobal from '../components/HeaderGlobal.astro';
-const { title = 'Culture graphique' } = Astro.props;
+
+export interface Props {
+  title: string;
+  homeUrl?: string;
+}
+
+const { title, homeUrl = '/' } = Astro.props;
+
+// Détection automatique si pas spécifié
+const currentPath = Astro.url.pathname;
+const autoHomeUrl = currentPath.match(/^\/formations\/([^\/]+)/)
+  ? `/formations/${currentPath.match(/^\/formations\/([^\/]+)/)[1]}/`
+  : '/';
+
+const finalHomeUrl = homeUrl ?? autoHomeUrl;
 ---
 <html lang="fr">
   <head>
@@ -11,7 +25,7 @@ const { title = 'Culture graphique' } = Astro.props;
     <slot name="head" /> <!-- pour ajouter des metas/links spécifiques -->
   </head>
   <body>
-    <HeaderGlobal logoSrc="/favicon-tatziki.svg" homeUrl="/" />
+    <HeaderGlobal logoSrc="/favicon-tatziki.svg" homeUrl={homeUrl} />
     <slot /> <!-- le contenu des pages -->
   </body>
 </html>

@@ -1,0 +1,113 @@
+---
+titre: "Les théories et lois en ergonomie"
+jour: 1
+ordre: 2
+miniature: "/vignettes/couleur.jpg"
+heroColor: "#2d2846" # optionnel
+heroTextColor: "white"
+headerImage: "/hero/ux-design/bandeau-ergonomie.jpg"
+folder: "/ux-design/lois-theories-ergonomie/"
+points_cles:
+  - "Quelques repères chronologiques"
+  - "La classification des caractères"
+  - "Les combinaisons de polices"
+exercices: []
+
+---
+import Section from '@components/Section.astro';
+import Bandeau from '@components/Bandeau.astro';
+import Texte from '@components/Texte.astro';
+import Images from '@components/Images.astro';
+import Carousel from '@components/Carousel.astro';
+import Note from '@components/Note.astro';
+
+<Section id="loi-hick">
+
+## La loi de Hick & le nombre magique de Miller
+
+<Note type="comment">La loi de Hick (ou loi de Hick-Hyman) a été théorisée par William Edmund Hick et Ray Hyman en 1951.</Note>
+
+Les mécanismes de la prise de décision font l’objet d’études scientifiques depuis de longues années.
+La loi de Hick établit que le temps nécessaire à une personne pour prendre une décision parmi N alternatives augmente de façon logarithmique avec le nombre de choix possibles. Autrement dit, plus il y a d’options, plus le temps de décision augmente, mais cette augmentation n’est pas linéaire : chaque option supplémentaire allonge de moins en moins le temps de réponse.
+
+<Note type="definition">*Logarithmique = forte augmentation initiale, puis moindre ensuite.</Note>
+
+En parallèle, la loi de Miller (1956) indique que notre capacité de mémorisation à court terme se limite en moyenne à 7 ± 2 éléments simultanés.
+
+<Images folder={frontmatter.folder} cols={2} width="wide" ratio="4/3" fit="cover"
+src={[
+    "hick-cockpit.jpg",
+    "hick-formule.jpg"
+  ]}
+  alt={[
+    "Cockpit & Loi de Hick-Hyman",
+    "Formule de la loi Hick-Hyman"
+  ]}
+/>
+
+
+### Interprétation UX :
+
+ - Plus il y a de choix, plus le temps de décision augmente.
+ - Ajouter un choix à une courte liste ralentit davantage l’utilisateur que l’ajout d’un choix à une longue liste déjà établie.
+ - Face à trop d’options, les utilisateurs "regroupe" mentalement les choix sous forme d’arborescences thématiques pour décider plus efficacement.
+ - Les interfaces qui organisent et hiérarchisent les options réduisent donc la surcharge cognitive et accélèrent la décision. longue
+
+
+### La simplification : une stratégie UX clé
+Réduire le nombre de choix présentés améliore la rapidité et la satisfaction décisionnelle de l’utilisateur.
+
+#### Simplifier la navigation
+<Images folder={frontmatter.folder} cols={2} width="wide" fit="contain"
+  src={[
+    "hick-larochelle-menu-light.jpg",
+    "hick-larochelle-menu-full.jpg"
+  ]}
+  alt={[
+    "Menu La Rochelle version light",
+    "Menu La Rochelle version complète"
+  ]}
+/>
+
+ - Catégorisez avec soin votre navigation principale, pour proposer un premier niveau clair et minimal.
+ - Rendez visible et accessible le champ de recherche sur toutes les pages.
+ - Mettez en avant les produits ou contenus phares, et proposez les secondaires dans un second temps.
+
+#### Simplifier la sélection
+<Images folder={frontmatter.folder} cols={3} width="wide" ratio="4/3" fit="cover"
+  src={[
+    "miller-android.jpg",
+    "hick-netflix-custom.jpg",
+    "hick-apple-music.jpg"
+  ]}
+  alt={["réduction des choix chez Android", "Affinage chez Netflix", "Sélection musicla epour Apple Music"]}
+/>
+ - Offrez des filtres pertinents (prix, couleur, marque, avis clients…) pour aider l’utilisateur à réduire son champ de choix.
+ - Présentez les résultats par défaut selon des critères de popularité ou de pertinence.
+ - Limitez les informations visibles au strict nécessaire : mieux vaut un tri progressif qu’une liste exhaustive.
+
+#### Simplifier l’achat
+<Images folder={frontmatter.folder} cols={2} width="medium"
+src={["hick-asos.jpg", "hick-gamesgo.png"]}
+alt={["Connexion simplifié chez Asos", "Différentes options de connexion chez GamesGo"]} />
+
+ - Permettez la création de compte rapide (connexion sociale, préremplissage des champs).
+ - Conservez une option d’achat invité pour réduire la friction.
+ - Mémorisez les préférences et coordonnées pour accélérer les commandes suivantes.
+
+#### Simplifier le paiement
+<Images folder={frontmatter.folder} src="hick-london-theatre.jpg" alt="Connexion simplifiée chez Asos" width="wide" />
+<Note type="comment">Ne contraignez pas votre visiteur en lui imposant prématurément une inscription .</Note>
+ - Proposez des moyens de paiement familiers et sécurisants (PayPal, Apple Pay, etc.).
+ - Préremplissez automatiquement les champs lorsque cela est possible.
+ - Mettez en avant les signaux de confiance (logos, mentions légales, protocole sécurisé).
+
+Le principe de Hick est couramment appliqué en design UX.
+Un nombre réduit d’options facilite la mémorisation, accélère la prise de décision, et diminue le risque d’erreur.
+L’enjeu n’est pas seulement de réduire les choix, mais de structurer la décision :
+
+guider l’utilisateur par étapes, catégoriser, filtrer et hiérarchiser pour rendre la complexité acceptable.
+</Section>
+
+<Images width="narrow" fit="contain" src="hick-cockpit.jpg" alt="Cockpit & Loi de Hick-Hyman " />
+

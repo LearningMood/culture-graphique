@@ -1,59 +1,66 @@
 ---
+import Base from "@/layouts/Base.astro";
 import { getCollection } from "astro:content";
-import Base from "../layouts/Base.astro";
-const pageTitle = 'Accueil — Culture graphique';
-import ChapitreCard from "../components/ChapitreCard.astro";
-
 
 const all = await getCollection("formations");
-const byJour = (n: 1|2) =>
-  all.filter(f => f.data.jour === n)
-     .sort((a,b) => (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
-const jour1 = byJour(1);
-const jour2 = byJour(2);
+const meta = await getCollection("formationsMeta");
+
+const byFormation = all.reduce((acc, e) => {
+  const formation = e.id.split('/')[0];
+  (acc[formation] ||= []).push(e);
+  return acc;
+}, {} as Record<string, typeof all>);
+
+const cards = meta.map(m => {
+  const formation = m.data.formation;
+  const entries = (byFormation[formation] || []).sort((a,b) =>
+    (a.data.ordre ?? 99) - (b.data.ordre ?? 99)
+  );
+
+  let modules = entries.slice(0,3);
+  if (m.data.chapitres_mis_en_avant?.length) {
+    const set = new Set(m.data.chapitres_mis_en_avant);
+    modules = entries.filter(e => set.has(e.slug)).slice(0,3);
+  }
+
+  return {
+    url: `/formations/${formation}/`,
+    titre: m.data.titre,
+    couverture: m.data.couverture,
+    resume: m.data.resume,
+    modules
+  };
+});
 ---
 
-<Base title={pageTitle}>
-  <main class="page-accueil">
-    <section id="programme">
-      <div id="jour1" class="container container-jour">
-        <div class="bloc-titre-section-home">
-          <h4 class="titre-section-home">Le programme</h4>
-          <h2 class="titre-etape">Jour 1.</h2>
-          <h1 class="titre-jour">Enrichir son langage visuel</h1>
-        </div>
+<Base title="Toutes les formations">
+  <main class="catalogue-formations">
+    <div class="container">
+        <h1>Toutes les formations</h1>
 
-        <div class="container-mini">
-          {jour1.map((entry) => (
-      <ChapitreCard
-        href={`/formations/${entry.slug}/`}   // <= entry.slug, pas data.slug
-        miniature={entry.data.miniature}
-        titre={entry.data.titre}
-        points={entry.data.points_cles}
-        exercices={entry.data.exercices}
-      />
-    ))}
-        </div>
-      </div>
-
-      <div id="jour2" class="container container-jour">
-        <div class="bloc-jour">
-          <h2 class="titre-etape">Jour 2.</h2>
-          <h1 class="titre-jour">Produire &amp; communiquer ses idées</h1>
-        </div>
-
-        <div class="container-mini">
-          {jour2.map((entry) => (
-            <ChapitreCard
-              href={`/formations/${entry.slug}/`}
-              miniature={entry.data.miniature}
-              titre={entry.data.titre}
-              points={entry.data.points_cles}
-              exercices={entry.data.exercices}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+        <ul class="catalogue-grid">
+        {cards.map(c => (
+            <li class="formation-card">
+            <a class="cover" href={c.url}>
+                <img src={c.couverture} alt={`Couverture ${c.titre}`} loading="lazy" />
+            </a>
+            <h2><a href={c.url}>{c.titre}</a></h2>
+            {c.resume && <p class="teaser">{c.resume}</p>}
+            <ul class="chapters">
+                {c.modules.map(m => (
+                <li><a href={`${c.url}${m.slug}/`}>{m.data.titre}</a></li>
+                ))}
+            </ul>
+            </li>
+        ))}
+        </ul>
+    </div>
   </main>
 </Base>
+<style>
+
+.catalogue-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:2rem; list-style: none;}
+.formation-card{background:#fff;border-radius:4px;box-shadow:0 6px 16px rgba(0,0,0,.06);padding:1rem}
+.cover img{width:100%;height:380px;object-fit:cover;border-radius:4px; margin-bottom: 2rem;}
+.chapters{margin:.75rem 0 0;padding:0 1rem;list-style:disc}
+</style>

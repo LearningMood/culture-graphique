@@ -10,8 +10,11 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
+        '@': '/src', // <-- racine
         '@styles': '/src/styles',
         '@components': '/src/components',
+        '@layouts': '/src/layouts',
+        '@content': '/src/content',
       }
     },
     css: {

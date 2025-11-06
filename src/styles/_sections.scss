@@ -18,7 +18,7 @@ article {
 }
 section.chapitre {
   @include section-spacing;
-    @include stack(12); // 1.5rem entre paragraphes
+  @include stack(12); // 1.5rem entre paragraphes
 }
 
 /* par défaut (mobile): tout en pile */

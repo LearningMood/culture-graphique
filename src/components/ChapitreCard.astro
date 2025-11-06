@@ -14,8 +14,8 @@ const { href, miniature, alt, titre, points, exercices = [] } = Astro.props as {
   </a>
 
   <div class="chapitre-infos">
-    <a href={href}><h2 class="titre-chapitre">{titre}</h2></a>
-    <ul class="list-points-cles">
+    <a href={href}><h2 class="chapitre-titre">{titre}</h2></a>
+    <ul class="chapitre-points-cles">
       {points.map((p) => <li>{p}</li>)}
     </ul>
   </div>

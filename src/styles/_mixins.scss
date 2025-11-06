@@ -150,7 +150,6 @@ $breakpoints: (
   gap: space($space);
 }
 
-
 // SECTION-SPACING
 // padding-block = raccourci pour padding-top + padding-bottom
 // Mobile : space(12) = 3rem = 48px
@@ -171,7 +170,7 @@ $breakpoints: (
 // ============================================
 // MIXINS - Grid - centrage des colonnes sur la grille à N col 
 // ============================================
-@mixin heading-cols($span, $cols: 24) {
+@mixin heading-cols($span, $cols: 24) { // le tout sur 24
   // start = ((cols - span) / 2) + 1 ; end = start + span
   $start: math.div(($cols - $span), 2) + 1;
   $end: $start + $span;

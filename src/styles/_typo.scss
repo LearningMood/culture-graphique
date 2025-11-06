@@ -10,3 +10,7 @@ p{
     text-shadow: none;
     color: #fff;
 }
+
+::marker {
+    color: $tomato;
+}

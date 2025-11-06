@@ -15,8 +15,9 @@ const formations = defineCollection({
       href: z.string().url(),
       image: z.string(),
     })).default([]),
+    folder: z.string().optional(),
 
-    // ✅ HERO - Ajoutez ces lignes
+    // ✅ HERO
     heroColor: z.string().optional(),
     heroImage: z.string().optional(),
     heroTextColor: z.string().optional(),
@@ -26,4 +27,15 @@ const formations = defineCollection({
   }),
 });
 
-export const collections = { formations };
+const formationsMeta = defineCollection({
+  type: 'data',
+  schema: z.object({
+    formation: z.string(),             // "culture-graphique"
+    titre: z.string(),                 // "Culture graphique"
+    couverture: z.string(),      // "/img/covers/culture-graphique.jpg"
+    resume: z.string().optional(),
+    chapitres_mis_en_avant: z.array(z.string()).optional(), // slugs des chapitres
+  }),
+});
+
+export const collections = { formations, formationsMeta };
