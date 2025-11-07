@@ -3,8 +3,13 @@
 import { getCollection } from "astro:content";
 import Base from "@/layouts/Base.astro";
 import Formation from "@/layouts/Formation.astro";
-import Images from "@/components/Images.astro"
-
+import ImagesWithContext from "@/components/ImagesWithContext.astro";
+import Note from '@/components/Note.astro';
+import Exercice from "@/components/Exercice.astro";
+import Section from '@components/Section.astro';
+import Bandeau from '@components/Bandeau.astro';
+import Texte from '@components/Texte.astro';
+import Carousel from '@components/Carousel.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection("formations");
@@ -12,10 +17,10 @@ export async function getStaticPaths() {
     const [formation] = entry.id.split("/");
     // entry.slug contient déjà le nom du fichier sans extension
     const slug = entry.slug.split("/").pop(); // Prend la dernière partie
-    
-    return { 
-      params: { formation, slug }, 
-      props: { entry, formation } 
+
+    return {
+      params: { formation, slug },
+      props: { entry, formation },
     };
   });
 }
@@ -26,14 +31,16 @@ const { Content, headings } = await entry.render();
 // console.log('headings:', headings);
 
 // garde uniquement les H2
-const headingsNiv2 = headings.filter(h => Number(h.depth) === 2);
-const pageTitle = `${entry.data.titre} — ${formation.replace(/-/g, ' ')}`;  // ← Utilisez formation
+const headingsNiv2 = headings.filter((h) => Number(h.depth) === 2);
+const pageTitle = `${entry.data.titre} — ${formation.replace(/-/g, " ")}`; // ← Utilisez formation
 
-// ← Créez le composant Images avec basePath pré-configuré
-const imagePath = entry.data.imagePath || `/${formation}/`;
-const ImagesWithPath = (props) => Images({ ...props, basePath: imagePath });
+// Injecter le contexte
+const imagePath = entry.data.folder || `/${formation}/`;
+Astro.locals = Astro.locals || {};
+Astro.locals.imageContext = { folder: imagePath };
 
 ---
+
 <Base title={pageTitle} homeUrl={homeUrl}>
   <!-- Tu peux injecter des metas spécifiques si besoin :
   <fragment slot="head">
@@ -41,6 +48,15 @@ const ImagesWithPath = (props) => Images({ ...props, basePath: imagePath });
   </fragment>
   -->
   <Formation entry={entry} headings={headingsNiv2} formation={formation}>
-    <Content components={{ Images: ImagesWithPath }} />
+    <Content components={{ 
+      Bandeau: Bandeau,
+      Section: Section,
+      Texte: Texte,
+      Carousel: Carousel,
+      Images: ImagesWithContext,
+      Note: Note,
+      Exercice: Exercice
+    }} />
   </Formation>
 </Base>
+

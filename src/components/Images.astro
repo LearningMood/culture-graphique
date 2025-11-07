@@ -1,18 +1,18 @@
 ---
 // ============================================
-// Images.astro - Grille d'images
+// Images.astro - Grille d'images avec lightbox
 // ============================================
 
 export interface Props {
-  src?: string | string[];     // un ou plusieurs chemins d'images
-  alt?: string | string[];     // texte(s) alternatif(s)
-  caption?: string | string[]; // légende(s) optionnelle(s)
-  folder?: string;           // chemin de base (ex: "/ux-design/lois-theories-ergonomie/")
+  src?: string | string[];
+  alt?: string | string[];
+  caption?: string | string[];
+  folder?: string;
   cols?: 1 | 2 | 3;
   width?: 'narrow' | 'medium' | 'wide' | 'full';
   ratio?: string;
   fit?: 'cover' | 'contain';
-  clickable?: boolean;         // rendre les images cliquables (défaut: true)
+  clickable?: boolean;
 }
 
 const { 
@@ -24,7 +24,7 @@ const {
   width = 'medium', 
   ratio = null, 
   fit = 'cover',
-  clickable = true         // rendre les images cliquables (défaut: true)
+  clickable = true
 } = Astro.props;
 
 // Classes utilitaires
@@ -35,7 +35,6 @@ const widthClass = {
   full: 'col-full'
 }[width];
 
-// Pour cumuler les classes si col-2 ou 3
 const colClass = `${widthClass} ${cols > 1 ? `images-${cols}` : ''}`.trim();
 
 // Normaliser en tableaux
@@ -43,58 +42,44 @@ const sources = Array.isArray(src) ? src : src ? [src] : [];
 const alts = Array.isArray(alt) ? alt : [alt];
 const captions = caption ? (Array.isArray(caption) ? caption : [caption]) : [];
 
-const normalizeBase = (s: string) => {
-  if (!s) return '';
-  const start = s.startsWith('/') ? s : `/${s}`;
-  return start.endsWith('/') ? start : `${start}/`;
-};
-
-const base = normalizeBase(folder);
-// Fonction helper pour construire le chemin complet
+// Construire le chemin complet
 const getFullPath = (path: string) => {
-  // Si déjà absolu (/...), on garde tel quel
   if (path.startsWith('/')) return path;
-  // Sinon on préfixe avec le base normalisé
-  return `${base}${path}`;
+  return `${folder}${path}`;
 };
-
-
-// Modèle Mdx
-// <Images cols={2} width="wide" fit="contain"
-//   src={[
-//     "hick-larochelle-menu-light.jpg",
-//     "hick-larochelle-menu-full.jpg"
-//   ]}
-//   alt={[
-//     "Menu La Rochelle version light",
-//     "Menu La Rochelle version complète"
-//   ]}
-//   caption={[
-//     "Version simplifiée",
-//     "Version complète"
-//   ]}
-// />
 ---
 
 <div class={`images ${colClass}`} style={`--ratio: ${ratio}; --fit: ${fit}`}>
-  {sources.map((imgSrc, i) => (
-    <figure>
-      { clickable ? ( 
-        <a href={getFullPath(imgSrc)} class="image-lightbox" data-alt={alts[i] || alts[0] || ''}>
-          <img src={getFullPath(imgSrc)} 
-          alt={alts[i] || alts[0] || ''} 
-          />
-        </a>
-      ) : ( 
-        <img src={getFullPath(imgSrc)} 
-          alt={alts[i] || alts[0] || ''} 
-        />
-      )}
-
-      {captions[i] && <figcaption>{captions[i]}</figcaption>}
-    </figure>
-  ))}
+  {sources.map((imgSrc, i) => {
+    const fullPath = getFullPath(imgSrc);
+    const altText = alts[i] || alts[0] || '';
+    const captionText = captions[i] || (i === 0 && captions[0]) || null;
+    
+    return (
+      <figure>
+        {clickable ? (
+          <a href={fullPath} class="image-lightbox" data-alt={altText}>
+            <img src={fullPath} alt={altText} />
+          </a>
+        ) : (
+          <img src={fullPath} alt={altText} />
+        )}
+        {captionText && <figcaption>{captionText}</figcaption>}
+      </figure>
+    );
+  })}
 </div>
+
+<style>
+  .image-lightbox {
+    display: block;
+    cursor: zoom-in;
+  }
+  
+  .image-lightbox:hover {
+    opacity: 0.9;
+  }
+</style>
 
 <script>
   document.addEventListener('click', (e) => {
@@ -119,21 +104,21 @@ const getFullPath = (path: string) => {
     document.body.appendChild(lightbox);
     document.body.style.overflow = 'hidden';
     
-    // Fermer au clic
+    // Fermer au clic ou Échap
+    const close = () => {
+      lightbox.remove();
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+    
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox || (e.target as HTMLElement).classList.contains('lightbox-close')) {
-        lightbox.remove();
-        document.body.style.overflow = '';
+        close();
       }
     });
     
-    // Fermer avec Échap
     const closeOnEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        lightbox.remove();
-        document.body.style.overflow = '';
-        document.removeEventListener('keydown', closeOnEscape);
-      }
+      if (e.key === 'Escape') close();
     };
     document.addEventListener('keydown', closeOnEscape);
   });

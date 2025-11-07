@@ -17,9 +17,8 @@ exercices: []
 import Section from '@components/Section.astro';
 import Bandeau from '@components/Bandeau.astro';
 import Texte from '@components/Texte.astro';
-import Images from '@components/Images.astro';
 import Carousel from '@components/Carousel.astro';
-import Note from '@components/Note.astro';
+
 
 <Section id="histoire">
 
@@ -36,19 +35,14 @@ Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor 
     📚 Johannes Itten, *Art de la couleur*, 1961
   </Note>
   {/* <!-- Image étroite --> */}
-  <Images width="narrow" fit="contain">
-    <img src="/typo/accord02.png" alt="Exemple étroit" />
-  </Images>
+  <Images width="narrow" fit="contain"/>
   
   {/* <!-- Image medium --> */}
-  <Images width="medium">
-    <img src="/typo/accord01.jpg" alt="Exemple moyen" />
-  </Images>
+  <Images width="medium" />
   
   {/* <!-- Image large --> */}
-  <Images width="wide">
-    <img src="/typo/accord02.png" alt="Exemple large" />
-  </Images>
+  <Images width="wide"/>
+
 </Section>
 
 <Section id="couleurs" bgColor="#f3f4f6">
@@ -59,32 +53,8 @@ Un paragraphe sur le sujet avec des détails intéressants... Lorem ipsum dolor 
 <Note type="comment">
     💭 La théorie des couleurs date du 18ème siècle
   </Note >
-<Images cols={2} width="narrow" ratio="4/3" fit="cover">
-    <figure>
-      <img src="/typo/accord02.png" alt="Visuel couleur" />
-      <figcaption>La légende de mon image</figcaption>
-    </figure>
-    <figure>
-      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
-      <figcaption>lalégende de mon image</figcaption>
-    </figure>
-  </Images>
-
-  <Images cols={3} width="wide" ratio="16/9" fit="cover">
-    <figure>
-      <img src="/typo/accord02.png" alt="Visuel couleur" />
-      <figcaption>La légende de mon image</figcaption>
-    </figure>
-    <figure>
-      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
-      <figcaption>lalégende de mon image</figcaption>
-    </figure>
-    <figure>
-      <img src="/typo/accord03.jpg" alt="Visuel Couleur" />
-      <figcaption>lalégende de mon image</figcaption>
-    </figure>
-  </Images>
-
+<Images cols={2} width="narrow" ratio="4/3" fit="cover"/>
+  <Images cols={3} width="wide" ratio="16/9" fit="cover" />
 
 ## Combiner les couleurs
 <Carousel folder="couleur/contraste-complementaires" width="wide" />

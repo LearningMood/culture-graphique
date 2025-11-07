@@ -68,6 +68,16 @@
         @include heading-cols(12);
         @include heading-style(xl, tight, medium, $indigo-dark, space(20), space(3), true, $tomato-light, 2px, 30px, false);
         text-align: left;
+
+        @include mq-max(md) {
+            grid-column: 1 / -1;
+            font-size: 1rem; 
+
+            &::after {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
     }
 
     // Paragraphes : 8-18
@@ -155,6 +165,7 @@ Elles n’écrivent jamais grid-column*/
     .images {
         display: grid;
         gap: clamp(.75rem, 2vw, 1.25rem);
+        margin-bottom: space(16);
 
         figure {
             margin: 0;

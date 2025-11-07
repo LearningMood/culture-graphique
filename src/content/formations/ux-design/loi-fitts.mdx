@@ -1,0 +1,109 @@
+---
+titre: "La loi Fitts"
+baseline: "Les mathématiques & l'ergonomie industrielle au service des dispositifs interactifs..."
+jour: 1
+ordre: 2
+miniature: "/vignettes/lois-ergonomie.jpg"
+heroColor: "#2d2846" # optionnel
+heroTextColor: "white"
+headerImage: "/hero/ux-design/bandeau-ergonomie.jpg"
+folder: "/ux-design/lois-theories-ergonomie/"
+points_cles:
+  - "Quelques repères chronologiques"
+  - "La classification des caractères"
+  - "Les combinaisons de polices"
+exercices: []
+
+---
+
+<Section id="fitts">
+## La loi de Fitts
+<Note type="comment">Le psychologue et ingénieur Paul Fitts (1912–1965) publie en 1954 sa théorie sur la « mécanique humaine du mouvement visé ».</Note>
+
+La loi de Fitts est une loi mathématique initialement développée pour modéliser le temps nécessaire à un mouvement humain dirigé vers une cible, en fonction de la distance à parcourir et de la taille de cette cible. Formulée à l’origine pour mesurer les performances humaines en ergonomie industrielle, elle s’applique aujourd’hui à tous les gestes de sélection dans les interfaces numériques (clic, tap, appui, défilement…).
+<Images cols={3} src={["fitts-cover-etude.jpg", "fitts-illustration.jpg", "fitts-NNG.jpg"]} alt="Formule de Fitts" width="full" />
+
+En UX, cette loi sert de modèle prédictif fiable pour concevoir des interfaces où les actions sont rapides et faciles à réaliser :
+
+### La taille des éléments cliquables
+
+**Taille plus grande = cible plus rapide.**  
+Les éléments cliquables doivent être suffisamment grands pour être aisément atteints, surtout sur mobile ou tablette. Une surface tactile minimale (44×44 px selon Apple, 48×48 selon Microsoft) garantit une bonne accessibilité et réduit les erreurs de pointage.
+
+<Note type="good">Bon réflexe UX : élargir la zone réactive d’un élément, pas forcément son icône visible.</Note>
+<Images src="fitts-materiel-design-size.jpg" width="wide" />
+
+### La distance entre l’attention et l’action
+
+**Distance réduite = interaction plus rapide.**  
+Le temps de mouvement dépend aussi de la distance entre la zone d’attention visuelle et la cible d’action. Plus un élément est proche du point de départ du geste (curseur ou doigt), plus le temps nécessaire pour l’atteindre est court. Cela justifie que l'on place préférentiellement dans les interfaces, les éléments essentiels à proximité du point de départ naturel (pixel principal)  du curseur ou du doigt.​
+
+<Note type="good">Exemple : placer le bouton “Envoyer” juste sous le champ de message plutôt qu’en bas de page.</Note>
+
+<Carousel folder="ux-design/typologie-diagnostic" width="full" fit="contain"/>
+
+### Les regroupements thématiques
+<Note type="comment">La théorie de la Gestalt (« forme » en allemand) est née au début du XXe siècl et se situe à la jonction de la psychologie et de philosophie proposée.</Note>
+
+**Les éléments liés doivent être regroupés spatialement.**  
+La loi de Fitts partage un principe fondamental avec la théorie de la Gestalt : la proximité spatiale favorise l’association mentale immédiate. Regrouper visuellement les objets appartenant à une même catégorie facilite leur reconnaissance et réduit le temps et l’effort nécessaires pour interagir avec eux : la distance de déplacement (curseur ou doigt) diminue, tout comme la charge cognitive de l’utilisateur.
+
+<Images src="fitts-miro-outils.png" width="wide" caption={"Material design de Google"}/>
+
+
+### La zone de confort & pixel principal
+<Note type="good">Bon réflexe UX : placer les commandes fréquentes dans la zone de confort (bas-centre sur mobile, haut-gauche sur desktop).</Note>
+
+**Les zones de confort pour les actions essentielles**
+La zone de confort est un concept dérivé qui désigne la partie de l’écran dans laquelle l’utilisateur peut effectuer des actions avec un effort minimal. Cette zone dépend des spécificités de l’appareil (taille, ergonomie), de la main dominante ou encore de la posture. 
+Sur mobile, la zone privilégiée est celle facilement atteignable par le pouce en position naturelle (souvent le bas-centre ou bas-droit/gauche, selon la prise en main).
+
+<Images cols={2} width="wide"
+src={["fitts-pixel-principal.jpg", "fitts-zones-confort.jpg"]}
+alt={["Loi de Fitts et concept de pixel principal", "Fitts et les zones de confort"]}
+/>
+
+ - Les coins et bords d’écran (le curseur “s’arrête” naturellement) ;
+ - Le point initial du curseur ou initial du curseur ou du doigt, autour duquel se concentre la zone de confort
+
+
+### Synthese
+La loi de Fitts rappelle que l’efficacité d’une interface dépend autant de la disposition spatiale que du contenu.
+En UX, elle fournit une base rationnelle pour définir :
+ - La taille minimale des éléments interactifs
+ - Leur emplacement stratégique
+
+En combinant la connaissance du contexte d’usage et la définition claire des objectifs de chaque page, le designer s'attèle à modéliser une interface à la fois rapide, intuitive et confortable.
+
+</Section>
+
+<Exercice
+  type="atelier"
+  tone="emerald"
+  bg="soft"
+  titre="Mini challenge Hick"
+  href="https://miro.com/app/board/uXjVJu4nJhw=/?share_link_id=225808892341"
+  label="Accéder l’atelier"
+  image="/exercices/ex-mini-challenge-hick-miller.jpg"
+  ratio="4/3"
+  align="right"
+>
+ **Objectifs :**
+Identifier comment réduire la complexité perçue du choix et faciliter la décision d’achat, en appliquant les principes de Hick (nombre de choix) et Miller (capacité limitée de mémorisation).
+
+**Étape 1 : les situations**
+
+Une liste de 6 situations d’hésitation ou de surcharge au moment de l’achat.
+Pour chacune, proposez une solution UX qui réduit soit :
+ - le nombre de décisions à prendre (Hick),
+ - soit la quantité d’informations à retenir simultanément (Miller).
+
+ **Étape 2 : Pitch-éclair**
+
+Présentez vos 3 meilleures solutions en 1 minute chacune : “Quelle décision l’utilisateur devait-il prendre ? Comment l’avons-nous simplifiée ?”
+
+**Durée :** 15-20 minutes (duo ou trio)
+</Exercice>
+<Section id="gestalt">
+## La théorie de la Gestalt
+</Section>

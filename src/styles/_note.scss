@@ -16,11 +16,15 @@
   @include mq-max(md) {
     position: static;
     margin-block: space(4);
+    grid-column: 1;
   }
 }
 
 .note[data-type="definition"] {
   background-color: #ffeff7;
+}
+.note[data-type="good"] {
+  background-color: #fffdeb;
 }
 
 
@@ -34,24 +38,30 @@
   @include text(xs, tight, semibold, medium)
 }
 
+@include mq-min(md) {
 /* notes à gauche */
 .note[data-type="comment"],
-.note[data-type="key"] { grid-column: 1 / 5; align-self: start; }
+.note[data-type="key"] { 
+  grid-column: 1 / 5; 
+  align-self: start; 
+}
 
 /* sources à droite */
 .note[data-type="source"],
-.note[data-type="definition"] { 
+.note[data-type="definition"],
+.note[data-type="good"] { 
   grid-column: 21 / 25; 
   align-self: end; 
+}
 }
 
 //  Le type de note
 .note[data-type=source]::before {
   content: "source :";
 }
-.note[data-type=comment]::before {
-  content: var(--initule-note); // toDo
-}
+// .note[data-type=comment]::before {
+//   content: var(--initule-note); // toDo
+// }
 .note[data-type=key]::before {
   content: "chiffre-clé :";
 }
@@ -59,10 +69,6 @@
   .note[data-type=key], aside.note[data-type=comment] {
     text-align: right;
   }
-}
-
-.zone-left {
-  text-align: right;
 }
 
 // PLUGIN FOOTNOTES

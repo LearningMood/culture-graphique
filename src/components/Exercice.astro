@@ -1,0 +1,70 @@
+---
+export interface Props {
+  titre?: string;
+  href?: string;
+  label?: string;         // texte du bouton
+  icon?: string;          // emoji/icone (optionnel, si tu veux l’afficher)
+  type?: 'exercice' | 'atelier' | 'mission' | 'bonus';
+  tone?: 'indigo' | 'tomato' | 'emerald' | 'slate'; // palette
+  bg?: 'soft' | 'tint' | 'solid'; // style de fond
+  image?: string;         // chemin du visuel
+  imageAlt?: string;
+  ratio?: '16/9' | '4/3' | '1/1' | '21/9';
+  align?: 'left' | 'right'; // position du visuel
+}
+
+const {
+  titre = "C’est à vous !",
+  href,
+  label = "Accéder à l’exercice",
+  icon = "✏️",
+  type = 'exercice',
+  tone = 'indigo',
+  bg = 'soft',
+  image,
+  imageAlt = "",
+  ratio = '16/9',
+  align = 'right',
+} = Astro.props;
+---
+
+<aside
+  class={`exercice exercice--tone-${tone} exercice--bg-${bg} ${align === 'right' ? 'is-right' : 'is-left'}`}
+  data-type={type}
+  aria-label={type}
+>
+  <div class="exercice__consigne">
+    <div class="exercice__header">
+      <span class="exercice__badge">{type}</span>
+      <h3 class="exercice__titre">{titre}</h3>
+    </div>
+
+    <div class="exercice__content">
+      <slot />
+    </div>
+
+    {href && (
+      <div class="exercice__actions">
+        <a href={href} class="exercice__btn" target="_blank" rel="noopener noreferrer">
+          {label}
+        </a>
+      </div>
+    )}
+  </div>
+
+  <div class="exercice__visuel" style={`--ratio: ${ratio};`}>
+    {image
+      ? (
+        <figure class="exercice__media">
+          <div class="exercice__media-inner">
+            <img src={image} alt={imageAlt} loading="lazy" />
+          </div>
+        </figure>
+      )
+      : (
+        // fallback : slot pour fournir un visuel custom si besoin
+        <slot name="visuel" />
+      )
+    }
+  </div>
+</aside>

@@ -17,7 +17,7 @@ const formations = defineCollection({
     })).default([]),
     folder: z.string().optional(),
 
-    // ✅ HERO
+    // HERO
     heroColor: z.string().optional(),
     heroImage: z.string().optional(),
     heroTextColor: z.string().optional(),

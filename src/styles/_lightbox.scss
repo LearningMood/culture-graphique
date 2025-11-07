@@ -1,20 +1,11 @@
 
-  .image-lightbox {
-    display: block;
-    cursor: zoom-in;
-  }
-  
-  .image-lightbox:hover {
-    opacity: 0.9;
-  }
-
   .lightbox-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
+        background: #405779c2;;
     z-index: 9999;
     display: flex;
     align-items: center;

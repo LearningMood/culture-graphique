@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  type: 'comment' | 'key' | 'source' | 'definition';
+  type: 'comment' | 'key' | 'source' | 'definition' | 'good';
 }
 const { type } = Astro.props as Props;
 ---
@@ -9,3 +9,76 @@ const { type } = Astro.props as Props;
     <slot />
   </div>
 </aside>
+
+<script>
+  // Gestion intelligente du sticky des notes
+  function initStickyNotes() {
+    const notes = document.querySelectorAll<HTMLElement>('.note');
+    if (notes.length === 0) return;
+    
+    const STICKY_TOP = 32; // 2rem en pixels
+    const COLLISION_THRESHOLD = 10; // Marge de collision en pixels
+    
+    function checkCollisions() {
+      const notesArray = Array.from(notes);
+      
+      notesArray.forEach((currentNote, index) => {
+        const rect = currentNote.getBoundingClientRect();
+        const isStuck = rect.top <= STICKY_TOP;
+        
+        if (!isStuck) {
+          currentNote.classList.remove('is-hidden');
+          return;
+        }
+        
+        // Vérifier collision avec la note suivante
+        const nextNote = notesArray[index + 1];
+        if (nextNote) {
+          const nextRect = nextNote.getBoundingClientRect();
+          const distance = nextRect.top - rect.bottom;
+          
+          // Si la prochaine note est trop proche, cacher la note actuelle
+          if (distance < COLLISION_THRESHOLD && nextRect.top < window.innerHeight) {
+            currentNote.classList.add('is-hidden');
+          } else {
+            currentNote.classList.remove('is-hidden');
+          }
+        }
+        
+        // Alternative : cacher après une certaine distance de scroll
+        const noteOriginalTop = currentNote.offsetTop;
+        const scrollDistance = window.scrollY - noteOriginalTop;
+        const MAX_SCROLL_DISTANCE = 100; // Distance en pixels avant disparition
+        
+        if (scrollDistance > MAX_SCROLL_DISTANCE) {
+          currentNote.classList.add('is-hidden');
+        }
+      });
+    }
+    
+    // Observer le scroll avec throttle pour performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkCollisions();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Check initial
+    checkCollisions();
+  }
+  
+  // Initialiser au chargement et après navigation
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyNotes);
+  } else {
+    initStickyNotes();
+  }
+  
+  // Réinitialiser après navigation Astro (si view transitions activées)
+  document.addEventListener('astro:page-load', initStickyNotes);
+</script>

@@ -1,0 +1,26 @@
+---
+// components/ImagesWithContext.astro
+import Images from './Images.astro';
+
+// Ce composant récupère automatiquement le contexte
+const context = (Astro as any).locals?.imageContext || {};
+const { folder: contextFolder } = context;
+
+export interface Props {
+  src?: string | string[];
+  alt?: string | string[];
+  caption?: string | string[];
+  folder?: string;
+  cols?: 1 | 2 | 3;
+  width?: 'narrow' | 'medium' | 'wide' | 'full';
+  ratio?: string;
+  fit?: 'cover' | 'contain';
+  clickable?: boolean;
+}
+
+const props = Astro.props;
+// Utilise folder des props, sinon le folder du contexte
+const finalFolder = props.folder || contextFolder || '';
+---
+
+<Images {...props} folder={finalFolder} />
