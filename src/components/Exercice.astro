@@ -11,6 +11,8 @@ export interface Props {
   imageAlt?: string;
   ratio?: '16/9' | '4/3' | '1/1' | '21/9';
   align?: 'left' | 'right'; // position du visuel
+  id?: string;          // ← ancre optionnelle
+  tocLabel?: string;    // ← libellé pour le TOC (par défaut = titre)
 }
 
 const {
@@ -25,10 +27,23 @@ const {
   imageAlt = "",
   ratio = '16/9',
   align = 'right',
+  tocLabel,
+  id,
 } = Astro.props;
+
+// petite slugification au besoin
+const toSlug = (s:string) =>
+  s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+   .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+const anchorId = id ?? `exo-${toSlug(titre)}`;
+const tocText  = tocLabel ?? titre;
 ---
 
 <aside
+  id={anchorId}
+  data-toc-kind="exercice"
+  data-toc-text={tocText}
   class={`exercice exercice--tone-${tone} exercice--bg-${bg} ${align === 'right' ? 'is-right' : 'is-left'}`}
   data-type={type}
   aria-label={type}

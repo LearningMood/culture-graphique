@@ -1,0 +1,53 @@
+---
+export interface Props {
+  ressources: Array<{
+    titre: string;
+    url: string;
+    type?: 'article' | 'video' | 'livre' | 'outil' | 'autre';
+  }>;
+}
+
+const { ressources } = Astro.props;
+
+const typeIcons = {
+  article: '📄',
+  video: '🎥',
+  livre: '📚',
+  outil: '🔧',
+  autre: '🔗'
+};
+
+const typeLabels = {
+  article: 'Article',
+  video: 'Vidéo',
+  livre: 'Livre',
+  outil: 'Outil',
+  autre: 'Ressource'
+};
+---
+
+{ressources.length > 0 && (
+  <section class="ressources-section">
+    <div class="container">
+      <h2>Ressources & références</h2>
+      <ul class="ressources-list">
+        {ressources.map(r => (
+          <li class="ressource-item">
+            <a href={r.url} target="_blank" rel="noopener noreferrer">
+              {/* <span class="ressource-icon">
+                {typeIcons[r.type || 'autre']}
+              </span> */}
+              <span class="ressource-content">
+                <span class="ressource-titre">{r.titre}</span>
+                {r.type && (
+                  <span class="ressource-type">{typeLabels[r.type]}</span>
+                )}
+              </span>
+              <span class="ressource-arrow">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

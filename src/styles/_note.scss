@@ -41,6 +41,8 @@
 @include mq-min(md) {
 /* notes à gauche */
 .note[data-type="comment"],
+.note[data-type="definition"],
+.note[data-type="accr"],
 .note[data-type="key"] { 
   grid-column: 1 / 5; 
   align-self: start; 
@@ -48,7 +50,6 @@
 
 /* sources à droite */
 .note[data-type="source"],
-.note[data-type="definition"],
 .note[data-type="good"] { 
   grid-column: 21 / 25; 
   align-self: end; 

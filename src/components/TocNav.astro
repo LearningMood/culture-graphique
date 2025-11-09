@@ -20,47 +20,68 @@ const { toc = [], offset = 0 } = Astro.props as Props;
 </nav>
 
 <script>
-  // ✅ Attendre que le DOM soit prêt
-  document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('.toc-nav'); // ✅ querySelector au lieu de getElementById
-    if (!nav) return; // ✅ Protection
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('.toc-nav');
+  if (!nav) return;
+  const offset = parseInt(nav.dataset.offset || '0', 10);
+  nav.style.setProperty('--affix-offset', offset + 'px');
 
-    const offset = parseInt(nav.dataset.offset || '0', 10);
-    nav.style.setProperty('--affix-offset', offset + 'px');
+  // affix (inchangé)
+  const setFixed = (fixed) => nav.classList.toggle('is-fixed', fixed);
+  const sentinel = document.querySelector('[data-toc-sentinel]');
+  if (sentinel && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(([e]) => setFixed(!e.isIntersecting), {
+      rootMargin: `-${offset}px 0px 0px 0px`, threshold: 0
+    });
+    obs.observe(sentinel);
+  } else {
+    const onScroll = () => setFixed(nav.getBoundingClientRect().top - offset <= 0);
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
 
-    // Ajoute/retire la classe
-    const setFixed = (fixed) => nav.classList.toggle('is-fixed', fixed);
+  // ======= Fusion H2 (déjà présents) + Exercices =======
+  const list = nav.querySelector('.toc-list');
+  const existingIds = new Set([...list.querySelectorAll('a')].map(a => a.getAttribute('href')?.slice(1)));
 
-    // 1) Toggle via sentinel si présent
-    const sentinel = document.querySelector('[data-toc-sentinel]');
-    if (sentinel && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(([e]) => {
-        setFixed(!e.isIntersecting);
-      }, { rootMargin: `-${offset}px 0px 0px 0px`, threshold: 0 });
-      obs.observe(sentinel);
-    } else {
-      // 2) Fallback simple au scroll
-      const onScroll = () => {
-        const top = nav.getBoundingClientRect().top;
-        setFixed((top - offset) <= 0);
-      };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }
+  // Récupère les exercices présents dans la page
+  const exos = [...document.querySelectorAll('[data-toc-kind="exercice"]')].map(el => {
+    const id = el.id || '';
+    const text = el.getAttribute('data-toc-text') || 'Exercice';
+    return id ? { id, text } : null;
+  }).filter(Boolean);
 
-    // Liens actifs selon la section visible
-    const links = [...nav.querySelectorAll('a')];
-    const map = new Map(links.map(a => [a.getAttribute('href')?.slice(1), a]));
-    
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          const a = map.get(e.target.id);
-          if (a) a.classList.toggle('active', e.isIntersecting);
-        });
-      }, { rootMargin: '0px 0px -60% 0px', threshold: 0.001 });
-      
-      document.querySelectorAll('h2[id], h3[id]').forEach(el => io.observe(el));
-    }
+  // Ajoute-les à la fin du TOC (ou insère-les après le H2 courant, à toi de choisir)
+  exos.forEach(({ id, text }) => {
+    if (existingIds.has(id)) return; // évite doublons
+    const li = document.createElement('li');
+    li.className = 'toc-item is-exo';
+    const a = document.createElement('a');
+    a.href = `#${id}`;
+    a.textContent = text;
+    li.appendChild(a);
+    list.appendChild(li);
   });
+
+  // Active state: observe H2 + exercices
+  const links = [...nav.querySelectorAll('a')];
+  const map = new Map(links.map(a => [a.getAttribute('href')?.slice(1), a]));
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const a = map.get(e.target.id);
+        if (a) a.classList.toggle('active', e.isIntersecting);
+      });
+    }, { rootMargin: '0px 0px -60% 0px', threshold: 0.001 });
+
+    document.querySelectorAll('h2[id], [data-toc-kind="exercice"][id]')
+      .forEach(el => io.observe(el));
+  }
+});
 </script>
+
+<style>
+/* style différent pour les exercices si tu veux */
+.toc-item.is-exo > a { opacity:.9; font-style: italic; }
+/* etc. */
+</style>

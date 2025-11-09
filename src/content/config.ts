@@ -21,7 +21,13 @@ const formations = defineCollection({
     heroColor: z.string().optional(),
     heroImage: z.string().optional(),
     heroTextColor: z.string().optional(),
-    headerImage: z.string().optional(),  // ← CRITIQUE : Cette ligne manquait !
+    headerImage: z.string().optional(),
+
+    ressources: z.array(z.object({
+      titre: z.string(),
+      url: z.string().url(),
+      type: z.enum(['article', 'video', 'livre', 'outil', ,'site ressource', 'autre']).optional(),
+    })).default([]),
     
     menu: z.array(z.object({ href: z.string(), label: z.string() })).optional(),
   }),
@@ -30,12 +36,17 @@ const formations = defineCollection({
 const formationsMeta = defineCollection({
   type: 'data',
   schema: z.object({
-    formation: z.string(),             // "culture-graphique"
-    titre: z.string(),                 // "Culture graphique"
-    couverture: z.string(),      // "/img/covers/culture-graphique.jpg"
+    slug: z.string(),
+    nom: z.string(),
+    cover: z.string().optional(),
     resume: z.string().optional(),
-    chapitres_mis_en_avant: z.array(z.string()).optional(), // slugs des chapitres
-  }),
+    nb_jours: z.number().optional(),
+    jours: z.array(z.object({
+      num: z.number(),
+      titre: z.string().optional(),
+      themes: z.array(z.string()).optional()
+    })).optional()
+  })
 });
 
 export const collections = { formations, formationsMeta };

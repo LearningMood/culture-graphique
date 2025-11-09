@@ -10,6 +10,10 @@ import Section from '@components/Section.astro';
 import Bandeau from '@components/Bandeau.astro';
 import Texte from '@components/Texte.astro';
 import Carousel from '@components/Carousel.astro';
+import Ressources from "@/components/Ressources.astro";
+import ChapitreFooter from "@/components/ChapitreFooter.astro";
+import Citation from "@/components/Citation.astro";
+import Synthese from "@/components/Synthese.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("formations");
@@ -27,6 +31,27 @@ export async function getStaticPaths() {
 const { entry, formation } = Astro.props;
 const homeUrl = `/formations/${formation}/`; // ← URL de la home de la formation
 
+// Récupérer meta pour le nom de la formation
+const allMeta = await getCollection("formationsMeta");
+const meta = allMeta.find(m => m.data.slug === formation);
+
+// Récupérer tous les chapitres pour navigation
+const allChapitres = await getCollection("formations");
+const chapitres = allChapitres
+  .filter(e => e.id.startsWith(`${formation}/`))
+  .sort((a,b) => (a.data.jour ?? 99) - (b.data.jour ?? 99) || (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
+
+const currentIndex = chapitres.findIndex(c => c.slug === entry.slug);
+const prevChapitre = currentIndex > 0 ? {
+  url: `/formations/${formation}/${chapitres[currentIndex - 1].slug.split("/").pop()}/`,
+  titre: chapitres[currentIndex - 1].data.titre
+} : undefined;
+const nextChapitre = currentIndex < chapitres.length - 1 ? {
+  url: `/formations/${formation}/${chapitres[currentIndex + 1].slug.split("/").pop()}/`,
+  titre: chapitres[currentIndex + 1].data.titre
+} : undefined;
+
+
 const { Content, headings } = await entry.render();
 // console.log('headings:', headings);
 
@@ -42,11 +67,6 @@ Astro.locals.imageContext = { folder: imagePath };
 ---
 
 <Base title={pageTitle} homeUrl={homeUrl}>
-  <!-- Tu peux injecter des metas spécifiques si besoin :
-  <fragment slot="head">
-    <meta property="og:title" content={pageTitle} />
-  </fragment>
-  -->
   <Formation entry={entry} headings={headingsNiv2} formation={formation}>
     <Content components={{ 
       Bandeau: Bandeau,
@@ -54,9 +74,23 @@ Astro.locals.imageContext = { folder: imagePath };
       Texte: Texte,
       Carousel: Carousel,
       Images: ImagesWithContext,
+      Citation: Citation,
       Note: Note,
-      Exercice: Exercice
+      Exercice: Exercice,
+      Synthese: Synthese
     }} />
+    <!-- Section Ressources -->
+    {entry.data.ressources && entry.data.ressources.length > 0 && (
+      <Ressources ressources={entry.data.ressources} />
+    )}
+
   </Formation>
+  <!-- Footer avec navigation -->
+  <ChapitreFooter 
+    formationUrl={`/formations/${formation}/`}
+    formationNom={meta?.data.nom || formation.replace(/-/g, ' ')}
+    prevChapitre={prevChapitre}
+    nextChapitre={nextChapitre}
+  />
 </Base>
 

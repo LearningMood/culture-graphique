@@ -1,7 +1,19 @@
 {
-  "formation": "illustrator",
-  "titre": "Illustrator",
-  "couverture": "/covers-formations/illustrator.jpg",
+  "slug": "illustrator",
+  "nom": "Illustrator",
+  "cover": "/cover/illustrator.jpg",
   "resume": "Créer des illustrations graphiques riches et performantes avec le logiciel vectoriel d'Adobe",
-  "chapitres_mis_en_avant": ["typographie", "couleur", "composition"]
+  "nb_jours": 3,
+  "jours": [
+    {
+      "num": 1,
+      "titre": "Optimiser l’ergonomie d’un site ou d’une interface",
+      "themes": ["Lois & théories", "Heuristiques", "Parcours & tâches"]
+    },
+    {
+      "num": 2,
+      "titre": "Concevoir & tester",
+      "themes": ["Recherche utilisateur", "Wireframes & prototypage", "Tests"]
+    }
+  ]
 }

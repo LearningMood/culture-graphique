@@ -1,0 +1,14 @@
+---
+
+export interface Props {
+  content?: string;
+  color?: string;
+}
+
+const{content, color = "e6f7c2"} = Astro.props
+---
+<section id="synthese">
+    <div class="grid-24">
+        <p class="synthese__content"><slot></p>
+    </div>
+</div>

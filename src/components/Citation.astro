@@ -1,0 +1,34 @@
+---
+export interface Props {
+  auteur?: string;
+  source?: string;
+  url?: string;
+  type?: 'default' | 'highlight' | 'large';
+}
+
+const { 
+  auteur, 
+  source, 
+  url,
+  type = 'default' 
+} = Astro.props;
+---
+
+<blockquote class={`citation citation--${type}`}>
+  <div class="citation__content">
+    <slot />
+  </div>
+  
+  {(auteur || source) && (
+    <footer class="citation__footer">
+      {auteur && <cite class="citation__auteur">{auteur}</cite>}
+      {source && url ? (
+        <a href={url} class="citation__source" target="_blank" rel="noopener noreferrer">
+          {source}
+        </a>
+      ) : source && (
+        <span class="citation__source">{source}</span>
+      )}
+    </footer>
+  )}
+</blockquote>

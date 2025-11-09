@@ -6,6 +6,7 @@ export interface Props {
   textColor?: string;
   spacing?: 'none' | 'small' | 'medium' | 'large';
   class?: string;
+  type?: 'default' | 'synthese';
 }
 
 const { 
@@ -14,7 +15,8 @@ const {
   bgImage,
   textColor,
   spacing = 'medium',
-  class: customClass = ''
+  class: customClass = '',
+  type = 'default'
 } = Astro.props;
 
 const sectionStyle = {
@@ -26,7 +28,7 @@ const sectionStyle = {
 
 <section 
   id={id}
-  class={`section section--${spacing} ${customClass}`}
+  class={`section section--${spacing} ${customClass} section--${type}`}
   style={sectionStyle}
 >
   <div class="grid-24">

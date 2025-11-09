@@ -1,0 +1,79 @@
+.ressources-section {
+    background: $indigo-dark;
+    color: #fff;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 3rem 1rem;
+ }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .ressources-section h2 {
+    margin: 0 0 1.5rem 0;
+    color: $indigo;
+    font-size: 1.5rem;
+  }
+  
+  .ressources-list {
+    /* list-style: none; */
+    font-size: .8rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    ::marker {
+    color: $indigo;
+    }
+  }
+  
+  .ressource-item a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  
+  .ressource-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .ressource-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .ressource-titre {
+    color: $indigo;
+    font-weight: 500;
+  }
+  
+  .ressource-type {
+    font-size: 0.6rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .ressource-arrow {
+    color: #3b82f6;
+    font-size: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .ressource-item a:hover .ressource-arrow {
+    opacity: 1;
+  }

@@ -92,6 +92,7 @@
 
         @include mq-max(md) {
             grid-column: 1 / -1;
+            text-align: left;
         }
     }
 
@@ -117,10 +118,10 @@
     // Blockquotes
     >blockquote {
         @include heading-cols(14);
-        font-style: italic;
-        border-left: 3px solid #3b82f6;
-        padding-left: space(4);
-        margin-block: space(6);
+        // font-style: italic;
+        // border-left: 3px solid #3b82f6;
+        // padding-left: space(4);
+        // margin-block: space(6);
 
         @include mq-max(md) {
             grid-column: 1 / -1;
@@ -205,4 +206,14 @@ Elles n’écrivent jamais grid-column*/
 // .images[data-fit="contain"]figure > img { object-fit: contain; }
 
 
+}
+
+section.section--synthese .grid-24 p {
+    @include heading-cols(16);
+    padding: space(16);
+    border: solid 10px $pomme;
+
+    @include mq-max(md){
+        grid-column: 1 / -1;
+    }
 }

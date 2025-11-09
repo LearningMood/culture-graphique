@@ -1,0 +1,41 @@
+---
+export interface Props {
+  formationUrl: string;
+  formationNom: string;
+  prevChapitre?: { url: string; titre: string };
+  nextChapitre?: { url: string; titre: string };
+}
+
+const { formationUrl, formationNom, prevChapitre, nextChapitre } = Astro.props;
+---
+
+<footer class="chapitre-footer">
+  <div class="container">
+
+    {(prevChapitre || nextChapitre) && (
+      <nav class="chapitre-nav">
+        {prevChapitre ? (
+          <a href={prevChapitre.url} class="nav-button nav-prev">
+            <span class="nav-label">← Précédent</span>
+            <span class="nav-titre">{prevChapitre.titre}</span>
+          </a>
+        ) : (
+          <div></div>
+        )}
+        
+        {nextChapitre && (
+          <a href={nextChapitre.url} class="nav-button nav-next">
+            <span class="nav-label">Suivant →</span>
+            <span class="nav-titre">{nextChapitre.titre}</span>
+          </a>
+        )}
+      </nav>
+    )}
+    
+    <div class="retour-formation">
+      <a href={formationUrl} class="btn btn-retour">
+        Retour à l'accueil de la formation {formationNom}
+      </a>
+    </div>
+  </div>
+</footer>

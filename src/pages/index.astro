@@ -1,66 +1,167 @@
 ---
+// PAGE GÉNÉRALE TOUTES LES FORMATIONS 
 import Base from "@/layouts/Base.astro";
 import { getCollection } from "astro:content";
 
-const all = await getCollection("formations");
 const meta = await getCollection("formationsMeta");
 
-const byFormation = all.reduce((acc, e) => {
-  const formation = e.id.split('/')[0];
-  (acc[formation] ||= []).push(e);
-  return acc;
-}, {} as Record<string, typeof all>);
-
-const cards = meta.map(m => {
-  const formation = m.data.formation;
-  const entries = (byFormation[formation] || []).sort((a,b) =>
-    (a.data.ordre ?? 99) - (b.data.ordre ?? 99)
-  );
-
-  let modules = entries.slice(0,3);
-  if (m.data.chapitres_mis_en_avant?.length) {
-    const set = new Set(m.data.chapitres_mis_en_avant);
-    modules = entries.filter(e => set.has(e.slug)).slice(0,3);
-  }
-
-  return {
-    url: `/formations/${formation}/`,
-    titre: m.data.titre,
-    couverture: m.data.couverture,
-    resume: m.data.resume,
-    modules
-  };
-});
+const cards = meta.map(m => ({
+  url: `/formations/${m.data.slug}/`,
+  titre: m.data.nom,
+  couverture: m.data.cover,
+  resume: m.data.resume,
+  nb_jours: m.data.nb_jours,
+  jours: m.data.jours
+}));
 ---
 
 <Base title="Toutes les formations">
   <main class="catalogue-formations">
     <div class="container--maxi">
-        <h1>Toutes les formations</h1>
+      <h1>Toutes les formations</h1>
 
-        <ul class="catalogue-grid">
+      <ul class="catalogue-grid">
         {cards.map(c => (
-            <li class="formation-card">
+          <li class="formation-card">
             <a class="cover" href={c.url}>
-                <img src={c.couverture} alt={`Couverture ${c.titre}`} loading="lazy" />
+              <img src={c.couverture} alt={`Couverture ${c.titre}`} loading="lazy" />
             </a>
             <h2><a href={c.url}>{c.titre}</a></h2>
             {c.resume && <p class="teaser">{c.resume}</p>}
-            <ul class="chapters">
-                {c.modules.map(m => (
-                <li><a href={`${c.url}${m.slug}/`}>{m.data.titre}</a></li>
-                ))}
-            </ul>
-            </li>
+            
+            <div class="formation-info">
+              <p class="nb-jours">{c.nb_jours} jour{c.nb_jours > 1 ? 's' : ''}</p>
+              
+              {c.jours.map(jour => (
+                <div class="jour">
+                  <h4>Jour {jour.num} : {jour.titre}</h4>
+                  <ul class="themes">
+                    {jour.themes.map(t => (
+                      <li>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </li>
         ))}
-        </ul>
+      </ul>
     </div>
   </main>
 </Base>
+
 <style>
 
-.catalogue-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:2rem; list-style: none;}
+  .catalogue-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:2rem; list-style: none;}
 .formation-card{background:#fff;border-radius:4px;box-shadow:0 6px 16px rgba(0,0,0,.06);padding:1rem}
 .cover img{width:100%;height:380px;object-fit:cover;border-radius:4px; margin-bottom: 2rem;}
 .chapters{margin:.75rem 0 0;padding:0 1rem;list-style:disc}
+
+/* NEW */
+  .catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+  
+  .formation-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .formation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,.12);
+  }
+  
+  .cover {
+    display: block;
+  }
+  
+  .cover img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+  }
+  
+  .formation-card h2 {
+    margin: 1.5rem 1.5rem 0.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .formation-card h2 a {
+    text-decoration: none;
+    color: #2d2846;
+  }
+  
+  .formation-card h2 a:hover {
+    color: #3b82f6;
+  }
+  
+  .teaser {
+    color: #666;
+    margin: 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .formation-info {
+    margin: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .nb-jours {
+    font-weight: 600;
+    color: #2d2846;
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .jour {
+    margin-bottom: 1rem;
+  }
+  
+  .jour:last-child {
+    margin-bottom: 0;
+  }
+  
+  .jour h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2d2846;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .themes {
+    margin: 0;
+    padding: 0 0 0 1.25rem;
+    list-style: disc;
+  }
+  
+  .themes li {
+    font-size: 0.8125rem;
+    color: #666;
+    margin: 0.25rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    .catalogue-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .cover img {
+      height: 200px;
+    }
+  }
+
+
+
 </style>

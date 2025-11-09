@@ -223,3 +223,25 @@ Exemple concret :
 <!-- MIXIN TEXT TOUT EN UN -->
 
 @include text(xs, tight, semibold, miniplus);
+
+CITATION
+<Citation 
+  auteur="Jakob Nielsen" 
+  source="Nielsen Norman Group"
+  url="https://www.nngroup.com/articles/ten-usability-heuristics/"
+>
+Les utilisateurs passent la plupart de leur temps sur d'autres sites. Ils préfèrent que votre site fonctionne comme tous les autres sites qu'ils connaissent déjà.
+</Citation>
+
+<!-- Citation mise en valeur (fond jaune)  -->
+<Citation type="highlight" auteur="Don Norman">
+Le bon design est en fait beaucoup plus difficile à remarquer que le mauvais design, en partie parce que les bons designs s'intègrent si bien à nos besoins qu'ils deviennent invisibles.
+</Citation>
+
+<!-- Grande citation centrée (pour les phrases importantes) : -->
+
+
+<!-- Sans auteur -->
+<Citation>
+L'expérience utilisateur n'est pas ce que vous donnez à vos utilisateurs, c'est ce qu'ils en font.
+</Citation>

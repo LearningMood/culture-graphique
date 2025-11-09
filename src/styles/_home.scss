@@ -15,7 +15,6 @@
     align-items: flex-start;
 }
 .home__programme__label { // PROGRAMME
-    text-align: right;
     color: $gris-moyen;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -23,33 +22,36 @@
     font-weight: 500;
     margin-bottom: space(8);
     padding-bottom: space(5);
-    border-bottom: 1px solid $indigo;
 
 }
-.info-jour { // JOUR 1
-    background: $jour-1;
+.info-jour {
+    //JOUR1//background: $jour-1;
+    background: $indigo-dark;
     display: inline-block;
     margin-bottom: space(4);
     color: #FFF;
-    padding: space(2) space(10);
+    padding: space(2) space(4);
     border-radius: 2px;
     text-transform: uppercase;
     letter-spacing: 4px;
     align-self: flex-end;
     margin: 0;
-    position: relative;
-    left: -10px;
+    font-size: .7rem;
+    margin-bottom: space(8);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
 }
 
 .home__programme__titre { // Enrichir son langage visuel
     font-weight: 400;
-    color: $gris-dark;
-    font-size: 4rem;
+    color: $indigo;
+    font-size: 2rem;
     margin-bottom: space(12);
     padding-bottom: space(16);
-    border-bottom: solid 1px $indigo;
+    border-bottom: solid 1px $indigo-light;
     line-height: 1;
-    text-align: center;
 }
 img {
     border-radius: space(1);
@@ -57,20 +59,21 @@ img {
 .grid-chapitre {
 
     grid-template-columns: repeat(8, 1fr);
-    gap: space(12);
+    gap: space(8);
     margin-bottom: space(16);
 
 // >= tablet : 2 colonnes + alternance
     @include mq-min(md) {
 
       .chapitre-img { 
-        grid-column: 1 / 6; 
+        grid-column: 1 / 5; 
         grid-row: 1; 
       }
       .chapitre-titre {
-        margin-bottom: space(10);
-        font-weight: 500;
+        margin-bottom: space(8);
         color: $indigo;
+        line-height: .9;
+        font-size: 1.6rem;
 
         &::after {
             content: "";
@@ -82,7 +85,7 @@ img {
         }
       }
       .chapitre-infos { 
-        grid-column: 6 / 9; 
+        grid-column: 5 / 9; 
         grid-row: 1;
         display: flex;
         flex-direction: column;
@@ -90,8 +93,8 @@ img {
       }
 
       &:nth-child(even) {
-        .chapitre-img    { grid-column: 4 / 9; grid-row: 1; }
-        .chapitre-infos{ grid-column: 1 / 4; grid-row: 1; }
+        .chapitre-img    { grid-column: 5 / 9; grid-row: 1; }
+        .chapitre-infos{ grid-column: 1 / 5; grid-row: 1; }
       }
     }
 }

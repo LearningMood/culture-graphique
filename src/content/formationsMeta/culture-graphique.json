@@ -1,7 +1,20 @@
 {
-  "formation": "culture-graphique",
-  "titre": "Culture graphique",
-  "couverture": "/covers-formations/culture-graphique.jpg",
+  "slug": "culture-graphique",
+  "nom": "Culture graphique",
+  "cover": "/cover/culture-graphique.jpg",
   "resume": "Les bases du langage graphique pour activer sa créativité",
-  "chapitres_mis_en_avant": ["typographie", "couleur", "composition"]
+  "nb_jours": 2,
+  "jours": [
+    {
+      "num": 1,
+      "titre": "Optimiser l’ergonomie d’un site ou d’une interface",
+      "themes": ["Lois & théories", "Heuristiques", "Parcours & tâches"]
+    },
+    {
+      "num": 2,
+      "titre": "Concevoir & tester",
+      "themes": ["Recherche utilisateur", "Wireframes & prototypage", "Tests"]
+    }
+  ]
 }
+
