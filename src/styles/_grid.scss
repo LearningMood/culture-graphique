@@ -27,8 +27,7 @@
 // ============================================
 .grid-24 {
 
-    >h2,
-    >.h2 {
+    >h2{
         //   grid-column: 6 / 20;
         @include heading-cols(14);
         // @include text(4xl, tight, normal );
@@ -81,8 +80,7 @@
     }
 
     // Paragraphes : 8-18
-    >p,
-    >.text {
+    >p{
         // grid-column: 7 / 19;
         @include heading-cols(12);
         text-align: justify;
@@ -100,13 +98,13 @@
     >ul,
     >ol {
         // grid-column: 8 / 19;
-        @include heading-cols(10);
+        @include heading-cols(12);
         line-height: 1.7;
         padding-left: space(6);
         margin-bottom: space(4);
 
         li {
-            margin-bottom: space(2);
+            margin-bottom: space(8);
             padding-left: space(4);
         }
 
@@ -215,5 +213,17 @@ section.section--synthese .grid-24 p {
 
     @include mq-max(md){
         grid-column: 1 / -1;
+    }
+}
+section.section--intro .grid-24 p {
+    @include heading-cols(16);
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 1.9;
+    color: $indigo;
+
+    @include mq-max(md){
+        grid-column: 1 / -1;
+        font-size: 1.3rem;
     }
 }

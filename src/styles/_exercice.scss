@@ -1,10 +1,9 @@
 .exercice{
-  min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(.75rem, 4vw, 4rem);
   border-radius: 12px;
-  padding: clamp(2rem, 2vw, 3rem);
+  padding: space(12);
 
   /* alignements */
   &.is-right { grid-auto-flow: row; }
@@ -12,14 +11,16 @@
 
  
    @include mq-min(md){
-    grid-template-columns: 1.2fr 1fr; /* texte | visuel */
+    min-height: 100vh;
+    padding: space(16) space(32);
+    grid-template-columns: 600px 1fr; /* texte | visuel */
     
     &.is-left  { 
-      grid-template-columns: 1.2fr 1fr; 
+      grid-template-columns: 1fr 600px; 
     }
     
     .exercice__consigne {
-      padding-left: space(32); // réducteur de contenu
+ // réducteur de contenu
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -40,7 +41,7 @@
 
   &.exercice--tone-indigo { --tone:#4f46e5; --tone-weak: rgba(79,70,229,.12); --tone-tint: rgba(79,70,229,.06); }
   &.exercice--tone-tomato { --tone:#ef4444; --tone-weak: rgba(239,68,68,.12); --tone-tint: rgba(239,68,68,.06); }
-  &.exercice--tone-emerald{ --tone:#10b981; --tone-weak: rgba(16,185,129,.12); --tone-tint: rgba(16,185,129,.06); }
+  &.exercice--tone-emerald{ --tone:$pomme; --tone-weak: rgba(16,185,129,.12); --tone-tint: rgba(16,185,129,.06); }
   &.exercice--tone-slate  { --tone:#475569; --tone-weak: rgba(71,85,105,.12); --tone-tint: rgba(71,85,105,.06); }
 
   &.exercice--bg-soft  { background: var(--tone-tint); }
@@ -110,6 +111,6 @@
 }
 .exercice__media-inner img{
   width: 100%; height: 100%; object-fit: cover; display: block;
-  /* Si tu veux respecter le paramètre fit dynamiquement, remplace “cover” via data-attr plus tard */
+
 }
 

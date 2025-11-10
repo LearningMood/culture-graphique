@@ -1,4 +1,4 @@
-p, ul, span {
+p, ul, ol, span {
     font-family: $font-texte;
 }
 p{
@@ -12,5 +12,5 @@ p{
 }
 
 ::marker {
-    color: $tomato;
+    color: $indigo;
 }

@@ -37,6 +37,7 @@
   
   // Conteneur média à ratio fixe
   &__media {
+    border: solid $gris-pale;
     width: 100%;
     aspect-ratio: var(--ratio, 16/9);
     overflow: hidden;

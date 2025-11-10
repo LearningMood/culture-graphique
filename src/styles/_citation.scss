@@ -1,7 +1,7 @@
   .citation {
     margin: 2rem 0;
     padding: 1.5rem 2rem;
-    border-left: 1px solid $border-citation;
+    // border-left: 1px solid $border-citation;
     background: $bg-citation;
     position: relative;
   }
@@ -39,7 +39,12 @@
   }
   
   .citation__auteur::before {
-    content: '— ';
+    content: '- ';
+    color: $indigo;
+  }
+  .citation__auteur::after {
+    content: ' -';
+    color: $indigo;
   }
   
   .citation__source {
@@ -59,7 +64,7 @@
   /* Variante highlight - fond coloré */
   .citation--highlight {
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border-left-color: $border-citation;
+    // border-left-color: $border-citation;
   }
   
   .citation--highlight::before {
@@ -71,34 +76,19 @@
     padding: 2.5rem 3rem;
     text-align: center;
     border-left: none;
-    border-top: 1px solid $border-citation;
-  }
-  
-  .citation--large::before,
-  .citation--large::after {
-    position: absolute;
-    font-size: 4rem;
-    color: $indigo;
-    opacity: 0.2;
-    font-family: $font-texte;
-    line-height: 1;
-  }
-  .citation--large::before {
-    content: '«';
-    left: 4%;
-    top: 0;
-    transform: translateX(-50%);
-  }
-  .citation--large::after {
-    content: '»';
-    right: 0%;
-    bottom: 0;
-    transform: translateX(-50%);
+    // border-top: 1px solid $border-citation;
   }
   
   .citation--large .citation__content {
     font-size: 1.25rem;
     font-weight: 500;
+
+    p::before {
+      content: "« "
+    }
+    p::after {
+      content: " »"
+    }
   }
   
   .citation--large .citation__footer {

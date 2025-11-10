@@ -1,12 +1,12 @@
 ---
 titre: "La recherche primaire"
-baseline: "Des études sur le mécanismes de prise de décisons & et la charge cognitive"
+baseline: "Observation, interviews, sondages, tri de cartes, tests utilisateurs... À la rencontre de vos utilisateurs en contexte..."
 jour: 2
 ordre: 3
 heroColor: "rgba(45, 40, 70, 1)" # optionnel
 heroTextColor: "white"
 headerImage: "/hero/ux-design/recherche-primaire.jpg"
-folder: "/ux-design/lois-theories-ergonomie/"
+folder: "/ux-design/recherche-utilisateur/"
 points_cles:
   - "Quelques repères chronologiques"
   - "La classification des caractères"
@@ -19,40 +19,161 @@ ressources:
 
 
 ---
-<Section>
-La recherche primaire en UX consiste à recueillir directement de la donnée “fraîche” auprès des utilisateurs réels, via une immersion sur le terrain ou des méthodes de contact direct : observation, interviews, sondages, tri de cartes, tests utilisateurs. Elle exige du temps, de l’organisation et parfois un budget spécifique, car elle nécessite d’aller à la rencontre des utilisateurs dans leur contexte. C’est un point souvent sous-estimé et il importe d’obtenir du commanditaire un temps réellement alloué pour ces investigations.
+<Section type="intro">
+La recherche primaire en UX consiste à recueillir directement des données *fraîches* auprès de vos utilisateurs, d'aller à leur rencontre. Observation, interviews, sondages, tri de cartes, tests utilisateurs : la démarche ne s'improvise pas et exige du temps, de l'organisation et parfois un budget spécifique.
+</Section>
 
-<Images width="medium" src="visuel.jpg">
+<Section id="card-sorting">
+<Images width="medium" src="visuel.jpg"/>
 
 ## Le tri de cartes (card sorting) ##
-Le tri de cartes est une méthode phare pour bâtir l’architecture de l’information ou vérifier un menu de navigation : on donne aux utilisateurs des cartes représentant des contenus ou fonctionnalités, puis ils les organisent selon leur logique propre. Cela révèle leurs modèles mentaux : comment ils regroupent, hiérarchisent, et relient les principaux sujets du site. Les insights servent directement à arbitrer les menus, la nomenclature des rubriques et la granularité des informations présentes sur chaque page
+Le tri de cartes est une méthode phare pour bâtir l’architecture de l’information ou vérifier un menu de navigation. On donne à un échantillon d'utilisateurs en ensemble de cartes sur lesquelles sont inscrits des contenus ou des fonctionnalités. Libres à eux de les organiser selon leur logique. 
+Cette activité permet de réveler leurs modèles mentaux : comment ils regroupent, comment ils hiérarchisent et relient les principaux sujets du site. Cette connaissance aide à la construction des menus, à la désignation des rubriques et à la construction de parcours.
+
+<Images cols="2" src={["card-sorting-equipe.png", "card-sorting-prepa.png"]} />
 
 </Section>
-<Section>
- ## Les interviews ##
 
-Très utilisées pour approfondir la compréhension des usages, les interviews UX peuvent se décliner en plusieurs formats, du plus structuré au plus libre :
+<Exercice
+  type="atelier"
+  tone="emerald"
+  bg="soft"
+  titre="Tri de cartes Office de tourisme"
+  href="https://miro.com/app/board/uXjVJt5ylkU=/?share_link_id=345331127125"
+  label="Accéder l’atelier"
+  image="/exercices/ex-mini-challenge-hick-miller.jpg"
+  ratio="4/3"
+  align="right"
+>
+ **Objectifs :**
+Comprendre comment les utilisateurs regroupent spontanément des contenus, et comment leur logique peut différer de celle des concepteurs.
+
+
+**Votre mission :**
+Regrouper les cartes qui, selon vous, vont naturellement ensemble. Vous pouvez créer autant de groupes que vous le souhaitez.
+Une fois vos "paquets" constitués, donnez-leur un nom ou intitulé.
+
+**Rappel**
+Il n’y a pas de bonne ou mauvaise réponse : il s'agit d'interroger votre perception de la structure du site, comment vous, utilisateur, vous structurez mentalement le contenu.
+**Durée :** 45 minutes (groupe)
+</Exercice>
+
+
+<Section id="semi-directif">
+ ## Les entretiens
+
+Indispensables pour approfondir la compréhension des usages, les entretiens UX se déclinent sous plusieurs plusieurs formes, du plus structuré au plus libre.
+
+<Citation type="large" auteur="Sarah Doody">
+Data and analytics can only tell you the «what». But research and talking to people allows you to dig deep and understand the «why» behind their behavior.
+</Citation>
+
+
+### Établir le cadre éthique et juridique de ses entretiens
+Avant tout entretien, vous devez :
+
+- **Informer clairement** le participant de l'objectif de l'étude, sa durée estimée et de l'usage qui sera fait des données
+- **Obtenir son consentement**, idéalement par écrit (formulaire de consentement)
+- **Préciser les modalités d'enregistrement** : audio, vidéo, prise de notes uniquement
+- **Garantir l'anonymisation** des données : les noms et informations personnelles ne seront pas divulgués dans les livrables
+- **Respecter le RGPD** : droit d'accès, de rectification et de suppression des données à tout moment
+- **Offrir la possibilité de se retirer** de l'étude sans justification
+
+**Modèle de phrase d'introduction :**
+*« Cet entretien sera enregistré pour en faciliter l'analyse et la transcruption. Vos réponses resteront anonymes. Les enregistrements seront supprimés après analyse. Êtes-vous d'accord pour participer ?"*
 
 ### L’entretien semi-directif
+<Note type="key">Ne dépassez pas 1h30 d’entretien par personne. </Note>
+
 Basé sur une grille de questions, il permet une comparaison systématique entre les répondants tout en laissant une certaine flexibilité. Il est idéal pour cerner habitudes, motivations, attentes et points bloquants. Il facilite les recoupements d’une personne à l’autre.
 
+<Images src="user-interview.png" />
+</Section>
+
+<Section id="libre">
 ### L’entretien libre
-D’allure conversationnelle, il favorise l’exploration ouverte des pratiques, des ressentis et des freins. Peu directif (2-3 questions de relance principales), il met à l’aise l’interviewé, qui peut s’exprimer en détail sur des sujets parfois complexes ou sensibles.
 
-<Note type="comment">L’efficacité de l’interview et la pertinence des résultats obtenus dépendent largement de votre qualité d’interviewer. Il est donc important de se former à cette pratique.</Note>
+Il se construit sur la base d’un nombre limité de questions pour laisser libre cours à la parole de l’interviewé. 
+L’entretien libre s’apparente à une conversation. La réussite de l'entretien repose essentiellement sur votre capacité à *écouter activement* votre interlocuteur, à repérer les éléments saillants pour rebondir et poser des questions plus précises. L’écoute active consiste à mettre en mots les émotions et les sentiments exprimés de manière tacite ou implicite par l’interlocuteur.
 
-<Note type="definition">L’écoute active désigne la capacité à écouter sans interrompre, à reformuler pour clarifier la compréhension, et à rebondir pour approfondir, sans jugement, dans une dynamique bienveillante et exploratoire.</Note>
+<Note type="comment">L’écoute active est plus fine que la reformulation en ce qu’elle ne se limite pas à dire autrement ce qu’une personne vient d’exprimer, mais de décoder la dimension affective généralement non verbalisée</Note>
 
-« Data and analytics can only tell you the «what». But research and talking to people allows you to dig deep and understand the «why» behind their behavior.
-SARAH DOODY
+<Images src="ecoute-active.webp" />
+- Préparez-vous en pense-bête 2-3 questions que vous souhaitez aborder durant l’entretien.
+- Démarrez par une question générale : *« Pouvez vous me parler de vos préparatifs de voyage (vos sorties au cinéma...) ? »*. 
 
-<Section type="synthese">L’analyse des entretiens doit permettre de dégager des thèmes récurrents (attentes, freins, motivations) et de les regrouper en personas ou parcours utilisateurs. C’est cette étape qui transformera la donnée qualitative en matière exploitable pour la conception.</Section>
+</Section>
+
+<Section id="explicitation">
+### L'entetien d'explicitation
+<Note type="comment">La technique a été développée par Pierre Vermesch</Note>
+
+L'entretien d'explicitation est une technique avancée qui peut enrichir la démarche de recherche. Il s'agit de faire revivre pas à pas une situation réelle, au présent, en se centrant sur le comment plutôt que sur le pourquoi. 
+<Images cols="3" src={["entretien-explicitation-pierre-vermesch.jpg", "entretien-explicitation-cover.jpg","entretien-explicitation-iceberg.jpg" ]}  />
+
+L'entretien d'explicitation repose sur quelques techniques-clés :
+- **L'ancrage dans une situation précise, le présent de narration**  
+Libre : *« Comment gérez-vous vos emails professionnels ? »*
+D'explicitation : *« Pouvez-vous me décrire précisément ce qui se passe le matin quand vous ouvrez votre boîte mail ? »*  
+Libre : *« Comment faites-vous habituellement pour... »* 
+D'explicitation : *« Pouvez-vous me raconter la dernière fois où vous avez... »*
+
+- **Refus d’abstraction précoce**  
+Si le participant part sur des généralités (*« en général, je… »*), revenez à la situation de référence *« Merci, pouvons-nous revenir à cette réservation en particulier : que faites-vous exactement ? »*.
+
+- **Le guidage temporel**
+*« Et juste avant cela, que s'est-il passé ? Au moment où vous avez cliqué, qu'avez-vous vu ? Qu'avez-vous fait ensuite ? »*
+
+- **Les relances**
+*« Comment faites-vous concrètement ? Que regardez-vous en premier ? Où se porte votre regard à ce moment-là ? »*
+
+- **Employez des termes neutres ou, mieux, reprenez ceux de votre interlocuteur pour éviter toute gêne ou défense.**  
+*« Quand vous dites que vous bricolez, vous voulez dire... »*
+
+- **Des silences productifs**  
+Laissez la personne se remémorer : 10-15 secondes de silence, c'est normal !
+
+### Quelques règles pour mener à bien votre entretien
+
+L’efficacité de l'entretien et la pertinence des résultats obtenus dépendent largement de votre qualité d’interviewer. Il est donc important de se former à cette pratique.
+
+**Avant l'entretien :**
+- Préparez-vous un guide d'entretien, une trame avec vos questions essentielles (entre 5 et 8)
+- Testez le matériel d'enregistrement (audio/vidéo)
+- Préparez le formulaire de consentement
+- Choisissez un lieu calme et neutre
+- Prévoyez 15 min de marge après l'entretien pour noter à chaud vos observations
+
+**Au début de l'entretien :**
+- Expliquez l'objectif et le déroulement
+- Faites signer le formulaire de consentement
+- Rappelez l'anonymisation et la confidentialité
+- Indiquez la durée prévue (généralement 30-60 min)
+- Lancez l'enregistrement après l'accord verbal
+
+**Pendant l'entretien :**
+- Écoutez de façon active et bienveillante, posez des questions ouvertes
+- N'interrompez pas votre interlocuteur
+- Laissez-lui du temps pour réfléchir, ménagez des silences
+- Reformulez pour vérifier votre compréhension *(si je comprends bien…)*
+- Si nécessaire, relancez sur des actions concrètes *(et à ce moment-là, qu’avez-vous fait ?)*
+- Notez les comportements non-verbaux (rire, soupir, geste...)
+- Méfiez-vous des biais : les vôtres et les siens...
+
+**Après l'entretien :**
+- Remerciez chaleureusement le participant
+- Transcrivez ou annotez dans les 24h (tant que le souvenir est frais)
+- Sécurisez les enregistrements (stockage confidentiel)
+- Planifiez la suppression des données selon RGPD
+
+</Section>
+
+<Section type="synthese">
+L’analyse des entretiens doit permettre de dégager des thèmes récurrents (attentes, freins, motivations) et de les regrouper en personas ou parcours utilisateurs. C’est cette étape qui transformera la donnée qualitative en matière exploitable pour la conception.
+</Section>
 
 {/* <Carousel folder="ux-design/recherche-secondaire" width="full" fit="contain"/> */}
 
-
-{/* Cette étape est vitale pour bâtir une connaissance solide et éviter de réinventer la roue au début d’un projet UX. */}
-</Section>
  <Exercice 
   titre="Interview utilisateur express" 
   href="https://miro.com/app/board/uXjVJu4nJhw=/?share_link_id=225808892341"
@@ -61,19 +182,12 @@ SARAH DOODY
   icon=""
 >
 **Objectifs :**
-Faire expérimenter les principes de l’entretien UX en situation rapide :
+Comprendre comment préparer, conduire et exploiter un entretien semi-directif dans une démarche de recherche utilisateur.
+
  - reformuler, relancer, écouter activement,
  - identifier un besoin réel et ses causes,
  - prendre conscience de ses biais d’interprétation.
 
-**Étape 1 : les situations**
 
-Une liste de 6 situations d’hésitation ou de surcharge au moment de l’achat.
-
-
- **Étape 2 : Pitch-éclair**
-
-Présentez vos 3 meilleures solutions en 1 minute chacune : “Quelle décision l’utilisateur devait-il prendre ? Comment l’avons-nous simplifiée ?”
-
-**Durée :** 35–45 minutes en binômes (interviewer / interviewé)
+**Durée :** 35–45 minutes en trinômes (interviewer, interviewé, prise de notes)
 </Exercice>

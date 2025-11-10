@@ -24,10 +24,22 @@ const all = await getCollection("formations");
 const entries = all.filter(e => e.id.startsWith(`${formation}/`))
   .sort((a,b) => (a.data.jour ?? 99) - (b.data.jour ?? 99) || (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
 
+  // ✅ Extraire les headings de niveau 2 pour chaque chapitre
+const entriesAvecHeadings = await Promise.all(
+  entries.map(async (entry) => {
+    const { headings } = await entry.render();
+    const h2 = headings
+      .filter(h => h.depth === 2)
+      .map(h => h.text);
+    return { ...entry, h2Titles: h2 };
+  })
+);
+
+
 // Grouper les chapitres par jour
 const chapitresParJour = meta?.data.jours.map(jourInfo => ({
   ...jourInfo,
-  chapitres: entries.filter(e => e.data.jour === jourInfo.num)
+  chapitres: entriesAvecHeadings.filter(e => e.data.jour === jourInfo.num)
 })) || [];
 ---
 
@@ -63,7 +75,7 @@ const chapitresParJour = meta?.data.jours.map(jourInfo => ({
                   href={`/formations/${formation}/${chapitreSlug}/`}
                   miniature={entry.data.miniature ?? entry.data.headerImage} // ternaire
                   titre={entry.data.titre}
-                  points={entry.data.points_cles}
+                  points={entry.h2Titles.length > 0 ? entry.h2Titles : entry.data.points_cles}
                   exercices={entry.data.exercices}
                 />
               );

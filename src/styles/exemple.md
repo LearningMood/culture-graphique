@@ -245,3 +245,36 @@ Le bon design est en fait beaucoup plus difficile à remarquer que le mauvais de
 <Citation>
 L'expérience utilisateur n'est pas ce que vous donnez à vos utilisateurs, c'est ce qu'ils en font.
 </Citation>
+
+<Citation type="large" auteur="Dieter Rams">
+Good design is as little design as possible.
+</Citation>
+
+<!-- EXERCICE -->
+<Exercice
+  type="atelier"
+  tone="emerald"
+  bg="soft"
+  titre="Mini challenge Hick"
+  href="https://miro.com/app/board/uXjVJu4nJhw=/?share_link_id=225808892341"
+  label="Accéder l’atelier"
+  image="/exercices/ex-mini-challenge-hick-miller.jpg"
+  ratio="4/3"
+  align="right"
+>
+ **Objectifs :**
+Identifier comment réduire la complexité perçue du choix et faciliter la décision d’achat, en appliquant les principes de Hick (nombre de choix) et Miller (capacité limitée de mémorisation).
+
+**Étape 1 : les situations**
+
+Une liste de 6 situations d’hésitation ou de surcharge au moment de l’achat.
+Pour chacune, proposez une solution UX qui réduit soit :
+ - le nombre de décisions à prendre (Hick),
+ - soit la quantité d’informations à retenir simultanément (Miller).
+
+ **Étape 2 : Pitch-éclair**
+
+Présentez vos 3 meilleures solutions en 1 minute chacune : “Quelle décision l’utilisateur devait-il prendre ? Comment l’avons-nous simplifiée ?”
+
+**Durée :** 15-20 minutes (duo ou trio)
+</Exercice>
